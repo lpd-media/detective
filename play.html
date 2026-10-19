@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LPD Detective · Team</title>
+<style>
+@font-face{font-family:Poppins;font-weight:400;src:url(media/fonts/Poppins-Regular.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:500;src:url(media/fonts/Poppins-Medium.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:700;src:url(media/fonts/Poppins-Bold.woff2) format("woff2")}
+:root{--navy:#0D1458;--navy2:#141c6e;--red:#EC2127;--gray:#9aa0c0;--ink:#e9ebf5}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--navy);color:#fff;font-family:Poppins,Arial,sans-serif;min-height:100%}
+button{font-family:inherit;border:0;cursor:pointer;color:inherit}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 16px;background:#0a1048;border-bottom:1px solid rgba(255,255,255,.1)}
+header img{height:34px}
+header .t{font-weight:700;font-size:15px;line-height:1.15}
+header .b{color:var(--gray);font-size:12px}
+header .st{margin-left:auto;width:10px;height:10px;border-radius:50%;background:#e8c500}
+header .st.ok{background:#2ecc71}header .st.bad{background:var(--red)}
+main{padding:18px 16px 110px;max-width:640px;margin:0 auto}
+.act{color:var(--red);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:26px;line-height:1.15;margin:6px 0 10px}
+p.lead{color:var(--ink);font-size:16px;line-height:1.45;margin-bottom:14px}
+.big{font-size:56px;font-weight:700;line-height:1}
+.card{background:rgba(255,255,255,.07);border-radius:12px;padding:14px 16px;margin:10px 0}
+.card h3{font-size:17px;margin-bottom:4px}.card p{color:var(--ink);font-size:14px;line-height:1.4}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(255,255,255,.08);border:2px solid transparent;border-radius:12px;padding:10px 12px;margin:8px 0;font-size:16px;font-weight:500}
+.opt.on{border-color:var(--red);background:rgba(236,33,39,.18)}
+.opt img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:top;flex:none;border:2px solid #fff}
+.opt small{display:block;color:var(--gray);font-size:12px;font-weight:400;line-height:1.3}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
+.chip{background:rgba(255,255,255,.1);border:2px solid transparent;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500}
+.chip.on{border-color:var(--red);background:rgba(236,33,39,.25)}
+.send{position:fixed;left:16px;right:16px;bottom:16px;max-width:608px;margin:0 auto;background:var(--red);font-weight:700;font-size:19px;padding:16px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.send:disabled{background:#4a4f80;color:#c9ccdd}
+.sent{position:fixed;left:16px;right:16px;bottom:16px;max-width:608px;margin:0 auto;background:#1d7a46;font-weight:700;font-size:16px;padding:14px;border-radius:12px;text-align:center}
+.sent u{font-weight:500;margin-left:8px;cursor:pointer}
+.ev{background:#fff;color:#1E1E1E;border-radius:12px;padding:10px;margin:10px 0}
+.ev .u{display:inline-block;background:var(--red);color:#fff;font-weight:700;font-size:11px;letter-spacing:.08em;padding:3px 8px;border-radius:4px}
+.ev .uimg{width:100%;max-height:280px;object-fit:contain;display:block;margin:8px 0 4px}
+.ev .k{font-weight:700;font-size:13px}
+.ev .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.ev .grid.two{grid-template-columns:1fr 1fr}
+.ev .grid div{text-align:center;font-size:11px;line-height:1.2}
+.ev .grid img{width:100%;height:120px;object-fit:contain;display:block;margin-bottom:3px;background:#f3f3f6;border-radius:4px}
+.ev .grid.two img{height:auto}
+.ev .lim{border-left:4px solid var(--red);padding-left:8px;font-size:13px;line-height:1.35;margin-top:10px}
+.ev table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.ev td{padding:6px 5px;border-bottom:1px solid #e3e3ea}.ev tr.hi td{background:#fff3f3;font-weight:700}
+.tabs{display:flex;gap:6px;margin:8px 0}
+.tabs button{flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:9px 4px;font-size:13px;font-weight:700}
+.tabs button.on{background:var(--red)}
+.mk{display:flex;align-items:center;gap:8px;margin:8px 0}
+.mk .n{width:28px;height:28px;border-radius:50%;background:#F7D117;color:#111;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.mk .w{flex:1;font-size:14px}
+.mk .seg{display:flex;gap:4px}.mk .seg button{background:rgba(255,255,255,.1);border-radius:6px;padding:7px 8px;font-size:12px;font-weight:700}
+.mk .seg button.on{background:var(--red)}
+.scene{width:100%;border-radius:10px;display:block;margin:6px 0}
+.hint{color:var(--gray);font-size:13px;margin:6px 0}
+.qs{font-size:14px}
+#zoom{position:fixed;inset:0;background:rgba(5,8,40,.97);display:none;z-index:20;overflow:auto;padding:50px 8px 20px;text-align:center}
+#zoom.on{display:block}#zoom img{max-width:100%;background:#fff;border-radius:8px}
+#zoom .x{position:fixed;top:10px;right:12px;background:rgba(255,255,255,.18);border-radius:8px;padding:8px 14px;font-weight:700}
+#zoom .c{font-weight:700;margin-top:8px}
+.score .i{display:flex;gap:10px;align-items:center;margin:8px 0;font-size:15px}
+.score .i b{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);flex:none}
+.score .i.ok b{background:#2ecc71}
+.trophy{font-size:34px;font-weight:700;color:#F2B632;text-align:center;margin:24px 0 8px;line-height:1.1}
+</style></head>
+<body>
+<header><img src="media/badge_white.png" alt="Lorain Police"><div><div class="t" id="ht">Lorain Police · Detective Demo</div><div class="b" id="hb">The Missing Trophy</div></div><span class="st" id="st"></span></header>
+<main id="m"></main>
+<div id="zoom" onclick="this.classList.remove('on')"><button class="x">Close</button><div><img id="zi" alt=""><div class="c" id="zc"></div></div></div>
+<script>
+const CASE = {"title": "The Missing Trophy", "subtitle": "LPD Detective Demo Kit", "version": "rev 2.3 · 10.19.26", "window": "12:12–12:18 PM", "runtime_minutes": 50, "acts": [{"n": 0, "name": "The Call", "minutes": 4}, {"n": 1, "name": "Detective Words", "minutes": 2}, {"n": 2, "name": "Work the Scene", "minutes": 9}, {"n": 3, "name": "Your Team's Bag", "minutes": 7}, {"n": 4, "name": "Share the Evidence", "minutes": 8}, {"n": 5, "name": "The Interviews", "minutes": 7}, {"n": 6, "name": "Decide", "minutes": 4}, {"n": 7, "name": "Reveal + Search", "minutes": 5}, {"n": 8, "name": "Q&A", "minutes": 4}], "suspects": [{"id": "maya", "letter": "A", "name": "Maya Chen", "role": "Robotics captain", "badge": "MCHEN-14", "motive": "Wanted the trophy in the robotics team's video.", "print": "loop", "note": "all caps", "shoe": "3-bar flat sneaker", "log": "Display zone, 12:12 and 12:14", "alibi": "NOT VERIFIED", "alibi_detail": "Says she was walking the halls. Nobody can confirm it."}, {"id": "jordan", "letter": "B", "name": "Jordan Brooks", "role": "Rival team captain", "badge": "JBROOKS-22", "motive": "Wanted the trophy ceremony delayed.", "print": "whorl", "note": "mixed case", "shoe": "lug-sole boot", "log": "Display zone, 12:16", "alibi": "VERIFIED", "alibi_detail": "Cafeteria the whole period. The lunch monitor's table log confirms it."}, {"id": "priya", "letter": "C", "name": "Priya Shah", "role": "Yearbook editor", "badge": "PSHAH-07", "motive": "Wanted a photo of the trophy for the yearbook.", "print": "arch", "note": "cursive", "shoe": "3-bar flat sneaker", "log": "Yearbook room, 12:10", "alibi": "VERIFIED", "alibi_detail": "Yearbook room. The advisor was in the room with her."}, {"id": "lucas", "letter": "D", "name": "Lucas Alvarez", "role": "Student tech aide", "badge": "LALVAREZ-09", "motive": "Said the display alarm was broken. Nobody listened.", "print": "loop", "note": "all caps", "shoe": "plain worn sole", "log": "Copy room, 12:15", "alibi": "PARTIAL", "alibi_detail": "Signed into the art room 12:00–12:30, but stepped out to the copy room around 12:15."}], "evidence": [{"n": 1, "id": "print", "bag": "BAG 1", "name": "Fingerprint", "found": "Lifted from the display-case glass, marker 3.", "unknown_label": "LOOP · top half clear · bottom third smudged", "limit": "It's a partial. You can read the pattern type. You cannot read the fine detail.", "compare": "Pattern type only: loop, whorl, or arch.", "survivors": ["maya", "lucas"], "say": "Two people are still standing. A partial print narrows the list. It does not name a person."}, {"n": 2, "id": "note", "bag": "BAG 2", "name": "Handwritten note", "found": "On the floor by the case, marker 2. Reads TROPHY BOX CLOSED.", "unknown_label": "ALL CAPS · creased through the middle", "limit": "The crease runs through the letters. Compare letter case only: capitals, mixed, or cursive.", "compare": "Letter case only.", "survivors": ["maya", "lucas"], "say": "Same two. If your two clues are the print and the note, you have narrowed nothing."}, {"n": 3, "id": "log", "bag": "BAG 3", "name": "Badge log", "found": "Pulled from the school's door system by records request. Three cards, six minutes.", "unknown_label": "12:12 MCHEN-14 · 12:14 MCHEN-14 · 12:16 JBROOKS-22 — all in the display zone", "limit": "A badge log places the CARD, not the person. Who else could be holding a card?", "compare": "Who was in the display zone during the window?", "survivors": ["maya", "jordan"], "say": "Two cards in the zone. Jordan's is one of them. Hold that thought until the interviews."}, {"n": 4, "id": "shoe", "bag": "BAG 4", "name": "Shoe impression", "found": "Dust impression on the floor tile, marker 4. Forefoot only.", "unknown_label": "FLAT SNEAKER · 3 bars · heel missing", "limit": "The heel is missing, so compare the bar pattern only. Lots of people own the same shoe.", "compare": "Sole pattern only.", "survivors": ["maya", "priya"], "say": "Maya and Priya wear the same shoe. The heel would have split them, and we don't have it."}], "scene_markers": [{"n": 1, "item": "Empty trophy shelf", "prop": "TROPHY sign on an empty shelf or box", "evidence": "yes", "why": "Where it was taken from."}, {"n": 2, "item": "Folded note on the floor", "prop": "Note card (TROPHY BOX CLOSED)", "evidence": "yes", "why": "Becomes Bag 2."}, {"n": 3, "item": "Print on the glass", "prop": "Print-lift card", "evidence": "yes", "why": "Becomes Bag 1."}, {"n": 4, "item": "Dust shoe print on the tile", "prop": "Shoe-impression card on the floor", "evidence": "yes", "why": "Becomes Bag 4."}, {"n": 5, "item": "Hall pass", "prop": "Hall-pass card", "evidence": "maybe", "why": "No name on it. Logged, not used."}, {"n": 6, "item": "Candy wrapper", "prop": "Any real wrapper", "evidence": "no", "why": "Could be anyone's, any day. Not everything at a scene is evidence."}], "questions": [{"id": "q1", "n": 1, "text": "Did you take the trophy?", "teaches": "Everyone says no. This question tells you nothing."}, {"id": "q2", "n": 2, "text": "Where were you between 12:12 and 12:18?", "teaches": "The alibi. Always ask this one."}, {"id": "q3", "n": 3, "text": "Who can back that up?", "teaches": "The check. An alibi without a witness is a story."}, {"id": "q4", "n": 4, "text": "What's the trophy to you?", "teaches": "Motive. A lead, not proof."}], "interviews": {"maya": {"q1": "No. I didn't take it. I know how it looks, with the video and everything, but I didn't touch that case.", "q2": "Walking. I left the robotics lab a little after twelve and took the long way to the cafeteria, past the trophy hall. I wasn't rushing.", "q3": "Nobody, really. I was by myself. I said hi to some people in the hall, I don't remember who.", "q4": "We're making a team video for the season and I wanted the trophy in it. I asked Coach if we could borrow it for an hour. He said no."}, "jordan": {"q1": "No. I've got my own trophy. I don't need theirs.", "q2": "Cafeteria. All of lunch. Table by the windows with the team.", "q3": "Ms. Ortiz, the lunch monitor. She signs the table log every day. My whole table's on it.", "q4": "Honestly? Their ceremony's Friday and I'd love to see it pushed back. That's not the same as stealing it."}, "priya": {"q1": "No. I wanted a picture of it, not the actual thing.", "q2": "Yearbook room. I was editing the sports spread from about 12:05 until the bell.", "q3": "Mr. Dale. He's the yearbook advisor. He was at his desk the whole time.", "q4": "I need a photo of it for the championship page. I asked the office for access to the case. They said after school."}, "lucas": {"q1": "No. I'm the one who told everybody that case wasn't secure. Why would I be the one to prove it?", "q2": "Art room. I signed in at noon. I was in there until about twelve-thirty.", "q3": "Ms. Kim signed me in. Although — I did step out to the copy room for a few minutes. Around 12:15. To print something for her.", "q4": "I set up the alarm on that display. I told them it wasn't wired right. Nobody listened. So, I guess I feel like I told you so."}}, "answer": {"lead": "maya", "headline": "Maya Chen — the strongest-supported lead. Not guilty. Not convicted. Not solved.", "points": ["Print + note clear nobody. Maya and Lucas both survive those two. If that was your pair, you had a tie.", "The badge log puts Maya's card in the zone twice. Lucas's card is in the copy room.", "The shoe puts Maya and Priya in the same sneaker. Jordan and Lucas are out.", "The interviews: Jordan and Priya have witnesses. Lucas has a gap. Maya has nobody.", "Only Maya survives every station. No single clue could have told you that."], "loose_end": "Jordan's badge was in the display zone at 12:16 and Jordan was in the cafeteria. We never found out why. Maybe it was on the table. Maybe someone picked it up. Real cases have loose ends, and a badge places a card, not a person.", "caveat": "Probable cause is enough for a next step, like a search. It is not proof. This is a classroom exercise, not a real warrant.", "recovery": {"headline": "Trophy recovered — in Maya Chen’s locker.", "lesson": "The evidence made Maya the lead. The search is what proved it. Evidence first, then proof.", "next": "What happens to Maya now is up to the school, not the detective."}}, "careers": ["Patrol officer", "Detective", "Evidence technician", "Digital forensics", "Crime analyst", "Dispatcher", "Lab scientist", "Victim advocate", "Community outreach"], "teams": [{"team": 1, "bag": 1}, {"team": 2, "bag": 2}, {"team": 3, "bag": 3}, {"team": 4, "bag": 4}, {"team": 5, "bag": 1}, {"team": 6, "bag": 2}, {"team": 7, "bag": 3}, {"team": 8, "bag": 4}], "team_sizes": [{"kids": "20–24", "teams": 4}, {"kids": "25–34", "teams": 6}, {"kids": "35–50", "teams": 8}, {"kids": "51+", "teams": 0, "mode": "presentation"}], "acts_presentation": [{"name": "The Call", "minutes": 4}, {"name": "Detective Words", "minutes": 2}, {"name": "Work the Scene", "minutes": 6}, {"name": "The Evidence", "minutes": 12}, {"name": "The Interviews", "minutes": 8}, {"name": "Decide", "minutes": 5}, {"name": "Reveal + Search", "minutes": 6}, {"name": "Q&A", "minutes": 7}], "live_url": "https://lpd-media.github.io/detective/", "firebase_url": "https://lpd-detective-demo-default-rtdb.firebaseio.com"};
+const WORDS = [["Evidence", "Something that helps show what happened, or who did it."], ["Object", "Just a thing at the scene. Could it be anyone's, on any day? Then it is not evidence."], ["Suspect", "Someone who might have done it. A suspect is not guilty."], ["Alibi", "Where you say you were. A witness who backs it up makes it stronger."], ["Lead", "Where the evidence points. The best place to look next."], ["Probable cause", "Enough evidence to take a next step, like asking to search. It is not proof."]];
+
+/* Relay. Production: Firebase Realtime Database (free Spark plan) when case.json has firebase_url; otherwise ntfy.sh.
+   ?relay=<url>&proto=ntfy|fb overrides both (testing only). */
+const _q=new URLSearchParams(location.search);
+const PROTO=_q.get('proto')||("https://lpd-detective-demo-default-rtdb.firebaseio.com"?'fb':'ntfy');
+const RELAY=(_q.get('relay')||(PROTO==='fb'?"https://lpd-detective-demo-default-rtdb.firebaseio.com":'https://ntfy.sh')).replace(/\/$/,'');
+function pub(topic,obj,tries){
+  const url = PROTO==='fb' ? RELAY+'/rooms/'+topic+'.json' : RELAY+'/'+topic;
+  tries = tries===undefined ? 3 : tries;
+  return fetch(url,{method:'POST',body:JSON.stringify(obj)}).then(r=>{ if(!r.ok) throw new Error(r.status); return true; })
+    .catch(e=>{ if(tries<=0) throw e; return new Promise(ok=>setTimeout(ok,(4-tries)*700)).then(()=>pub(topic,obj,tries-1)); });
+}
+function sub(topic,since,fn,onstate){
+  let es=null;
+  if(PROTO==='fb'){
+    es=new EventSource(RELAY+'/rooms/'+topic+'.json');
+    const take=e=>{ try{ const d=JSON.parse(e.data); if(!d) return;
+      if(d.path==='/'){ if(d.data&&typeof d.data==='object') Object.keys(d.data).sort().forEach(k=>fn(d.data[k])); }
+      else if(d.data) fn(d.data); }catch(_){} };
+    es.addEventListener('put',e=>{ onstate&&onstate(true); take(e); });
+    es.addEventListener('patch',take);
+    es.addEventListener('open',()=>onstate&&onstate(true));
+  } else {
+    es=new EventSource(RELAY+'/'+topic+'/sse?since='+since);
+    es.addEventListener('open',()=>onstate&&onstate(true));
+    es.onmessage=e=>{ try{ const m=JSON.parse(e.data); if(m.event==='message'){ fn(JSON.parse(m.message)); } }catch(_){} };
+  }
+  es.onerror=()=>{ onstate&&onstate(false); };
+  return ()=>es&&es.close();
+}
+
+const qs=new URLSearchParams(location.search);
+let code=(qs.get('r')||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const M=document.getElementById('m');
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+const S=Object.fromEntries(CASE.suspects.map(s=>[s.id,s]));
+let me=null; try{ me=localStorage.getItem('lpd_me'); }catch(e){}
+if(!me){ me=Math.random().toString(36).slice(2,10); try{ localStorage.setItem('lpd_me',me); }catch(e){} }
+let ST=null, team=null, sel={}, sent={}, joinTries=0, last='';
+const KEY=()=> 'lpd_'+code;
+try{ const o=JSON.parse(localStorage.getItem(KEY())||'{}'); sent=o.sent||{}; sel=o.sel||{}; }catch(e){}
+function keep(){ try{ localStorage.setItem(KEY(),JSON.stringify({sent,sel})); }catch(e){} }
+const bagOf=n=>((n-1)%4)+1;
+function zoom(src,cap){ document.getElementById('zi').src=src; document.getElementById('zc').textContent=cap||''; document.getElementById('zoom').classList.add('on'); }
+document.addEventListener('click',e=>{ const z=e.target.closest('[data-z]'); if(z){ zoom(z.dataset.z,z.dataset.c); } });
+function setSt(ok){ const s=document.getElementById('st'); s.className='st '+(ok?'ok':'bad'); }
+
+/* ---------- start ---------- */
+if(!code){ M.innerHTML=`<div class="act">Join</div><h1>Enter the room code</h1><p class="lead">It is on the board at the front of the room.</p>
+  <input id="ci" maxlength="6" autocapitalize="characters" style="width:100%;font:700 34px Poppins;letter-spacing:.2em;text-align:center;padding:12px;border-radius:12px;border:0;text-transform:uppercase">
+  <button class="send" onclick="location.search='?r='+document.getElementById('ci').value.trim().toUpperCase()">Join</button>`; }
+else start();
+function start(){
+  const TOP='lpd-trophy-'+code;
+  M.innerHTML=`<div class="act">Room ${code}</div><h1>Joining…</h1><p class="lead">Hang on a second.</p>`;
+  let sig='';
+  sub(TOP+'-h','all',st=>{ ST=st; const n=st.teams&&st.teams[me]; if(n) team=n; const k=st.s+'|'+team+'|'+!!st.found+'|'+!!(st.removed&&st.removed[me]); if(k===sig) return; sig=k; render(); }, setSt);
+  setTimeout(()=>{ if(!ST){ M.innerHTML=`<div class="act">Room ${code}</div><h1>No board found</h1><p class="lead">Check the code on the board and try again. The board has to be open first.</p><button class="send" onclick="location.search=''">Type the code again</button>`; } },12000);
+  const join=()=>{ pub(TOP+'-p',{k:'join',id:me}).catch(()=>{}); joinTries++; };
+  join(); const jt=setInterval(()=>{ if(team||joinTries>=12) return clearInterval(jt); join(); },3500);
+  window.send=(step)=>{ const v=sel[step]; if(v===undefined) return; pub(TOP+'-p',{k:'ans',id:me,step,v}).then(()=>{ sent[step]=JSON.stringify(v); keep(); render(true); }).catch(()=>{ alert('Could not send. Check your signal and try again.'); }); };
+}
+
+/* ---------- pieces ---------- */
+function sendBar(step,ready,label){ const done=sent[step]!==undefined && sent[step]===JSON.stringify(sel[step]);
+  if(done) return `<div class="sent">Sent to the board ✓ <u onclick="delete sent['${step}'];render(true)">Change</u></div>`;
+  return `<button class="send" ${ready?'':'disabled'} onclick="send('${step}')">${label||'Send to the board'}</button>`; }
+function pick(step,v){ sel[step]=v; keep(); render(true); }
+function toggle(step,v,max){ const a=[].concat(sel[step]||[]); const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max&&a.length>=max) a.shift(); a.push(v); } sel[step]=a; keep(); render(true); }
+function setIn(step,key,v){ const o=Object.assign({},sel[step]||{}); o[key]=v; sel[step]=o; keep(); render(true); }
+function togIn(step,key,v,max){ const o=Object.assign({},sel[step]||{}); const a=[].concat(o[key]||[]); const i=a.indexOf(v); if(i>=0) a.splice(i,1); else { if(max&&a.length>=max) a.shift(); a.push(v); } o[key]=a; sel[step]=o; keep(); render(true); }
+function susOpt(step,s,on,fn){ return `<button class="opt${on?' on':''}" onclick="${fn}"><img src="media/suspect_${s.id}.jpg" alt=""><span>${esc(s.name)}<small>${esc(s.role)} · ${esc(s.motive)}</small></span></button>`; }
+function img(kind,who){ return kind==='note' ? `media/note_${who}.jpg` : `media/${kind}_${who}_t.jpg`; }
+function evCard(e){
+  if(e.id==='log'){ return `<div class="ev"><span class="u">${e.bag} · ${esc(e.name)}</span>
+    <table><tr><td><b>Time</b></td><td><b>Card</b></td><td><b>Zone</b></td></tr>
+    <tr class="hi"><td>12:12:04</td><td>MCHEN-14</td><td>Display zone</td></tr><tr class="hi"><td>12:14:10</td><td>MCHEN-14</td><td>Display zone</td></tr>
+    <tr><td>12:15:02</td><td>LALVAREZ-09</td><td>Copy room</td></tr><tr class="hi"><td>12:16:38</td><td>JBROOKS-22</td><td>Display zone</td></tr><tr><td>12:10:41</td><td>PSHAH-07</td><td>Yearbook room</td></tr></table>
+    <p class="k" style="margin-top:8px">Window: ${CASE.window}</p><p style="font-size:12px;margin-top:4px">${CASE.suspects.map(s=>s.badge+' = '+s.name.split(' ')[0]).join(' · ')}</p>
+    <div class="lim">${esc(e.limit)}</div></div>`; }
+  const k=e.id;
+  return `<div class="ev"><span class="u">UNKNOWN · ${e.bag} · ${esc(e.name)}</span><img class="uimg" src="${img(k,'unknown')}" data-z="${img(k,'unknown')}" data-c="Unknown · ${esc(e.name)}" alt=""><div class="k">${esc(e.unknown_label)}</div>
+  <div class="grid${k==='note'?' two':''}">${CASE.suspects.map(s=>`<div><img src="${img(k,s.id)}" data-z="${img(k,s.id)}" data-c="${esc(s.name)} · ${esc(s[k])}" alt=""><b>${esc(s.name.split(' ')[0])}</b><br>${esc(s[k])}</div>`).join('')}</div>
+  <div class="lim">${esc(e.limit)}</div><p class="hint" style="color:#666">Tap any picture to blow it up.</p></div>`; }
+
+/* ---------- screens ---------- */
+let tab=null;
+function render(local){
+  if(!ST){ return; }
+  const s=ST.s; const my=team?CASE.evidence[bagOf(team)-1]:null;
+  document.getElementById('ht').textContent= team ? `Team ${team}` : 'Lorain Police · Detective Demo';
+  document.getElementById('hb').textContent= team ? `Your bag: ${my.bag} · ${my.name}` : 'Room '+code;
+  if(!local && s===last && document.activeElement && document.activeElement.tagName==='INPUT') return;
+  last=s; let h='';
+  if(ST.removed&&ST.removed[me]){ M.innerHTML=`<div class="act">Room ${code}</div><h1>One phone per team</h1><p class="lead">Your team is already using another phone. Put this one away and work on your team's phone.</p>`; return; }
+  if(!team){ h=`<div class="act">Room ${code}</div><h1>Joining…</h1><p class="lead">If this takes more than a few seconds, check your signal.</p>`; M.innerHTML=h; return; }
+  if(s==='s0'){ h=`<div class="act">You're in</div><div class="big">Team ${team}</div><p class="lead" style="margin-top:12px">Your team's evidence bag: <b>${my.bag} · ${esc(my.name)}</b>. Keep this phone in the middle of the table so everyone can see it.</p><div class="card"><h3>Watch the board</h3><p>The detective will open the case in a moment. Your phone moves along with the board.</p></div>`; }
+  else if(s==='s1'){ const v=sel.s1; h=`<div class="act">Step 1 · The call</div><h1>Listen to dispatch. Then make a first guess.</h1><p class="lead">Who do you think took the trophy? Just a guess for now.</p>`+CASE.suspects.map(x=>susOpt('s1',x,v===x.id,`pick('s1','${x.id}')`)).join('')+sendBar('s1',!!v); }
+  else if(s==='sw'){ const v=sel.sw; h=`<div class="act">Step 1 · Detective words</div><h1>Six words you'll use today</h1>`+WORDS.map(w=>`<div class="card"><h3>${w[0]}</h3><p>${w[1]}</p></div>`).join('')+`<h1 style="font-size:20px;margin-top:16px">Quick check: a candy wrapper at the scene is…</h1>
+     <button class="opt${v==='evidence'?' on':''}" onclick="pick('sw','evidence')">Evidence</button><button class="opt${v==='object'?' on':''}" onclick="pick('sw','object')">Just an object</button>`+sendBar('sw',!!v); }
+  else if(s==='s2'){ const v=sel.s2||{}; const done=CASE.scene_markers.every(m=>v[m.n]);
+     h=`<div class="act">Step 2 · Work the scene</div><h1>Six markers. Which are evidence?</h1><p class="lead">Look at the scene (tap the picture to zoom). For each marker: evidence, just an object, or not sure.</p><img class="scene" src="media/scene_after.jpg" data-z="media/scene_after.jpg" data-c="The scene · markers 1–6" alt="">`
+     + CASE.scene_markers.map(m=>`<div class="mk"><span class="n">${m.n}</span><span class="w">${esc(m.item)}</span><span class="seg">${[['y','Evidence'],['n','Object'],['?','?']].map(([k,l])=>`<button class="${v[m.n]===k?'on':''}" onclick="setIn('s2',${m.n},'${k}')">${l}</button>`).join('')}</span></div>`).join('')
+     + `<p class="hint">Ask at every marker: could it be anyone's, on any day? Then it's just an object.</p>`+sendBar('s2',done); }
+  else if(s==='s3'){ const v=sel.s3||[]; h=`<div class="act">Step 3 · Your team's bag</div><h1>Work your one bag</h1><p class="lead">Compare it to the four suspects. Tap everyone who <b>still fits</b>.</p>`+evCard(my)
+     + CASE.suspects.map(x=>susOpt('s3',x,v.includes(x.id),`toggle('s3','${x.id}')`)).join('')+`<p class="hint">One bag is never enough. A tie is an honest answer.</p>`+sendBar('s3',v.length>0); }
+  else if(s==='s4'){ if(!tab) tab=my.n; const e=CASE.evidence[tab-1]; h=`<div class="act">Step 4 · Share the evidence</div><h1>Every bag, now open</h1><p class="lead">As each team reports, check their bag here. Who is still standing?</p>
+     <div class="tabs">${CASE.evidence.map(x=>`<button class="${x.n===tab?'on':''}" onclick="tab=${x.n};render(true)">Bag ${x.n}${x.n===my.n?' ★':''}</button>`).join('')}</div>`+evCard(e); }
+  else if(s==='s5'){ const v=sel.s5||{}; const done=CASE.suspects.every(x=>(v[x.id]||[]).length===2);
+     h=`<div class="act">Step 5 · The interviews</div><h1>Two questions per suspect</h1><p class="lead">Pick the <b>two</b> questions your team wants asked. The board plays the ones with the most votes.</p>`
+     + CASE.suspects.map(x=>`<div class="card"><h3>${esc(x.name)}</h3><div class="chips">${CASE.questions.map(q=>`<button class="chip qs${(v[x.id]||[]).includes(q.id)?' on':''}" onclick="togIn('s5','${x.id}','${q.id}',2)">${q.n}. ${esc(q.text)}</button>`).join('')}</div></div>`).join('')+sendBar('s5',done,'Send our votes'); }
+  else if(s==='s6'){ const v=sel.s6||{}; const ready=v.lead&&(v.bags||[]).length===2&&v.alibi;
+     h=`<div class="act">Step 6 · Decide</div><h1>Request a fictional locker search</h1><p class="lead">Pick one locker. Back it with two bags and one alibi you tested.</p><div class="card"><h3>1. Whose locker?</h3></div>`
+     + CASE.suspects.map(x=>susOpt('s6',x,v.lead===x.id,`setIn('s6','lead','${x.id}')`)).join('')
+     + `<div class="card"><h3>2. Which two bags back it?</h3><div class="chips">${CASE.evidence.map(e=>`<button class="chip${(v.bags||[]).includes(e.n)?' on':''}" onclick="togIn('s6','bags',${e.n},2)">Bag ${e.n} · ${esc(e.name)}</button>`).join('')}</div></div>`
+     + `<div class="card"><h3>3. Whose alibi did you test?</h3><div class="chips">${CASE.suspects.map(x=>`<button class="chip${v.alibi===x.id?' on':''}" onclick="setIn('s6','alibi','${x.id}')">${esc(x.name.split(' ')[0])}</button>`).join('')}</div></div>`
+     + `<p class="hint">Probable cause is enough for a next step, like a search. It is not proof.</p>`+sendBar('s6',!!ready,'Send our request'); }
+  else if(s==='s7'){ let v={}; try{ v=sent.s6?JSON.parse(sent.s6):{}; }catch(e){} const okL=v.lead===CASE.answer.lead, okB=(v.bags||[]).length===2&&(v.bags||[]).some(b=>b!==my.n), okA=!!v.alibi;
+     h=`<div class="act">Step 7 · The reveal</div><h1>Watch the board</h1><p class="lead">The detective is opening the envelope.</p><div class="card score"><h3>Your team's score</h3>
+     <div class="i${okL?' ok':''}"><b>${okL?'✓':''}</b>Picked Maya Chen's locker</div><div class="i${okB?' ok':''}"><b>${okB?'✓':''}</b>Used evidence from another team's bag</div><div class="i${okA?' ok':''}"><b>${okA?'✓':''}</b>Tested an alibi</div>
+     <div style="font-weight:700;font-size:20px;margin-top:8px">${(okL+okB+okA)} / 3</div></div><p class="hint">Missed it? What evidence would have changed your mind?</p>`; }
+  else if(s==='sR'){ h = ST.found ? `<div class="act">Step 7 · The search</div><div class="trophy">🏆<br>TROPHY RECOVERED</div><p class="lead" style="text-align:center">${esc(CASE.answer.recovery.headline)}</p><div class="card"><p>${esc(CASE.answer.recovery.lesson)}</p></div><p class="hint">${esc(CASE.answer.recovery.next)}</p>`
+                       : `<div class="act">Step 7 · The search</div><h1>The detective is searching the locker…</h1><p class="lead">Watch the board.</p>`; }
+  else if(s==='s8'){ const v=sel.s8; h=`<div class="act">Step 8 · Ask the detective</div><h1>Ask one real question.</h1><p class="lead">Then: which of these jobs would your team try?</p><div class="chips">${CASE.careers.map(c=>`<button class="chip${v===c?' on':''}" onclick="pick('s8','${c}')">${esc(c)}</button>`).join('')}</div>`+sendBar('s8',!!v); }
+  else { h=`<h1>Watch the board</h1>`; }
+  M.innerHTML=h;
+}
+</script>
+</body></html>
