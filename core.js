@@ -102,13 +102,17 @@ const BLOCK = /(fuck|shit|bitch|cunt|dick|cock|pussy|fag|nigg|whore|slut|bastard
 function cleanWord(v) { return String(v || '').toLowerCase().replace(/[^a-z0-9 '-]/g, ' ').replace(/\s+/g, ' ').trim().split(' ').slice(0, 3).join(' ').slice(0, 24); }
 function isRight(r, v) {
   if (v === undefined || v === null || r.scored === false) return false;
-  if (r.kind === 'word') { const w = cleanWord(v); return !!(r.accept || []).some(a => w.includes(a)); }
+  if (r.kind === 'word') {
+    const w = cleanWord(v), toks = w.split(' ');
+    if (toks.some(t => /^(not|no|dont|don't|never|without)$/.test(t))) return false;
+    return !!(r.accept || []).some(a => a.includes(' ') ? (' ' + w + ' ').includes(' ' + a + ' ') || (' ' + w).includes(' ' + a) : toks.some(t => t.startsWith(a)));
+  }
   return String(v) === String(r.answer);
 }
 function caseById(id) { return CASES.find(c => c.id === id) || CASES[0]; }
 function clearedBy(c, pos) { const out = {}; c.rounds.forEach((r, i) => { if (i <= pos && r.clears) r.clears.forEach(id => out[id] = r.title); }); return out; }
-function suspectsHTML(c, pos) {
-  const cl = pos == null ? {} : clearedBy(c, pos);
+function suspectsHTML(c, pos, given) {
+  const cl = given || (pos == null ? {} : clearedBy(c, pos));
   return c.suspects.map(x => `<div class="sus${cl[x.id] ? ' cleared' : ''}">${cl[x.id] ? '<span class="vstamp">ALIBI VERIFIED</span>' : ''}<div class="sus-top"><div class="av">${icon('user', 40)}</div>${tent(x.letter, 38)}</div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p>${esc(x.desc)}</p></div>`).join('');
 }
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LPD Case Room</title>
 <link rel="stylesheet" href="theme.css">
 <style>
@@ -54,19 +54,20 @@ function start(){
   saved=store.get('cr_'+code)||{}; gid=saved.g||null; me=saved.id||Math.random().toString(36).slice(2,10); myName=saved.name||null; myAv=saved.av||null; picks=saved.picks||{}; prevScore=saved.prevScore||{}; keep();
   M.innerHTML=`<div class="hero">${icon('search',56)}</div><h1 class="c">Connecting…</h1><p class="mute c">Room ${code}</p>`;
   setTimeout(()=>{ if(!ST) M.innerHTML=`<div class="hero">${icon('alert',56)}</div><h1 class="c">No case found</h1><p class="mute c">Check the code on the screen. The detective has to open the case first.</p><button class="big" onclick="location.search=''">Type the code again</button>`; },12000);
-  sub(topicFor(code,'h'),(m,replay)=>{ if(!m||m.k!=='st'||m.n<=lastSeq) return; lastSeq=m.n; ['players','removed','av','acc','scores','pts','right','tally'].forEach(k=>{ if(!m[k]||typeof m[k]!=='object') m[k]={}; }); const prev=ST; ST=m; /* Firebase drops empty objects */ recvAt=Date.now(); if(!replay&&m.t) OFF=m.t-Date.now();
+  sub(topicFor(code,'h'),(m,replay)=>{ if(!m||m.k!=='st'||m.n<=lastSeq) return; lastSeq=m.n; ['players','removed','av','acc','scores','pts','right','tally','cleared'].forEach(k=>{ if(!m[k]||typeof m[k]!=='object') m[k]={}; }); const prev=ST; ST=m; /* Firebase drops empty objects */ recvAt=Date.now(); if(!replay&&m.t) OFF=m.t-Date.now();
     if(ST.g && saved.g!==ST.g){ saved.g=ST.g; picks={}; prevScore={}; gid=ST.g; keep(); }
     if(myName && !ST.players[me] && !joinSent) sendJoin();
-    if(prev && prev.step===ST.step && prev.ri===ST.ri && (ST.step==='q'||ST.step==='final') && prev.players[me] && (ST.step==='final'||picks[ST.ri]===undefined)) return; /* same question still open: don't redraw under a finger */
+    if(prev && prev.g===ST.g && prev.caseId===ST.caseId && prev.step===ST.step && prev.ri===ST.ri && (ST.step==='q'||ST.step==='final') && prev.players[me] && (ST.step==='final'||picks[ST.ri]===undefined)) return; /* same question still open: don't redraw under a finger */
     render(); }, null, true);
   setInterval(()=>{ const t=document.getElementById('tmv'); if(t&&ST&&ST.left!=null) t.textContent=(ST.deadline?Math.max(0,Math.ceil((ST.deadline-(Date.now()+OFF))/1000)):Math.max(0,ST.left-Math.floor((Date.now()-recvAt)/1000)))+'s'; },1000);
 }
 setInterval(()=>{ if(ST&&myName&&!ST.players[me]&&!(ST.removed||{})[me]) { joinSent=false; sendJoin(); } },4000);
 window.addEventListener('online',()=>{ if(ST&&myName&&!ST.players[me]) sendJoin(); });
-function sendJoin(){ joinSent=true; pub(topicFor(code,'p'),{k:'join',id:me,name:myName,av:myAv||'badge'}).catch(()=>{ joinSent=false; }); setTimeout(()=>{ if(ST&&!ST.players[me]) joinSent=false; },3500); }
+let joinBusy=false;
+function sendJoin(){ if(joinBusy) return; joinBusy=true; joinSent=true; pub(topicFor(code,'p'),{k:'join',id:me,name:myName,av:myAv||'badge'},0).then(()=>{ joinBusy=false; },()=>{ joinBusy=false; joinSent=false; }); setTimeout(()=>{ if(ST&&!ST.players[me]) joinSent=false; },3500); }
 function pickName(){ myName=document.getElementById('nm').textContent; myAv=window._av||'badge'; keep(); sendJoin(); render(); }
 function reroll(){ document.getElementById('nm').textContent=genName(ST?ST.mode:'solo'); }
-function answer(ri,v){ if(picks[ri]!==undefined) return; picks[ri]=v; keep(); render();
+function answer(ri,v){ if(picks[ri]!==undefined) return; if(ST&&ST.deadline&&Date.now()+OFF>=ST.deadline){ alert('Time is up for this one.'); return; } picks[ri]=v; keep(); render();
   pub(topicFor(code,'p'),{k:'ans',id:me,ri,v,g:ST.g}).catch(()=>{ delete picks[ri]; keep(); render(); alert('Could not send. Check your signal and tap again.'); }); }
 document.getElementById('tPlay').onclick=()=>{ tab='play'; render(); }; document.getElementById('tSus').onclick=()=>{ tab='sus'; render(); };
 function rank(sc){ const arr=Object.entries(sc).filter(([id])=>!ST.removed[id]&&ST.players[id]).sort((a,b)=>b[1]-a[1]); const i=arr.findIndex(([id])=>id===me); return i<0?'—':(i+1)+' of '+arr.length; }
@@ -82,13 +83,13 @@ function render(){ const c=caseById(ST.caseId);
   if(!ok){ M.innerHTML=`<div class="hero">${icon('search',56)}</div><h1 class="c">Joining…</h1><p class="mute c">If this takes more than a few seconds, check your signal.</p>`; return; }
   const showTabs=!['lobby','intro'].includes(ST.step); document.getElementById('tabs').style.display=showTabs?'flex':'none';
   document.getElementById('tPlay').className=tab==='play'?'on':''; document.getElementById('tSus').className=tab==='sus'?'on':'';
-  if(tab==='sus'&&showTabs){ M.innerHTML=`<div class="kick">${icon('folder',14)} Case file</div><h1>The suspects</h1>`+suspectsHTML(c,ST.pos); return; }
-  const r=ST.ri!=null?c.rounds[ST.ri]:null, sc=ST.scores||{}, total=sc[me]||0;
+  if(tab==='sus'&&showTabs){ M.innerHTML=`<div class="kick">${icon('folder',14)} Case file</div><h1>The suspects</h1>`+suspectsHTML(c,ST.pos,ST.cleared||{}); return; }
+  const r=ST.ri!=null?(ST.round||{}):null, sc=ST.scores||{}, total=sc[me]||0;
   let h='';
   switch(ST.step){
     case 'lobby': h=`<div class="hero">${icon('check',64)}</div><h1 class="c">You're in</h1><p class="mute c">Eyes on the screen. Your detective will open the case.</p>`; break;
     case 'intro': h=`<div class="hero">${icon('film',60)}</div><div class="kick" style="justify-content:center">${esc(c.crime)}</div><h1 class="c">${esc(c.title)}</h1><p class="mute c">Watch the screen. Your case is starting.</p>`; break;
-    case 'suspects': h=`<div class="kick">${icon('users',14)} Meet the suspects</div><h1>One of them did it</h1>`+suspectsHTML(c,ST.pos); break;
+    case 'suspects': h=`<div class="kick">${icon('users',14)} Meet the suspects</div><h1>One of them did it</h1>`+suspectsHTML(c,ST.pos,ST.cleared||{}); break;
     case 'story': h=`<div class="notes"><div class="nh">FIELD REPORT · ${esc(r.title).toUpperCase()}</div><p style="color:#1b2233">${esc(r.text)}</p></div><p class="mute" style="display:flex;gap:8px;align-items:center">${icon('ear',18)} Listen to your detective.</p>`; break;
     case 'q': { const mine=picks[ST.ri], opts=optionsOf(c,r);
       if(mine!==undefined){ const o=r.kind==='word'?{tag:'yes',label:String(mine)}:(opts.find(x=>String(x.value)===String(mine))||{tag:'A',label:''}); h=`<div class="res wait"><div class="hero" style="margin:0">${tent(o.tag,64)}</div><h1>${ST.acc&&ST.acc[me]?'Locked in':'Sending…'}</h1><p>${esc(o.label)}</p><p class="mute">${ST.acc&&ST.acc[me]?'Waiting for everyone else…':'Hang on, making sure the detective got it.'}</p></div>`; }
@@ -107,6 +108,6 @@ function render(){ const c=caseById(ST.caseId);
   }
   M.innerHTML=h;
   const ws=document.getElementById('wsend'); if(ws) ws.onclick=()=>{ const v=cleanWord(document.getElementById('wv').value); if(v) answer(ST.ri,v); };
-  const as=document.getElementById('asend'); if(as) as.onclick=()=>{ const t=document.getElementById('av').value.trim(); if(!t) return; pub(topicFor(code,'p'),{k:'ask',id:me,text:t.slice(0,160)}).then(()=>{ document.getElementById('av').value=''; document.getElementById('asent').textContent='Sent to the detective.'; }).catch(()=>{ document.getElementById('asent').textContent='Could not send. Try again.'; }); };
+  const as=document.getElementById('asend'); if(as) as.onclick=()=>{ const t=document.getElementById('av').value.trim(); if(!t) return; pub(topicFor(code,'p'),{k:'ask',id:me,g:ST.g,mid:me+'-'+Date.now(),text:t.slice(0,160)}).then(()=>{ document.getElementById('av').value=''; document.getElementById('asent').textContent='Sent to the detective.'; }).catch(()=>{ document.getElementById('asent').textContent='Could not send. Try again.'; }); };
 }
 </script></body></html>
