@@ -53,7 +53,7 @@ function start(){
   saved=store.get('cr_'+code)||{}; gid=saved.g||null; me=saved.id||Math.random().toString(36).slice(2,10); myName=saved.name||null; myAv=saved.av||null; picks=saved.picks||{}; prevScore=saved.prevScore||{}; keep();
   M.innerHTML=`<div class="hero">${icon('search',56)}</div><h1 class="c">Connecting…</h1><p class="mute c">Room ${code}</p>`;
   setTimeout(()=>{ if(!ST) M.innerHTML=`<div class="hero">${icon('alert',56)}</div><h1 class="c">No case found</h1><p class="mute c">Check the code on the screen. The detective has to open the case first.</p><button class="big" onclick="location.search=''">Type the code again</button>`; },12000);
-  sub(topicFor(code,'h'),(m,replay)=>{ if(!m||m.k!=='st'||m.n<=lastSeq) return; lastSeq=m.n; const prev=ST; ST=m; recvAt=Date.now(); if(!replay&&m.t) OFF=m.t-Date.now();
+  sub(topicFor(code,'h'),(m,replay)=>{ if(!m||m.k!=='st'||m.n<=lastSeq) return; lastSeq=m.n; ['players','removed','av','acc','scores','pts','right','tally'].forEach(k=>{ if(!m[k]||typeof m[k]!=='object') m[k]={}; }); const prev=ST; ST=m; /* Firebase drops empty objects */ recvAt=Date.now(); if(!replay&&m.t) OFF=m.t-Date.now();
     if(ST.g && saved.g!==ST.g){ saved.g=ST.g; picks={}; prevScore={}; gid=ST.g; keep(); }
     if(myName && !ST.players[me] && !joinSent) sendJoin();
     if(prev && prev.step===ST.step && prev.ri===ST.ri && (ST.step==='q'||ST.step==='final') && prev.players[me] && (ST.step==='final'||picks[ST.ri]===undefined)) return; /* same question still open: don't redraw under a finger */
