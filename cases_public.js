@@ -216,7 +216,7 @@ window.CASES=[
 "video": "video/sneaker_intro.mp4",
 "script": [
 "Port Ellis. Harbor Row. A weekend sneaker pop-up has taken over an old ticket office, and the line outside stretches past the ferry clock.",
-"Inside sit eighty thousand dollars in numbered, limited-edition shoes. At midnight, invited buyers finally get their shot. The checkout iPads and the stockroom door lock run on the same staff network.",
+"Inside sit eighty thousand dollars in numbered, limited-edition shoes. At midnight, invited buyers finally get their shot. The checkout tablets and the stockroom door lock run on the same staff network.",
 "At 12:00 sharp, the checkout screens freeze. The stock page goes blank. Behind the counter, the electric lock on the stockroom clicks open by itself.",
 "Five minutes later, the screens blink back on. Six boxes of shoes are gone. They've been wiped from the computer too, except yesterday's paper checklist still has every box number.",
 "The shop owner calls 911. A cyber detective walks in while the store server is still humming. Whatever happened is sitting in live memory, and pulling the plug will wipe it out.",
