@@ -14,16 +14,17 @@ function relayQS() { return _q.get('relay') ? '&relay=' + encodeURIComponent(_q.
 function pub(topic, obj, tries) {
   const url = PROTO === 'fb' ? RELAY + '/rooms/' + topic + '.json' : RELAY + '/' + topic;
   tries = tries === undefined ? 3 : tries;
-  return fetch(url, { method: 'POST', body: JSON.stringify(obj) })
-    .then(r => { if (!r.ok) throw new Error(r.status); return true; })
+  const ctl = typeof AbortController === 'function' ? new AbortController() : null, tmo = ctl ? setTimeout(() => ctl.abort(), 8000) : 0;
+  return fetch(url, { method: 'POST', body: JSON.stringify(obj), signal: ctl ? ctl.signal : undefined })
+    .then(r => { clearTimeout(tmo); if (!r.ok) throw new Error(r.status); return true; }, e => { clearTimeout(tmo); throw e; })
     .catch(e => { if (tries <= 0) throw e; return new Promise(ok => setTimeout(ok, (4 - tries) * 700)).then(() => pub(topic, obj, tries - 1)); });
 }
-function sub(topic, fn, onstate) {
+function sub(topic, fn, onstate, lastOnly) {
   let es = null, closed = false, retry = null;
   function open() {
     if (closed) return;
     if (PROTO === 'fb') {
-      es = new EventSource(RELAY + '/rooms/' + topic + '.json');
+      es = new EventSource(RELAY + '/rooms/' + topic + '.json' + (lastOnly ? '?orderBy=%22%24key%22&limitToLast=1' : ''));
       const take = e => { try { const d = JSON.parse(e.data); if (!d) return;
         if (d.path === '/') { if (d.data && typeof d.data === 'object') Object.keys(d.data).sort().forEach(k => fn(d.data[k], true)); }
         else if (d.data) fn(d.data, false); } catch (_) {} };
@@ -100,7 +101,7 @@ function optionsOf(c, r) {
 const BLOCK = /(fuck|shit|bitch|cunt|dick|cock|pussy|fag|nigg|whore|slut|bastard|asshole|porn|sex|nazi|kill\s*(your|ur)self|kys|rape|retard)/i;
 function cleanWord(v) { return String(v || '').toLowerCase().replace(/[^a-z0-9 '-]/g, ' ').replace(/\s+/g, ' ').trim().split(' ').slice(0, 3).join(' ').slice(0, 24); }
 function isRight(r, v) {
-  if (v === undefined || v === null) return false;
+  if (v === undefined || v === null || r.scored === false) return false;
   if (r.kind === 'word') { const w = cleanWord(v); return !!(r.accept || []).some(a => w.includes(a)); }
   return String(v) === String(r.answer);
 }

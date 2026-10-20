@@ -47,7 +47,7 @@ body.board:before{content:'';position:fixed;inset:0;background-image:linear-grad
 .folder h1{color:#1d1606}
 @keyframes fopen{from{transform:perspective(1200px) rotateX(-70deg);opacity:0}to{transform:none;opacity:1}}
 /* field-notes paper for phones */
-.notes{background:var(--paper) repeating-linear-gradient(transparent 0 31px,#b9c7df 31px 32px);color:#1b2233;border-radius:6px;padding:16px 16px 18px 46px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.notes{background:var(--paper) repeating-linear-gradient(transparent 0 31px,rgba(154,169,196,.45) 31px 32px);color:#1b2233;border-radius:6px;padding:16px 16px 18px 46px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .notes:before{content:'';position:absolute;left:34px;top:0;bottom:0;width:2px;background:#d9534f;opacity:.7}
 .notes .nh{font:700 12px 'Courier New',monospace;letter-spacing:.16em;color:#7a2a2a;margin-bottom:6px}
 .sus{position:relative}.sus.cleared{opacity:.55}.vstamp{position:absolute;right:10px;bottom:10px;border:3px solid #6f8f6a;color:#a7d39f;font:700 11px Poppins,Arial,sans-serif;letter-spacing:.2em;padding:2px 8px;transform:rotate(-6deg);background:rgba(7,11,20,.8)}

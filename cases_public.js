@@ -131,6 +131,14 @@ window.CASES=[
 "text": "Look closely at the 9:15 AM photo: on the table sits Sunday's Port Ellis Herald, and the window shows bright afternoon sun, not morning fog. When the record label checks the band's shared account, the log shows the post was scheduled on Sunday afternoon."
 },
 {
+"type": "q",
+"kind": "suspect",
+"scored": false,
+"title": "Hunch check",
+"q": "Halfway through the case: who is your top suspect right now?",
+"concept": "Keeping an open mind"
+},
+{
 "type": "story",
 "title": "Cell phone pings",
 "text": "You want to ask Jess's cell carrier for her phone's tower pings and GPS location data from last night. You have no evidence of blood, violence, or a kidnapping—right now, it looks like someone may be tricking her into missing her 5:00 PM contract signing."
@@ -367,6 +375,14 @@ window.CASES=[
 "clears": [
 "victor"
 ]
+},
+{
+"type": "q",
+"kind": "suspect",
+"scored": false,
+"title": "Hunch check",
+"q": "Halfway through the case: who is your top suspect right now?",
+"concept": "Keeping an open mind"
 },
 {
 "type": "story",
@@ -612,6 +628,14 @@ window.CASES=[
 },
 {
 "type": "q",
+"kind": "suspect",
+"scored": false,
+"title": "Hunch check",
+"q": "Halfway through the case: who is your top suspect right now?",
+"concept": "Keeping an open mind"
+},
+{
+"type": "q",
 "kind": "mc",
 "title": "The phone is private",
 "q": "Evan refuses to let you check his phone. What do you need to search it?",
@@ -841,6 +865,14 @@ window.CASES=[
 "type": "story",
 "title": "The rear gate",
 "text": "A shop next door hands over alley camera footage with a verified time stamp. It shows Owen's face walking in the rental's back gate at 1:56 AM and leaving at 2:17 AM. The camera doesn't see inside the hallway."
+},
+{
+"type": "q",
+"kind": "suspect",
+"scored": false,
+"title": "Hunch check",
+"q": "Halfway through the case: who is your top suspect right now?",
+"concept": "Keeping an open mind"
 },
 {
 "type": "q",
@@ -1086,6 +1118,14 @@ window.CASES=[
 "type": "story",
 "title": "Completely off",
 "text": "Milo says, 'My laptop was shut all the way down in my bag from 11:30 until I left.' Hallway video shows Milo pull out his triangle-stickered laptop and plug into the wall jack at 11:58 PM. The screen glows while the hack runs, and he unplugs at 12:06."
+},
+{
+"type": "q",
+"kind": "suspect",
+"scored": false,
+"title": "Hunch check",
+"q": "Halfway through the case: who is your top suspect right now?",
+"concept": "Keeping an open mind"
 },
 {
 "type": "q",
@@ -1335,6 +1375,14 @@ window.CASES=[
 },
 {
 "type": "q",
+"kind": "suspect",
+"scored": false,
+"title": "Hunch check",
+"q": "Halfway through the case: who is your top suspect right now?",
+"concept": "Keeping an open mind"
+},
+{
+"type": "q",
 "kind": "yn",
 "title": "A photo and a seller",
 "q": "Does Priya’s watermark prove that she posted the listing or possesses the stolen car?",
@@ -1562,6 +1610,14 @@ window.CASES=[
 "eli",
 "tessa"
 ]
+},
+{
+"type": "q",
+"kind": "suspect",
+"scored": false,
+"title": "Hunch check",
+"q": "Halfway through the case: who is your top suspect right now?",
+"concept": "Keeping an open mind"
 },
 {
 "type": "q",

@@ -19,7 +19,8 @@ input.code{width:100%;font-family:inherit;font-size:36px;font-weight:700;letter-
 .o .tl{flex:1}.o small{display:block;color:var(--mute);font-size:13px}
 .o:active{border-color:var(--gold);transform:scale(.98)}
 .o.yn{min-height:110px;font-size:24px;font-weight:700}
-.res{border-radius:14px;padding:22px;text-align:center;margin-top:8px}.res.ok{background:var(--ok)}.res.no{background:#7a1426}.res.wait{background:var(--navy2);border:2px solid var(--line)}
+.res{border-radius:10px;padding:20px;text-align:center;margin-top:8px;background:var(--paper);color:var(--navy);border-left:8px solid var(--line)}.res.ok{border-left-color:var(--ok)}.res.no{border-left-color:var(--red)}.res.wait{background:var(--navy2);color:#fff;border:2px solid var(--line)}
+.res .rstamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-weight:700;letter-spacing:.18em;font-size:12px;padding:2px 10px;transform:rotate(-3deg);margin:4px 0 6px}.res.ok .rstamp{border-color:var(--ok);color:var(--ok)}.res.ok .hero,.res.no .hero{color:inherit!important}.res.ok .hero{color:var(--ok)!important}.res.no .hero{color:var(--red)!important}
 .res h1{margin:8px 0 4px}.res .pts{font-size:22px;font-weight:700}
 .card{background:var(--navy2);border-radius:12px;padding:14px 16px;margin-top:10px}
 .tm{margin-left:auto;background:var(--red);color:#fff;border-radius:6px;padding:2px 10px;font-weight:700;letter-spacing:0}
@@ -57,9 +58,11 @@ function start(){
     if(ST.g && saved.g!==ST.g){ saved.g=ST.g; picks={}; prevScore={}; gid=ST.g; keep(); }
     if(myName && !ST.players[me] && !joinSent) sendJoin();
     if(prev && prev.step===ST.step && prev.ri===ST.ri && (ST.step==='q'||ST.step==='final') && prev.players[me] && (ST.step==='final'||picks[ST.ri]===undefined)) return; /* same question still open: don't redraw under a finger */
-    render(); });
+    render(); }, null, true);
   setInterval(()=>{ const t=document.getElementById('tmv'); if(t&&ST&&ST.left!=null) t.textContent=(ST.deadline?Math.max(0,Math.ceil((ST.deadline-(Date.now()+OFF))/1000)):Math.max(0,ST.left-Math.floor((Date.now()-recvAt)/1000)))+'s'; },1000);
 }
+setInterval(()=>{ if(ST&&myName&&!ST.players[me]&&!(ST.removed||{})[me]) { joinSent=false; sendJoin(); } },4000);
+window.addEventListener('online',()=>{ if(ST&&myName&&!ST.players[me]) sendJoin(); });
 function sendJoin(){ joinSent=true; pub(topicFor(code,'p'),{k:'join',id:me,name:myName,av:myAv||'badge'}).catch(()=>{ joinSent=false; }); setTimeout(()=>{ if(ST&&!ST.players[me]) joinSent=false; },3500); }
 function pickName(){ myName=document.getElementById('nm').textContent; myAv=window._av||'badge'; keep(); sendJoin(); render(); }
 function reroll(){ document.getElementById('nm').textContent=genName(ST?ST.mode:'solo'); }
@@ -86,7 +89,7 @@ function render(){ const c=caseById(ST.caseId);
     case 'lobby': h=`<div class="hero">${icon('check',64)}</div><h1 class="c">You're in</h1><p class="mute c">Eyes on the screen. Your detective will open the case.</p>`; break;
     case 'intro': h=`<div class="hero">${icon('film',60)}</div><div class="kick" style="justify-content:center">${esc(c.crime)}</div><h1 class="c">${esc(c.title)}</h1><p class="mute c">Watch the screen. Your case is starting.</p>`; break;
     case 'suspects': h=`<div class="kick">${icon('users',14)} Meet the suspects</div><h1>One of them did it</h1>`+suspectsHTML(c,ST.pos); break;
-    case 'story': h=`<div class="kick">${icon('note',14)} ${esc(r.title)}</div><p>${esc(r.text)}</p><p class="mute" style="display:flex;gap:8px;align-items:center">${icon('ear',18)} Listen to your detective.</p>`; break;
+    case 'story': h=`<div class="notes"><div class="nh">FIELD REPORT · ${esc(r.title).toUpperCase()}</div><p style="color:#1b2233">${esc(r.text)}</p></div><p class="mute" style="display:flex;gap:8px;align-items:center">${icon('ear',18)} Listen to your detective.</p>`; break;
     case 'q': { const mine=picks[ST.ri], opts=optionsOf(c,r);
       if(mine!==undefined){ const o=r.kind==='word'?{tag:'yes',label:String(mine)}:(opts.find(x=>String(x.value)===String(mine))||{tag:'A',label:''}); h=`<div class="res wait"><div class="hero" style="margin:0">${tent(o.tag,64)}</div><h1>${ST.acc&&ST.acc[me]?'Locked in':'Sending…'}</h1><p>${esc(o.label)}</p><p class="mute">${ST.acc&&ST.acc[me]?'Waiting for everyone else…':'Hang on, making sure the detective got it.'}</p></div>`; }
       else if(r.kind==='word') h=`<div class="notes"><div class="nh">FIELD NOTES · ${esc(r.title).toUpperCase()}<span class="tm" id="tmv">${ST.left}s</span></div><h1>${esc(r.q)}</h1><input id="wv" class="wv" maxlength="24" autocomplete="off" placeholder="one or two words"><button class="big" id="wsend">Send ${icon('next',18)}</button></div>`;
@@ -94,10 +97,10 @@ function render(){ const c=caseById(ST.caseId);
         opts.map(o=>`<button class="o${r.kind==='yn'?' yn':''}" onclick='answer(${ST.ri},${JSON.stringify(o.value)})'>${tent(o.tag,44)}<span class="tl">${esc(o.label)}${o.sub?`<small>${esc(o.sub)}</small>`:''}</span></button>`).join('')+`</div></div>`;
       break; }
     case 'bars': { const o=r.kind==='word'?(picks[ST.ri]!==undefined?{label:String(picks[ST.ri])}:null):optionsOf(c,r).find(x=>String(x.value)===String(picks[ST.ri]));
-      h=`<div class="res wait"><div class="hero" style="margin:0">${icon('help',60)}</div><h1>Answers are in</h1><p>${o?'You picked: <b>'+esc(o.label)+'</b>':"You didn't answer this one."}</p><p class="mute">Look at the screen. Why did people pick different answers? Be ready to explain yours.</p></div>`; break; }
+      h=`<div class="res wait"><div class="hero" style="margin:0">${icon('help',60)}</div><h1>${r.scored===false?'Hunch logged':'Answers are in'}</h1><p>${o?'You picked: <b>'+esc(o.label)+'</b>':"You didn't answer this one."}</p><p class="mute">Look at the screen. Why did people pick different answers? Be ready to explain yours.</p></div>`; break; }
     case 'ans': { const got=ST.acc&&ST.acc[me], mine=got?picks[ST.ri]:undefined, right=!!(got&&ST.right&&ST.right[me]);
       if(prevScore.ri!==ST.ri){ prevScore={ri:ST.ri,gain:total-(prevScore.total||0),total}; keep(); }
-      h=`<div class="res ${right?'ok':'no'}"><div class="hero" style="margin:0;color:#fff">${icon(right?'check':mine===undefined?'clock':'x',64)}</div><h1>${right?'Correct':mine===undefined?(picks[ST.ri]!==undefined?'Not received in time':'No answer'):'Not this time'}</h1><div class="pts">${right?'+'+((ST.pts||{})[me]||0).toLocaleString()+' points':'+0'}</div><p>Total ${total.toLocaleString()} · Rank ${rank(sc)}</p></div><div class="card"><div class="kick">${icon('search',14)} Why</div><p style="margin:6px 0 0">${esc(ST.why||'')}</p></div>`; break; }
+      h=`<div class="res ${right?'ok':'no'}"><div class="hero" style="margin:0;color:#fff">${icon(right?'check':mine===undefined?'clock':'x',64)}</div><div class="rstamp">${right?'EVIDENCE CONFIRMED':mine===undefined?'NO ENTRY':'LEAD RULED OUT'}</div><h1>${right?'Solid lead':mine===undefined?(picks[ST.ri]!==undefined?'Not received in time':'No answer'):'Check the evidence'}</h1><div class="pts">${right?'+'+((ST.pts||{})[me]||0).toLocaleString()+' points':'+0'}</div><p style="color:#3a4a66">Case score ${total.toLocaleString()} · Standing ${rank(sc)}</p></div><div class="notes" style="margin-top:12px"><div class="nh">CASE NOTES · WHY</div><p style="margin:6px 0 0;color:#1b2233">${esc(ST.why||'')}</p></div>`; break; }
     case 'leader': h=`<div class="hero">${icon('chart',60)}</div><h1 class="c">You're #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p><p class="mute c">Top 5 are on the screen.</p>`; break;
     case 'reveal': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1><div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>`; break; }
     case 'final': h=`<div class="hero">${icon('award',64)}</div><h1 class="c">Final rank: #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p><div class="notes" style="margin-top:14px"><div class="nh">ASK THE DETECTIVE</div><input id="av" class="wv" maxlength="160" placeholder="Your question about police work"><button class="big" id="asend">Send question</button><p class="mute" id="asent" style="color:#5a6478;margin:6px 0 0"></p></div>`; break;
