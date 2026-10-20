@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>LPD Case Room</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+*{-webkit-tap-highlight-color:transparent}
+.topbar{height:54px;padding:0 14px;position:sticky;top:0;z-index:3}.topbar img{height:32px}.brand{font-size:14px}
+.me{font-size:12px;background:var(--navy3);border-radius:6px;padding:4px 10px;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#m{padding:18px 16px 90px;max-width:560px;margin:0 auto}
+h1{font-size:25px;margin:6px 0 10px;line-height:1.22}p{font-size:17px;line-height:1.45}
+.hero{display:flex;justify-content:center;margin:18px 0 8px;color:var(--gold)}
+.c{text-align:center}
+.big{width:100%;border:0;border-radius:12px;padding:16px;font-family:inherit;font-size:20px;font-weight:700;background:var(--red);color:#fff;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.big.alt{background:var(--navy3)}
+input.code{width:100%;font-family:inherit;font-size:36px;font-weight:700;letter-spacing:.3em;text-align:center;text-transform:uppercase;border:0;border-radius:12px;padding:14px;margin-top:6px}
+.name{background:var(--paper);color:var(--navy);border-radius:12px;padding:18px;text-align:center;font-size:27px;font-weight:700;margin-top:10px}
+.opts{display:grid;gap:10px;margin-top:12px}
+.o{border:2px solid var(--line);border-radius:12px;background:var(--navy2);color:#fff;font-family:inherit;font-size:17px;font-weight:500;padding:14px;display:flex;align-items:center;gap:14px;text-align:left;min-height:72px}
+.o .tl{flex:1}.o small{display:block;color:var(--mute);font-size:13px}
+.o:active{border-color:var(--gold);transform:scale(.98)}
+.o.yn{min-height:110px;font-size:24px;font-weight:700}
+.res{border-radius:14px;padding:22px;text-align:center;margin-top:8px}.res.ok{background:var(--ok)}.res.no{background:#7a1426}.res.wait{background:var(--navy2);border:2px solid var(--line)}
+.res h1{margin:8px 0 4px}.res .pts{font-size:22px;font-weight:700}
+.card{background:var(--navy2);border-radius:12px;padding:14px 16px;margin-top:10px}
+.tm{margin-left:auto;background:var(--red);color:#fff;border-radius:6px;padding:2px 10px;font-weight:700;letter-spacing:0}
+#tabs{position:fixed;bottom:0;left:0;right:0;display:flex;background:#081327;border-top:1px solid var(--line)}#tabs button{flex:1;border:0;background:none;color:var(--mute);font-weight:700;font-size:14px;padding:12px;display:flex;align-items:center;justify-content:center;gap:6px}#tabs button.on{color:#fff;box-shadow:inset 0 3px 0 var(--gold)}
+.sus{margin-top:10px}
+.avs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}.av2{background:var(--navy2);border:2px solid var(--line);border-radius:10px;padding:12px 0;color:var(--mute);display:flex;justify-content:center}.av2.on{border-color:var(--gold);color:var(--gold);background:var(--navy3)}
+.notes .o{background:transparent;border:0;border-bottom:1px dashed #9aa9c4;border-radius:0;color:#1b2233;min-height:64px;padding:10px 4px}.notes .o small{color:#5a6478}.notes .o:active{background:rgba(217,165,33,.18)}
+.notes h1{color:#1b2233;font-size:19px}.notes .tm{float:right}
+.wv{width:100%;font-family:inherit;font-size:20px;border:2px solid #b8ab8e;border-radius:8px;padding:12px;margin:8px 0 4px;background:#fffdf6;color:#111d36}
+</style></head><body class="board">
+<div class="topbar"><img src="media/badge_white.png" alt="LPD"><div class="brand">LPD CASE ROOM<small id="ct">Lorain Police Department</small></div><div class="sp"></div><span class="me" id="me" style="display:none"></span></div>
+<div id="m"></div>
+<div id="tabs" style="display:none"><button id="tPlay" class="on"></button><button id="tSus"></button></div>
+<script src="core.js"></script><script src="cases_public.js"></script>
+<script>
+const M=document.getElementById('m');
+document.getElementById('tPlay').innerHTML=icon('search',16)+' Case'; document.getElementById('tSus').innerHTML=icon('users',16)+' Suspects';
+let saved={}; let code=(_q.get('r')||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const store={get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }};
+const ADJ=['Sharp','Silent','Swift','Clever','Bold','Keen','Steady','Lucky','Brave','Quiet','Rapid','Cool','Calm','Bright','Iron','Night'];
+const NOUN=['Falcon','Fox','Owl','Hawk','Wolf','Lynx','Panther','Raven','Eagle','Tiger','Cobra','Bear','Badger','Viper','Jaguar','Otter'];
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const genName=mode=>mode==='team'?rnd(SQUADS):'Det. '+rnd(ADJ)+' '+rnd(NOUN);
+let OFF=0, myAv=null, me=null, myName=null, ST=null, lastSeq=0, picks={}, tab='play', joinSent=false, recvAt=0, prevScore={};
+let gid=null; const keep=()=>store.set('cr_'+code,{id:me,name:myName,av:myAv,picks,prevScore,g:gid});
+if(!code){ M.innerHTML=`<div class="hero">${icon('shield',56)}</div><div class="kick" style="justify-content:center">Join a case</div><h1 class="c">Enter the room code</h1><p class="mute c">It's on the screen at the front of the room.</p>
+  <input class="code" id="cin" maxlength="5" autocomplete="off" autocapitalize="characters"><button class="big" id="cgo">Join ${icon('next',18)}</button>`;
+  document.getElementById('cgo').onclick=()=>{ const v=document.getElementById('cin').value.toUpperCase().replace(/[^A-Z0-9]/g,''); if(v.length===5){ const u=new URLSearchParams(location.search); u.set('r',v); location.search=u.toString(); } };
+} else start();
+function start(){
+  saved=store.get('cr_'+code)||{}; gid=saved.g||null; me=saved.id||Math.random().toString(36).slice(2,10); myName=saved.name||null; myAv=saved.av||null; picks=saved.picks||{}; prevScore=saved.prevScore||{}; keep();
+  M.innerHTML=`<div class="hero">${icon('search',56)}</div><h1 class="c">Connecting…</h1><p class="mute c">Room ${code}</p>`;
+  setTimeout(()=>{ if(!ST) M.innerHTML=`<div class="hero">${icon('alert',56)}</div><h1 class="c">No case found</h1><p class="mute c">Check the code on the screen. The detective has to open the case first.</p><button class="big" onclick="location.search=''">Type the code again</button>`; },12000);
+  sub(topicFor(code,'h'),(m,replay)=>{ if(!m||m.k!=='st'||m.n<=lastSeq) return; lastSeq=m.n; const prev=ST; ST=m; recvAt=Date.now(); if(!replay&&m.t) OFF=m.t-Date.now();
+    if(ST.g && saved.g!==ST.g){ saved.g=ST.g; picks={}; prevScore={}; gid=ST.g; keep(); }
+    if(myName && !ST.players[me] && !joinSent) sendJoin();
+    if(prev && prev.step===ST.step && prev.ri===ST.ri && (ST.step==='q'||ST.step==='final') && prev.players[me] && (ST.step==='final'||picks[ST.ri]===undefined)) return; /* same question still open: don't redraw under a finger */
+    render(); });
+  setInterval(()=>{ const t=document.getElementById('tmv'); if(t&&ST&&ST.left!=null) t.textContent=(ST.deadline?Math.max(0,Math.ceil((ST.deadline-(Date.now()+OFF))/1000)):Math.max(0,ST.left-Math.floor((Date.now()-recvAt)/1000)))+'s'; },1000);
+}
+function sendJoin(){ joinSent=true; pub(topicFor(code,'p'),{k:'join',id:me,name:myName,av:myAv||'badge'}).catch(()=>{ joinSent=false; }); setTimeout(()=>{ if(ST&&!ST.players[me]) joinSent=false; },3500); }
+function pickName(){ myName=document.getElementById('nm').textContent; myAv=window._av||'badge'; keep(); sendJoin(); render(); }
+function reroll(){ document.getElementById('nm').textContent=genName(ST?ST.mode:'solo'); }
+function answer(ri,v){ if(picks[ri]!==undefined) return; picks[ri]=v; keep(); render();
+  pub(topicFor(code,'p'),{k:'ans',id:me,ri,v,g:ST.g}).catch(()=>{ delete picks[ri]; keep(); render(); alert('Could not send. Check your signal and tap again.'); }); }
+document.getElementById('tPlay').onclick=()=>{ tab='play'; render(); }; document.getElementById('tSus').onclick=()=>{ tab='sus'; render(); };
+function rank(sc){ const arr=Object.entries(sc).filter(([id])=>!ST.removed[id]&&ST.players[id]).sort((a,b)=>b[1]-a[1]); const i=arr.findIndex(([id])=>id===me); return i<0?'—':(i+1)+' of '+arr.length; }
+function render(){ const c=caseById(ST.caseId);
+  document.getElementById('ct').textContent= ST.step==='lobby'?'Lorain Police Department':c.title;
+  if(ST.removed&&ST.removed[me]){ M.innerHTML=`<div class="hero">${icon('phone',56)}</div><h1 class="c">This phone was removed</h1><p class="mute c">${ST.mode==='team'?'Your team is already playing on another phone. Join in on that one.':'Ask your detective.'}</p>`; return; }
+  if(!myName){ document.getElementById('tabs').style.display='none';
+    M.innerHTML=`<div class="kick">${icon(ST.mode==='team'?'users':'user',14)} Room ${code} · ${ST.mode==='team'?'Team game: one phone per team':'Solo game'}</div><h1>${ST.mode==='team'?"Your team's":'Your'} detective name</h1>
+     <div class="name" id="nm">${genName(ST.mode)}</div><button class="big alt" onclick="reroll()">${icon('search',18)} New name</button>
+     <div class="kick" style="margin-top:18px">Pick your badge</div><div class="avs">${AVATARS.map(a=>`<button class="av2${a===(window._av||'badge')?' on':''}" onclick="window._av='${a}';document.querySelectorAll('.av2').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${icon(a,30)}</button>`).join('')}</div>
+     <button class="big" onclick="pickName()">Join the case ${icon('next',18)}</button>`; return; }
+  const ok=ST.players[me], meEl=document.getElementById('me'); meEl.style.display=''; meEl.textContent=ok||myName;
+  if(!ok){ M.innerHTML=`<div class="hero">${icon('search',56)}</div><h1 class="c">Joining…</h1><p class="mute c">If this takes more than a few seconds, check your signal.</p>`; return; }
+  const showTabs=!['lobby','intro'].includes(ST.step); document.getElementById('tabs').style.display=showTabs?'flex':'none';
+  document.getElementById('tPlay').className=tab==='play'?'on':''; document.getElementById('tSus').className=tab==='sus'?'on':'';
+  if(tab==='sus'&&showTabs){ M.innerHTML=`<div class="kick">${icon('folder',14)} Case file</div><h1>The suspects</h1>`+suspectsHTML(c,ST.pos); return; }
+  const r=ST.ri!=null?c.rounds[ST.ri]:null, sc=ST.scores||{}, total=sc[me]||0;
+  let h='';
+  switch(ST.step){
+    case 'lobby': h=`<div class="hero">${icon('check',64)}</div><h1 class="c">You're in</h1><p class="mute c">Eyes on the screen. Your detective will open the case.</p>`; break;
+    case 'intro': h=`<div class="hero">${icon('film',60)}</div><div class="kick" style="justify-content:center">${esc(c.crime)}</div><h1 class="c">${esc(c.title)}</h1><p class="mute c">Watch the screen. Your case is starting.</p>`; break;
+    case 'suspects': h=`<div class="kick">${icon('users',14)} Meet the suspects</div><h1>One of them did it</h1>`+suspectsHTML(c,ST.pos); break;
+    case 'story': h=`<div class="kick">${icon('note',14)} ${esc(r.title)}</div><p>${esc(r.text)}</p><p class="mute" style="display:flex;gap:8px;align-items:center">${icon('ear',18)} Listen to your detective.</p>`; break;
+    case 'q': { const mine=picks[ST.ri], opts=optionsOf(c,r);
+      if(mine!==undefined){ const o=r.kind==='word'?{tag:'yes',label:String(mine)}:(opts.find(x=>String(x.value)===String(mine))||{tag:'A',label:''}); h=`<div class="res wait"><div class="hero" style="margin:0">${tent(o.tag,64)}</div><h1>${ST.acc&&ST.acc[me]?'Locked in':'Sending…'}</h1><p>${esc(o.label)}</p><p class="mute">${ST.acc&&ST.acc[me]?'Waiting for everyone else…':'Hang on, making sure the detective got it.'}</p></div>`; }
+      else if(r.kind==='word') h=`<div class="notes"><div class="nh">FIELD NOTES · ${esc(r.title).toUpperCase()}<span class="tm" id="tmv">${ST.left}s</span></div><h1>${esc(r.q)}</h1><input id="wv" class="wv" maxlength="24" autocomplete="off" placeholder="one or two words"><button class="big" id="wsend">Send ${icon('next',18)}</button></div>`;
+      else h=`<div class="notes"><div class="nh">FIELD NOTES · ${esc(r.title).toUpperCase()}<span class="tm" id="tmv">${ST.left}s</span></div><h1>${esc(r.q)}</h1><div class="opts">`+
+        opts.map(o=>`<button class="o${r.kind==='yn'?' yn':''}" onclick='answer(${ST.ri},${JSON.stringify(o.value)})'>${tent(o.tag,44)}<span class="tl">${esc(o.label)}${o.sub?`<small>${esc(o.sub)}</small>`:''}</span></button>`).join('')+`</div></div>`;
+      break; }
+    case 'bars': { const o=r.kind==='word'?(picks[ST.ri]!==undefined?{label:String(picks[ST.ri])}:null):optionsOf(c,r).find(x=>String(x.value)===String(picks[ST.ri]));
+      h=`<div class="res wait"><div class="hero" style="margin:0">${icon('help',60)}</div><h1>Answers are in</h1><p>${o?'You picked: <b>'+esc(o.label)+'</b>':"You didn't answer this one."}</p><p class="mute">Look at the screen. Why did people pick different answers? Be ready to explain yours.</p></div>`; break; }
+    case 'ans': { const got=ST.acc&&ST.acc[me], mine=got?picks[ST.ri]:undefined, right=!!(got&&ST.right&&ST.right[me]);
+      if(prevScore.ri!==ST.ri){ prevScore={ri:ST.ri,gain:total-(prevScore.total||0),total}; keep(); }
+      h=`<div class="res ${right?'ok':'no'}"><div class="hero" style="margin:0;color:#fff">${icon(right?'check':mine===undefined?'clock':'x',64)}</div><h1>${right?'Correct':mine===undefined?(picks[ST.ri]!==undefined?'Not received in time':'No answer'):'Not this time'}</h1><div class="pts">${right?'+'+((ST.pts||{})[me]||0).toLocaleString()+' points':'+0'}</div><p>Total ${total.toLocaleString()} · Rank ${rank(sc)}</p></div><div class="card"><div class="kick">${icon('search',14)} Why</div><p style="margin:6px 0 0">${esc(ST.why||'')}</p></div>`; break; }
+    case 'leader': h=`<div class="hero">${icon('chart',60)}</div><h1 class="c">You're #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p><p class="mute c">Top 5 are on the screen.</p>`; break;
+    case 'reveal': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1><div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>`; break; }
+    case 'final': h=`<div class="hero">${icon('award',64)}</div><h1 class="c">Final rank: #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p><div class="notes" style="margin-top:14px"><div class="nh">ASK THE DETECTIVE</div><input id="av" class="wv" maxlength="160" placeholder="Your question about police work"><button class="big" id="asend">Send question</button><p class="mute" id="asent" style="color:#5a6478;margin:6px 0 0"></p></div>`; break;
+  }
+  M.innerHTML=h;
+  const ws=document.getElementById('wsend'); if(ws) ws.onclick=()=>{ const v=cleanWord(document.getElementById('wv').value); if(v) answer(ST.ri,v); };
+  const as=document.getElementById('asend'); if(as) as.onclick=()=>{ const t=document.getElementById('av').value.trim(); if(!t) return; pub(topicFor(code,'p'),{k:'ask',id:me,text:t.slice(0,160)}).then(()=>{ document.getElementById('av').value=''; document.getElementById('asent').textContent='Sent to the detective.'; }).catch(()=>{ document.getElementById('asent').textContent='Could not send. Try again.'; }); };
+}
+</script></body></html>

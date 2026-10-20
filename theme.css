@@ -1,0 +1,54 @@
+/* LPD Case Room theme: LPD navy / red / gold, Poppins. Shared by admin.html, screen.html, join.html. */
+@font-face{font-family:Poppins;src:url(media/fonts/Poppins-Regular.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Poppins;src:url(media/fonts/Poppins-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:Poppins;src:url(media/fonts/Poppins-Bold.woff2) format('woff2');font-weight:700}
+:root{--navy:#070b14;--navy2:#111d36;--navy3:#1a2c52;--line:#2a3f6b;--red:#b5121b;--gold:#d9a521;--ok:#1f7a45;--ink:#fff;--mute:#9fadc6;--paper:#efe6cf;--manila:#e3c98f}
+*{box-sizing:border-box}html,body{margin:0;background:var(--navy);color:var(--ink);font-family:Poppins,Arial,sans-serif}
+button{font-family:inherit;cursor:pointer}
+.ic{vertical-align:middle;flex:none}
+.kick{color:var(--gold);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:13px;display:flex;align-items:center;gap:8px}
+.mute{color:var(--mute)}
+.topbar{display:flex;align-items:center;gap:14px;padding:0 22px;height:62px;background:#081327;border-bottom:3px solid var(--red)}
+.topbar img{height:42px}.brand{font-weight:700;letter-spacing:.06em;line-height:1.15}.brand small{display:block;font-weight:500;font-size:11px;color:var(--mute);letter-spacing:.2em;text-transform:uppercase}
+.sp{flex:1}.pill{display:inline-flex;align-items:center;gap:6px;background:var(--navy3);border-radius:8px;padding:6px 12px;font-weight:500;font-size:14px;white-space:nowrap}
+.pill b{color:var(--gold)}.dot{width:10px;height:10px;border-radius:50%;background:#777}.dot.on{background:#2ecc71}.dot.off{background:#e74c3c}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--navy3);color:#fff;border:0;border-radius:10px;padding:11px 18px;font-size:16px;font-weight:700}
+.btn.red{background:var(--red)}.btn.gold{background:var(--gold);color:var(--navy)}.btn:disabled{opacity:.35;cursor:default}
+/* case file folder card */
+.file{background:var(--paper);color:var(--navy);border-radius:4px 14px 14px 14px;padding:18px 20px;position:relative;text-align:left;border:3px solid transparent}
+.file:before{content:'';position:absolute;top:-14px;left:0;width:42%;height:16px;background:var(--paper);border-radius:8px 8px 0 0}
+.file.on{border-color:var(--gold);box-shadow:0 0 0 4px rgba(242,183,5,.35)}
+.file .ic{color:var(--red)}.file h3{margin:8px 0 4px;font-size:21px}.file p{margin:0;font-size:14px;color:#3a4a66}
+.file .crime{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--navy);color:var(--gold);padding:4px 10px;border-radius:4px}
+.stampbox{display:inline-block;border:5px solid var(--red);color:var(--red);font-weight:700;letter-spacing:.3em;padding:4px 20px;transform:rotate(-5deg);background:#fff}
+/* suspects */
+.sus{background:var(--navy2);border-radius:14px;padding:16px;border-top:5px solid var(--gold)}
+.sus-top{display:flex;justify-content:space-between;align-items:flex-start}
+.av{width:64px;height:64px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;color:var(--mute)}
+.sus h3{margin:10px 0 2px;font-size:20px}.sus .role{color:var(--gold);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.sus p{font-size:15px;line-height:1.4;color:#dbe3f0;margin:8px 0 0}
+/* answer options */
+.opt{display:flex;align-items:center;gap:16px;background:var(--navy2);border:2px solid var(--line);border-radius:12px;padding:14px 18px;position:relative;overflow:hidden}
+.opt .lab{flex:1;position:relative;z-index:1}.opt .tent{position:relative;z-index:1;flex:none}
+.opt .lab small{display:block;font-size:.6em;color:var(--mute);font-weight:500}
+.opt .bar{position:absolute;left:0;bottom:0;height:6px;background:var(--gold);transition:width .9s}
+.opt .pc{position:relative;z-index:1;font-weight:700;color:var(--gold)}
+.opt.right{background:#fff;color:var(--navy);border-color:var(--gold)}.opt.right .lab small{color:#3a4a66}.opt.right .pc{color:var(--red)}
+.opt.dim{opacity:.38}
+.opt.right{padding-bottom:30px}.confirmed{position:absolute;right:12px;bottom:5px;transform:rotate(-3deg);border:3px solid var(--red);color:var(--red);font-weight:700;letter-spacing:.2em;font-size:13px;padding:2px 10px;background:#fff;z-index:2}
+
+/* precinct board: dark board with a faint grid */
+body.board{background:radial-gradient(ellipse at 50% 0%,#14244a 0%,#070b14 70%) fixed}
+body.board:before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.mono{font-family:'Courier New',Courier,monospace;letter-spacing:.06em}
+/* manila case folder that opens for each question / story beat */
+.folder{position:relative;background:var(--manila);color:#1d1606;border-radius:4px 12px 12px 12px;padding:22px 28px 20px;box-shadow:0 18px 40px rgba(0,0,0,.45);transform-origin:50% 0;animation:fopen .7s cubic-bezier(.2,.8,.2,1)}
+.folder:before{content:attr(data-tab);position:absolute;top:-30px;left:0;background:var(--manila);border-radius:8px 8px 0 0;padding:6px 18px 4px;font:700 13px 'Courier New',monospace;letter-spacing:.14em;color:#4a3a12}
+.folder .stamp{position:absolute;right:22px;top:14px;border:3px solid var(--red);color:var(--red);font:700 13px Poppins,Arial,sans-serif;letter-spacing:.24em;padding:2px 10px;transform:rotate(-5deg);opacity:.85}
+.folder h1{color:#1d1606}
+@keyframes fopen{from{transform:perspective(1200px) rotateX(-70deg);opacity:0}to{transform:none;opacity:1}}
+/* field-notes paper for phones */
+.notes{background:var(--paper) repeating-linear-gradient(transparent 0 31px,#b9c7df 31px 32px);color:#1b2233;border-radius:6px;padding:16px 16px 18px 46px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.notes:before{content:'';position:absolute;left:34px;top:0;bottom:0;width:2px;background:#d9534f;opacity:.7}
+.notes .nh{font:700 12px 'Courier New',monospace;letter-spacing:.16em;color:#7a2a2a;margin-bottom:6px}
+.sus{position:relative}.sus.cleared{opacity:.55}.vstamp{position:absolute;right:10px;bottom:10px;border:3px solid #6f8f6a;color:#a7d39f;font:700 11px Poppins,Arial,sans-serif;letter-spacing:.2em;padding:2px 8px;transform:rotate(-6deg);background:rgba(7,11,20,.8)}
+.redact{display:inline-block;height:1.1em;background:#1d1606;border-radius:2px;vertical-align:middle;margin:3px 6px 3px 0}
