@@ -26,13 +26,15 @@ input.code{width:100%;font-family:inherit;font-size:36px;font-weight:700;letter-
 .tm{margin-left:auto;background:var(--red);color:#fff;border-radius:6px;padding:2px 10px;font-weight:700;letter-spacing:0}
 #tabs{position:fixed;bottom:0;left:0;right:0;display:flex;background:#081327;border-top:1px solid var(--line)}#tabs button{flex:1;border:0;background:none;color:var(--mute);font-weight:700;font-size:14px;padding:12px;display:flex;align-items:center;justify-content:center;gap:6px}#tabs button.on{color:#fff;box-shadow:inset 0 3px 0 var(--gold)}
 .sus{margin-top:10px}
-.avs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}.av2{background:var(--navy2);border:2px solid var(--line);border-radius:10px;padding:12px 0;color:var(--mute);display:flex;justify-content:center}.av2.on{border-color:var(--gold);color:var(--gold);background:var(--navy3)}
+.avs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}.av2{background:var(--navy2);border:3px solid var(--line);border-radius:14px;padding:6px 0;color:var(--mute);display:flex;justify-content:center}.av2.on{border-color:var(--gold);color:var(--gold);background:var(--navy3)}
 .notes .o{background:transparent;border:0;border-bottom:1px dashed #9aa9c4;border-radius:0;color:#1b2233;min-height:64px;padding:10px 4px}.notes .o small{color:#5a6478}.notes .o:active{background:rgba(217,165,33,.18)}
 .notes h1{color:#1b2233;font-size:19px}.notes .tm{float:right}
 .wv{width:100%;font-family:inherit;font-size:20px;border:2px solid #b8ab8e;border-radius:8px;padding:12px;margin:8px 0 4px;background:#fffdf6;color:#111d36}
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.pb{border:2px solid #b8ab8e;border-radius:10px;background:#fffdf6;padding:0 0 8px;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:inherit;font-weight:700;font-size:14px;color:#1b2233;overflow:hidden;position:relative}.pb img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 20%}.pb .tent{position:absolute;left:6px;top:6px}.pb:active{border-color:var(--gold)}
 .notes .ev{border-width:3px;margin:6px 0 4px}.notes .ev img{width:100%}.o.picked{background:rgba(217,165,33,.2)!important}.onum{width:40px;height:40px;border-radius:50%;background:#1b2233;color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sgrid .sus.v2{margin:0}.sgrid .sus.v2 h3{font-size:16px}.sgrid .sus.v2 p{font-size:12.5px}.sgrid .sus.v2 .pimg{aspect-ratio:1/1;object-position:50% 18%}
+.avi{border-radius:50%;display:inline-block;vertical-align:middle;object-fit:cover}.av2.on{transform:scale(1.06);box-shadow:0 0 0 3px rgba(217,165,33,.45)}
+.notes .ev .kbw{animation:none}
 </style></head><body class="board">
 <div class="topbar"><img src="media/badge_white.png" alt="LPD"><div class="brand">LPD CASE ROOM<small id="ct">Lorain Police Department</small></div><div class="sp"></div><span class="me" id="me" style="display:none"></span></div>
 <div id="m"></div>
@@ -46,7 +48,7 @@ const store={get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){
 const ADJ=['Sharp','Silent','Swift','Clever','Bold','Keen','Steady','Lucky','Brave','Quiet','Rapid','Cool','Calm','Bright','Iron','Night'];
 const NOUN=['Falcon','Fox','Owl','Hawk','Wolf','Lynx','Panther','Raven','Eagle','Tiger','Cobra','Bear','Badger','Viper','Jaguar','Otter'];
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
-const genName=mode=>mode==='team'?rnd(SQUADS):'Det. '+rnd(ADJ)+' '+rnd(NOUN);
+const genName=mode=>mode==='team'?rnd(SQUADS):rnd(NAME_TITLES)+' '+rnd(NAME_FUNNY);
 let OFF=0, myAv=null, me=null, myName=null, ST=null, lastSeq=0, picks={}, tab='play', joinSent=false, recvAt=0, prevScore={};
 let gid=null, sent={}, ordSel={};
 const ASKBOX='<div class="notes" style="margin-top:14px"><div class="nh">ASK THE DETECTIVE</div><input id="av" class="wv" maxlength="160" placeholder="Your question about police work"><button class="big" id="asend">Send question</button><p class="mute" id="asent" style="color:#5a6478;margin:6px 0 0"></p></div>';
@@ -70,7 +72,7 @@ setInterval(()=>{ if(ST&&myName&&!ST.players[me]&&!(ST.removed||{})[me]) { joinS
 window.addEventListener('online',()=>{ if(ST&&myName&&!ST.players[me]) sendJoin(); });
 let joinBusy=false;
 function sendJoin(){ if(joinBusy) return; joinBusy=true; joinSent=true; pub(topicFor(code,'p'),{k:'join',id:me,name:myName,av:myAv||'badge'},0).then(()=>{ joinBusy=false; },()=>{ joinBusy=false; joinSent=false; }); setTimeout(()=>{ if(ST&&!ST.players[me]) joinSent=false; },3500); }
-function pickName(){ myName=document.getElementById('nm').textContent; myAv=window._av||'badge'; keep(); sendJoin(); render(); }
+function pickName(){ myName=document.getElementById('nm').textContent; myAv=window._av||(window._av=rnd(AVATARS)); keep(); sendJoin(); render(); }
 function reroll(){ document.getElementById('nm').textContent=genName(ST?ST.mode:'solo'); }
 function answer(ri,v){ if(picks[ri]!==undefined) return; if(ST&&ST.deadline&&Date.now()+OFF>=ST.deadline){ alert('Time is up for this one.'); return; } picks[ri]=v; keep(); render();
   pub(topicFor(code,'p'),{k:'ans',id:me,ri,v,g:ST.g}).then(()=>{ sent[ri]=1; if(ST&&ST.ri===ri&&ST.step==='q') render(); }).catch(()=>{ delete picks[ri]; keep(); render(); alert('Could not send. Check your signal and tap again.'); }); }
@@ -82,9 +84,9 @@ function render(){ const c=caseById(ST.caseId);
   if(!myName){ document.getElementById('tabs').style.display='none';
     M.innerHTML=`<div class="kick">${icon(ST.mode==='team'?'users':'user',14)} Room ${code} · ${ST.mode==='team'?'Team game: one phone per team':'Solo game'}</div><h1>${ST.mode==='team'?"Your team's":'Your'} detective name</h1>
      <div class="name" id="nm">${genName(ST.mode)}</div><button class="big alt" onclick="reroll()">${icon('search',18)} New name</button>
-     <div class="kick" style="margin-top:18px">Pick your badge</div><div class="avs">${AVATARS.map(a=>`<button class="av2${a===(window._av||'badge')?' on':''}" onclick="window._av='${a}';document.querySelectorAll('.av2').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${icon(a,30)}</button>`).join('')}</div>
+     <div class="kick" style="margin-top:18px">Pick your detective</div><div class="avs">${(window._av=window._av||rnd(AVATARS),AVATARS).map(a=>`<button class="av2${a===window._av?' on':''}" onclick="window._av='${a}';document.querySelectorAll('.av2').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${avHTML(a,64)}</button>`).join('')}</div>
      <button class="big" onclick="pickName()">Join the case ${icon('next',18)}</button>`; return; }
-  const ok=ST.players[me], meEl=document.getElementById('me'); meEl.style.display=''; meEl.textContent=ok||myName;
+  const ok=ST.players[me], meEl=document.getElementById('me'); meEl.style.display=''; meEl.innerHTML=avHTML(myAv||'badge',20)+' '+esc(ok||myName);
   if(!ok){ M.innerHTML=`<div class="hero">${icon('search',56)}</div><h1 class="c">Joining…</h1><p class="mute c">If this takes more than a few seconds, check your signal.</p>`; return; }
   const showTabs=!['lobby','intro'].includes(ST.step); document.getElementById('tabs').style.display=showTabs?'flex':'none';
   document.getElementById('tPlay').className=tab==='play'?'on':''; document.getElementById('tSus').className=tab==='sus'?'on':'';
@@ -92,7 +94,7 @@ function render(){ const c=caseById(ST.caseId);
   const r=ST.ri!=null?(ST.round||{}):null, sc=ST.scores||{}, total=sc[me]||0;
   let h='';
   switch(ST.step){
-    case 'lobby': h=`<div class="hero">${icon('check',64)}</div><h1 class="c">You're in</h1><p class="mute c">Eyes on the screen. Your detective will open the case.</p>`; break;
+    case 'lobby': h=`<div class="hero">${avHTML(myAv||'badge',120)}</div><h1 class="c">You're in</h1><p class="mute c">Eyes on the screen. Your detective will open the case.</p>`; break;
     case 'intro': h=`<div class="hero">${icon('film',60)}</div><div class="kick" style="justify-content:center">${esc(c.crime)}</div><h1 class="c">${esc(c.title)}</h1><p class="mute c">Watch the screen. Your case is starting.</p>`; break;
     case 'suspects': h=`<div class="kick">${icon('users',14)} Meet the suspects</div><h1>${c.v===2?'Keep all four in mind':'One of them did it'}</h1><div class="sgrid">`+suspectsHTML(c,ST.pos,ST.cleared||{})+'</div>'; break;
     case 'story': h=`<div class="notes"><div class="nh">FIELD REPORT · ${esc(r.title).toUpperCase()}</div>${r.img?evHTML(r,{small:true}):''}<p style="color:#1b2233">${esc(r.text)}</p></div><p class="mute" style="display:flex;gap:8px;align-items:center">${icon('ear',18)} Listen to your detective.</p>`; break;
@@ -111,6 +113,7 @@ function render(){ const c=caseById(ST.caseId);
     case 'ans': { const got=ST.acc&&ST.acc[me], mine=got?picks[ST.ri]:undefined, right=!!(got&&ST.right&&ST.right[me]);
       if(prevScore.ri!==ST.ri){ prevScore={ri:ST.ri,gain:total-(prevScore.total||0),total}; keep(); }
       h=`<div class="res ${right?'ok':'no'}"><div class="hero" style="margin:0;color:#fff">${icon(right?'check':mine===undefined?'clock':'x',64)}</div><div class="rstamp">${right?'EVIDENCE CONFIRMED':mine===undefined?'NO ENTRY':'LEAD RULED OUT'}</div><h1>${right?'Solid lead':mine===undefined?(picks[ST.ri]!==undefined?'Not received in time':'No answer'):'Check the evidence'}</h1><div class="pts">${right?'+'+((ST.pts||{})[me]||0).toLocaleString()+' points':'+0'}</div><p style="color:#3a4a66">Case score ${total.toLocaleString()} · Standing ${rank(sc)}</p></div><div class="notes" style="margin-top:12px"><div class="nh">CASE NOTES · WHY</div><p style="margin:6px 0 0;color:#1b2233">${esc(ST.why||'')}</p></div>`; break; }
+    case 'board': h=`<div class="hero">${icon('folder',60)}</div><div class="kick" style="justify-content:center">Case board</div><h1 class="c">Look at the board</h1><p class="mute c">Which clue could fit which suspect? Who can you NOT rule out yet? Talk it over.</p>`; break;
     case 'leader': h=`<div class="hero">${icon('chart',60)}</div><h1 class="c">You're #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p><p class="mute c">Top 5 are on the screen.</p>`; break;
     case 'closure': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1>${RV.safety?`<div class="card"><p style="margin:0"><b>Stay safe:</b> ${esc(RV.safety)}</p></div>`:''}<div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>${ASKBOX}`; break; }
     case 'reveal': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1><div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>${ASKBOX}`; break; }

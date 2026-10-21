@@ -117,7 +117,8 @@ function clearedBy(c, pos) { const out = {}; c.rounds.forEach((r, i) => { if (i 
 function evHTML(r, opt) {
   opt = opt || {};
   const mk = r.kind === 'spot' && r.marks ? r.marks.map((m, i) => `<span class="mk${opt.hit == null ? '' : i === opt.hit ? ' hit' : ' miss'}" style="left:${m[0]}%;top:${m[1]}%">${tent('ABCD'[i], opt.small ? 30 : 46)}</span>`).join('') : '';
-  return `<div class="ev"${opt.style ? ' style="' + opt.style + '"' : ''}><img src="${esc(r.img)}" alt=""${opt.blur ? ' id="blurimg" style="filter:blur(' + opt.blur + 'px)"' : ''}>${mk}</div>`;
+  const kb = opt.still ? '' : ' kb' + (String(r.img || '').length % 3);  /* slow zoom/pan; markers move with the photo */
+  return `<div class="ev"${opt.style ? ' style="' + opt.style + '"' : ''}><div class="kbw${kb}"><img src="${esc(r.img)}" alt=""${opt.blur ? ' id="blurimg" style="filter:blur(' + opt.blur + 'px)"' : ''}>${mk}</div></div>`;
 }
 function suspectsHTML(c, pos, given) {
   if (c.v === 2) return c.suspects.map(x => `<div class="sus v2"><div class="ptop"><img class="pimg" src="${esc(x.img)}" alt="">${tent(x.letter, 40)}</div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p>${esc(x.desc)}</p></div>`).join('');
@@ -126,6 +127,21 @@ function suspectsHTML(c, pos, given) {
 }
 
 /* Join avatars (no emoji) and squad names for team games */
-const AVATARS = ['badge', 'shield', 'lighthouse', 'eagle', 'anchor', 'fingerprint', 'search', 'car'];
-const SQUADS = ['K-9 Unit', 'Patrol', 'Forensics', 'Detective Bureau', 'Traffic Unit', 'Marine Patrol', 'SWAT', 'Dispatch', 'Crime Lab', 'Cyber Unit', 'Bike Patrol', 'Harbor Unit'];
+/* Join avatars: 16 cartoon detectives (media/av/d1..d16.png). Old icon names still render as line icons. */
+const AVATARS = Array.from({ length: 16 }, (_, i) => 'd' + (i + 1));
+function avHTML(a, size, extra) {
+  const s = size || 28;
+  if (/^d([1-9]|1[0-6])$/.test(a || '')) return '<img class="avi" src="media/av/' + a + '.png" width="' + s + '" height="' + s + '" alt=""' + (extra ? ' ' + extra : '') + '>';
+  return icon(a || 'badge', s, extra);
+}
+/* Funny random names (Andre 10.21.26: "a bunch of fake funny detective names") */
+const SQUADS = ['The Clue Crew', 'The Hunch Bunch', 'Case Crackers', 'The Donut Squad', 'Fingerprint Fanatics', 'The Alibi Breakers', 'Red String Gang', 'The Snack Break Squad', 'Suspicious Potatoes', 'The Plot Twisters',
+  'Magnifying Glass Mafia', 'The Sock Detectives', 'Team No Alibi', 'The Sticky Notes', 'Mystery Meatballs', 'The Night Owls', 'Evidence Bag Bandits', 'The Side-Eye Squad', 'The Usual Snacks', 'Trench Coat Club',
+  'The Cold Case Crew', 'The Big Brain Bureau', 'Squad Goals Unit', 'The Fedora Five', 'Team Plot Armor', 'The Spoiler Alerts', 'Detective Pickles', 'The Paperclip Patrol', 'The Waffle Watch', 'Clue-tastrophe',
+  'The Lost Keys Unit', 'The Hot Sauce Unit', 'Sus Squad', 'The Footprint Finders', 'Team Gut Feeling', 'The Whodunits', 'The Caffeine Cops', 'The Smoking Guns', 'Case Closed Crew', 'Lunch Money Lab'];
+const NAME_TITLES = ['Det.', 'Inspector', 'Agent', 'Sgt.', 'Captain', 'Lt.', 'Officer', 'Chief'];
+const NAME_FUNNY = ['Crumbs', 'Waffles', 'Pickles', 'Nacho Average', 'Sticky Note', 'Snack Break', 'Hot Sauce', 'Lost Keys', 'Squeaky Shoes', 'Pancake', 'Double Cheese', 'Paperclip', 'Mustard Stain',
+  'Snoozebutton', 'Hunch', 'Noodles', 'Meatball', 'Sprinkles', 'Toast', 'Burrito', 'Donut Duty', 'Cliffhanger', 'Side-Eye', 'Big Clue', 'Tiny Clue', 'Plot Twist', 'Red Herring', 'No Alibi', 'Cold Fries',
+  'Sock Puppet', 'Kazoo', 'Bubble Wrap', 'Lunch Money', 'Gym Socks', 'Wi-Fi', 'Group Chat', 'Spoiler Alert', 'Read Receipt', 'Mac N Cheese', 'Gut Feeling', 'Sus', 'Fun Size', 'Snickerdoodle', 'Hashbrown'];
+
 const validId = id => typeof id === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(id);
