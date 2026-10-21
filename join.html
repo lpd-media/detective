@@ -49,6 +49,7 @@ const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const genName=mode=>mode==='team'?rnd(SQUADS):'Det. '+rnd(ADJ)+' '+rnd(NOUN);
 let OFF=0, myAv=null, me=null, myName=null, ST=null, lastSeq=0, picks={}, tab='play', joinSent=false, recvAt=0, prevScore={};
 let gid=null, sent={}, ordSel={};
+const ASKBOX='<div class="notes" style="margin-top:14px"><div class="nh">ASK THE DETECTIVE</div><input id="av" class="wv" maxlength="160" placeholder="Your question about police work"><button class="big" id="asend">Send question</button><p class="mute" id="asent" style="color:#5a6478;margin:6px 0 0"></p></div>';
 function ordTap(ri,L){ const s=ordSel[ri]=ordSel[ri]||[]; const k=s.indexOf(L); if(k>=0) s.splice(k,1); else if(s.length<4) s.push(L); render(); } const keep=()=>store.set('cr_'+code,{id:me,name:myName,av:myAv,picks,prevScore,g:gid});
 if(!code){ M.innerHTML=`<div class="hero">${icon('shield',56)}</div><div class="kick" style="justify-content:center">Join a case</div><h1 class="c">Enter the room code</h1><p class="mute c">It's on the screen at the front of the room.</p>
   <input class="code" id="cin" maxlength="5" autocomplete="off" autocapitalize="characters"><button class="big" id="cgo">Join ${icon('next',18)}</button>`;
@@ -61,7 +62,7 @@ function start(){
   sub(topicFor(code,'h'),(m,replay)=>{ if(!m||m.k!=='st'||m.n<=lastSeq) return; lastSeq=m.n; ['players','removed','av','acc','scores','pts','right','tally','cleared'].forEach(k=>{ if(!m[k]||typeof m[k]!=='object') m[k]={}; }); const prev=ST; ST=m; /* Firebase drops empty objects */ recvAt=Date.now(); if(!replay&&m.t) OFF=m.t-Date.now();
     if(ST.g && saved.g!==ST.g){ saved.g=ST.g; picks={}; prevScore={}; gid=ST.g; keep(); }
     if(myName && !ST.players[me] && !joinSent) sendJoin();
-    if(prev && prev.g===ST.g && prev.caseId===ST.caseId && prev.step===ST.step && prev.ri===ST.ri && (ST.step==='q'||ST.step==='final') && prev.players[me] && (ST.step==='final'||picks[ST.ri]===undefined)) return; /* same question still open: don't redraw under a finger */
+    if(prev && prev.g===ST.g && prev.caseId===ST.caseId && prev.step===ST.step && prev.ri===ST.ri && (ST.step==='q'||ST.step==='final'||ST.step==='reveal'||ST.step==='closure') && prev.players[me] && (ST.step!=='q'||picks[ST.ri]===undefined)) return; /* same question still open: don't redraw under a finger */
     render(); }, null, true);
   setInterval(()=>{ const t=document.getElementById('tmv'); if(t&&ST&&ST.left!=null) t.textContent=(ST.deadline?Math.max(0,Math.ceil((ST.deadline-(Date.now()+OFF))/1000)):Math.max(0,ST.left-Math.floor((Date.now()-recvAt)/1000)))+'s'; },1000);
 }
@@ -111,9 +112,9 @@ function render(){ const c=caseById(ST.caseId);
       if(prevScore.ri!==ST.ri){ prevScore={ri:ST.ri,gain:total-(prevScore.total||0),total}; keep(); }
       h=`<div class="res ${right?'ok':'no'}"><div class="hero" style="margin:0;color:#fff">${icon(right?'check':mine===undefined?'clock':'x',64)}</div><div class="rstamp">${right?'EVIDENCE CONFIRMED':mine===undefined?'NO ENTRY':'LEAD RULED OUT'}</div><h1>${right?'Solid lead':mine===undefined?(picks[ST.ri]!==undefined?'Not received in time':'No answer'):'Check the evidence'}</h1><div class="pts">${right?'+'+((ST.pts||{})[me]||0).toLocaleString()+' points':'+0'}</div><p style="color:#3a4a66">Case score ${total.toLocaleString()} · Standing ${rank(sc)}</p></div><div class="notes" style="margin-top:12px"><div class="nh">CASE NOTES · WHY</div><p style="margin:6px 0 0;color:#1b2233">${esc(ST.why||'')}</p></div>`; break; }
     case 'leader': h=`<div class="hero">${icon('chart',60)}</div><h1 class="c">You're #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p><p class="mute c">Top 5 are on the screen.</p>`; break;
-    case 'closure': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1>${RV.safety?`<div class="card"><p style="margin:0"><b>Stay safe:</b> ${esc(RV.safety)}</p></div>`:''}<div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>`; break; }
-    case 'reveal': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1><div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>`; break; }
-    case 'final': h=`<div class="hero">${icon('award',64)}</div><h1 class="c">Final rank: #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p><div class="notes" style="margin-top:14px"><div class="nh">ASK THE DETECTIVE</div><input id="av" class="wv" maxlength="160" placeholder="Your question about police work"><button class="big" id="asend">Send question</button><p class="mute" id="asent" style="color:#5a6478;margin:6px 0 0"></p></div>`; break;
+    case 'closure': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1>${RV.safety?`<div class="card"><p style="margin:0"><b>Stay safe:</b> ${esc(RV.safety)}</p></div>`:''}<div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>${ASKBOX}`; break; }
+    case 'reveal': { const RV=ST.reveal||{}; h=`<div class="hero">${icon('shield',60)}</div><div class="kick" style="justify-content:center">Case closed</div><h1 class="c">${esc(RV.headline)}</h1><div class="card"><p style="margin:0">${esc(RV.lesson)}</p></div>${ASKBOX}`; break; }
+    case 'final': h=`<div class="hero">${icon('award',64)}</div><h1 class="c">Final rank: #${rank(sc)}</h1><p class="c">${total.toLocaleString()} points</p>${ASKBOX}`; break;
   }
   M.innerHTML=h;
   const ws=document.getElementById('wsend'); if(ws) ws.onclick=()=>{ const v=cleanWord(document.getElementById('wv').value); if(v) answer(ST.ri,v); };
