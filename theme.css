@@ -52,3 +52,22 @@ body.board:before{content:'';position:fixed;inset:0;background-image:linear-grad
 .notes .nh{font:700 12px 'Courier New',monospace;letter-spacing:.16em;color:#7a2a2a;margin-bottom:6px}
 .sus{position:relative}.sus.cleared{opacity:.55}.vstamp{position:absolute;right:10px;bottom:10px;border:3px solid #6f8f6a;color:#a7d39f;font:700 11px Poppins,Arial,sans-serif;letter-spacing:.2em;padding:2px 8px;transform:rotate(-6deg);background:rgba(7,11,20,.8)}
 .redact{display:inline-block;height:1.1em;background:#1d1606;border-radius:2px;vertical-align:middle;margin:3px 6px 3px 0}
+/* v2 visuals (10.21.26): portraits, evidence photos, spot-the-clue markers, picture answers, order, blur */
+.pimg{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;display:block;background:var(--navy3)}
+.sus.v2{padding:10px;border-top-width:4px}.sus.v2 .ptop{position:relative}.sus.v2 .ptop .tent{position:absolute;left:8px;bottom:-12px}
+.sus.v2 h3{margin:16px 0 2px}
+.ev{position:relative;display:block;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 14px 34px rgba(0,0,0,.5);border:6px solid #f4efe2}
+.ev img{display:block;width:100%;height:100%;object-fit:cover}
+.ev .mk{position:absolute;transform:translate(-50%,-100%);filter:drop-shadow(0 3px 4px rgba(0,0,0,.7));transition:transform .4s}
+.ev .mk.hit{transform:translate(-50%,-100%) scale(1.35);animation:mkp 1s infinite alternate}
+.ev .mk.miss{opacity:.35}
+@keyframes mkp{to{filter:drop-shadow(0 0 14px #f2b705)}}
+.ev .ring{position:absolute;width:13%;aspect-ratio:1;border:5px solid #f2b705;border-radius:50%;transform:translate(-50%,-30%);box-shadow:0 0 0 4px rgba(0,0,0,.4)}
+.ptile{position:relative;border-radius:12px;overflow:hidden;background:var(--navy2);border:3px solid var(--line);display:flex;flex-direction:column}
+.ptile img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.ptile .pl{display:flex;align-items:center;gap:10px;padding:8px 12px;font-weight:700}
+.ptile .pc{margin-left:auto;color:var(--gold);font-weight:700}
+.ptile.right{border-color:var(--gold);background:#fff;color:var(--navy)}.ptile.dim{opacity:.38}
+.ptile .bar{position:absolute;left:0;bottom:0;height:6px;background:var(--gold);transition:width .9s}
+.ocard{display:flex;align-items:center;gap:14px;background:var(--paper);color:var(--navy);border-radius:10px;padding:12px 16px;font-weight:700;border-left:8px solid var(--gold)}
+.ocard .num{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;flex:none}

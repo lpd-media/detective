@@ -3,20 +3,25 @@ window.CASES=[
 {
 "id": "missing",
 "title": "The Last Ferry from Port Ellis",
-"tagline": "An empty car at the marina. A timed post. A 5:00 PM deadline.",
+"tagline": "An empty car. A ticket with no passenger. A 5:00 PM deadline.",
 "crime": "Missing person",
 "icon": "ship",
-"minutes": 40,
+"minutes": 30,
 "intro": {
-"video": "video/missing_intro.mp4",
 "script": [
-"Port Ellis. Monday morning, 8:30 AM. The bell rings at Harbor High School, and twenty-eight choir students are waiting in Room 104. Their teacher, twenty-four-year-old Jess Moreno, isn't there.",
-"Jess never misses school. And today is the biggest day of her year: at 5:00 PM, she is scheduled to sign a $50,000 songwriting contract with North Coast Records.",
-"Over the weekend, Jess was staying at a lake house on Gull Island with three friends from her old band. They all took the Sunday night ferry back to the mainland—or so everyone thought.",
-"At 9:15 AM, Harbor Patrol finds Jess's blue Honda Civic parked at the Port Ellis Marina. The doors are locked. Her violin case is in the back seat. Her phone goes straight to voicemail.",
-"Her mother is at the front desk of the police station right now, asking for help. Patrol secures the car at the marina, and the call comes up to the detective bureau.",
-"You have four people in her circle: her former bandmate who stands to get the record deal if Jess misses the 5:00 PM signing, the lake-house host who argued with her over money, the marina dockmaster who was the last to see her car, and her ex-boyfriend who showed up uninvited on Sunday.",
-"Every hour counts. Someone doesn't want Jess Moreno found before five o'clock. Detectives, your case starts now."
+"Port Ellis, Monday, 8:30 AM. Twenty-eight choir students wait in Room 104 at Harbor High. Their teacher, Jess Moreno, never shows up.",
+"Jess never misses school. And at 5:00 PM today, she is supposed to sign a $50,000 songwriting deal with North Coast Records.",
+"She spent the weekend at a cabin on Gull Island with old friends. The last ferry of the season left Sunday at 7:00 PM.",
+"This morning her blue car sits locked at the Port Ellis Marina. Her violin is in the back seat. Her phone goes straight to voicemail.",
+"Four people had a reason. Only one fits every clue. The clock is running toward five. Find Jess. Over to you, detectives."
+],
+"video": "video/missing_intro.mp4",
+"shots": [
+"media/img/missing-intro_school.jpg",
+"media/img/missing-intro_deal.jpg",
+"media/img/missing-intro_island.jpg",
+"media/img/missing-intro_car.jpg",
+"media/img/missing-intro_handoff.jpg"
 ]
 },
 "suspects": [
@@ -25,49 +30,59 @@ window.CASES=[
 "letter": "A",
 "name": "Devon Cole",
 "role": "Former bandmate",
-"desc": "Co-wrote songs with Jess before their band split. If Jess fails to sign the North Coast contract by 5:00 PM today, the label's offer automatically goes to Devon."
+"desc": "Jess's old bandmate. He booked everyone's ferry tickets. If Jess misses the 5:00 PM signing, the record deal goes to him.",
+"img": "media/img/missing-p_devon.jpg"
 },
 {
 "id": "tara",
 "letter": "B",
 "name": "Tara Lin",
-"role": "Lake-house host",
-"desc": "Hosted the weekend at her family's Gull Island cabin. Neighbours heard her arguing with Jess on Sunday afternoon about unpaid studio bills."
+"role": "Cabin host",
+"desc": "Hosted the weekend at her family's Gull Island cabin. Argued with Jess on Sunday over $800 in unpaid studio bills.",
+"img": "media/img/missing-p_tara.jpg"
 },
 {
 "id": "keith",
 "letter": "C",
 "name": "Keith Vane",
 "role": "Marina dockmaster",
-"desc": "Works the night booth at Port Ellis Marina and manages the guest cottages on the pier. Says he saw Jess's car pull in Sunday night."
+"desc": "Runs the marina and the island guest cottages. Jess reported him for renting cottages without a license. He was fined $2,000.",
+"img": "media/img/missing-p_keith.jpg"
 },
 {
 "id": "ryan",
 "letter": "D",
 "name": "Ryan Cho",
 "role": "Ex-boyfriend",
-"desc": "Drove up to the marina uninvited on Sunday evening hoping to talk to Jess. Was seen arguing with her near the ferry ramp last week."
+"desc": "Jess's ex. Showed up on the island uninvited Sunday and argued with her. He didn't want her signing a deal and moving away.",
+"img": "media/img/missing-p_ryan.jpg"
 }
 ],
-"rounds": []
+"rounds": [],
+"v": 2
 },
 {
 "id": "heist",
 "title": "The Midnight Sapphire",
-"tagline": "A $2 million necklace. A silent alarm. A six-minute window.",
+"tagline": "A $2 million necklace. A switched-off alarm. Four people with a reason.",
 "crime": "Jewelry heist",
 "icon": "gem",
-"minutes": 40,
+"minutes": 30,
 "intro": {
-"video": "video/heist_intro.mp4",
 "script": [
-"Port Ellis. 6:40 in the morning. The streets along the harbor are still wet from last night's rain.",
-"Victor Vance unlocks the front door of Vance & Sons Jewelers, the store his grandfather opened in 1961. He flips on the lights, walks past the counters, and stops.",
-"The center display case is open. The glass isn't broken. The lock isn't forced. And the Blue Harbor Sapphire, a necklace insured for two million dollars, is gone.",
-"The alarm never went off. The security cameras went dark at 1:10 AM and came back at 1:40. Somebody knew exactly what they were doing.",
-"Victor calls 911. Patrol secures the building. And then the call comes to the detective bureau. To you.",
-"You have four people who could have done it. An owner with money problems. A night guard who was on duty. A former employee who was fired last month. And a window cleaner who was in the store the day before.",
-"Everybody has a story. The evidence will tell you which one is true. Detectives, your case starts now."
+"Port Ellis, 6:40 AM. The harbor streets are still wet from last night's rain. Inside Vance & Sons Jewelers, something is very wrong.",
+"Owner Victor Vance unlocks the door, flips on the lights and freezes. The center display case is open. No broken glass. No forced lock.",
+"The Blue Harbor Sapphire, a necklace insured for two million dollars, is gone. The alarm was switched off. The cameras went dark at 1:10.",
+"An owner drowning in debt. A night guard behind on rent. A fired worker with a grudge. A window cleaner who is owed money.",
+"Four people. Four reasons. Only one fits every clue. The evidence is waiting, and so is Port Ellis. Over to you, detectives."
+],
+"video": "video/heist_intro.mp4",
+"shots": [
+"media/img/heist-intro_harbor.jpg",
+"media/img/heist-intro_unlock.jpg",
+"media/img/heist-intro_case.jpg",
+"media/img/heist-intro_suspects.jpg",
+"media/img/heist-intro_handoff.jpg"
 ]
 },
 "suspects": [
@@ -76,50 +91,59 @@ window.CASES=[
 "letter": "A",
 "name": "Victor Vance",
 "role": "Store owner",
-"desc": "Third-generation owner. The store has lost money two years in a row. The necklace is insured for $2 million."
+"desc": "Third-generation owner. The store is deep in debt, and the stolen necklace is insured for $2 million.",
+"img": "media/img/heist-p_victor.jpg"
 },
 {
 "id": "celia",
 "letter": "B",
 "name": "Celia Ruiz",
 "role": "Night security guard",
-"desc": "Guards the whole Harbor Plaza at night, not just the jewelry store. Was on shift during the theft."
+"desc": "Guards all five Harbor Plaza buildings overnight. Was on shift during the theft. She is two months behind on rent.",
+"img": "media/img/heist-p_celia.jpg"
 },
 {
 "id": "marcus",
 "letter": "C",
 "name": "Marcus Pell",
 "role": "Fired employee",
-"desc": "Worked at the store for three years. Fired last month after an argument with Victor. Says he's moved on."
+"desc": "Worked the store's register for three years. Fired last month after shouting at Victor: \"You'll regret this.\"",
+"img": "media/img/heist-p_marcus.jpg"
 },
 {
 "id": "nina",
 "letter": "D",
 "name": "Nina Hart",
 "role": "Window cleaner",
-"desc": "Cleans the plaza windows every Monday. Was inside the store the afternoon before the theft."
+"desc": "Washes the plaza's store windows every Monday. Her business is behind on its van loan, and Victor owes her three months' pay.",
+"img": "media/img/heist-p_nina.jpg"
 }
 ],
-"rounds": []
+"rounds": [],
+"v": 2
 },
 {
 "id": "yacht",
 "title": "The Pier 4 Yacht Disappearance",
-"tagline": "An empty yacht. A midnight alibi. A photograph someone deleted.",
-"crime": "Suspicious disappearance",
+"tagline": "An empty yacht. A blinding headlamp. Four guests who all say they left.",
+"crime": "Yacht deck attack",
 "icon": "anchor",
-"minutes": 40,
-"status": "DRAFT — pending Claude review. Nothing has been published or scheduled.",
+"minutes": 30,
 "intro": {
-"video": "video/yacht_intro.mp4",
 "script": [
-"Port Ellis. Four in the morning. Five miles out on Lake Erie, a marine patrol crew spots a yacht drifting with its engine idling. Nobody answers the radio.",
-"The boat belongs to Mara Vale, a local video creator who films life on the lake. She left Pier 4 last night at sunset to shoot footage. Now her yacht is out here alone.",
-"Under the patrol boat's floodlights, officers see a camera bag beside a deck chair. Dark red drops trail across the deck toward a smear on the back railing. The yacht's small dinghy is gone.",
-"Four people joined Mara on the boat last night: her business manager, a rival creator, a hired captain, and her camera assistant. All four are back on shore. Each claims Mara was fine when they left.",
-"Her manager says he took a water taxi home at midnight. The captain remembers seeing him on board past 1:00 AM. Somebody has the timeline wrong, or somebody is lying.",
-"Rescue boats are searching the water right now. Your job starts with life safety, then the deck, then the alibis. A missing person is not automatically a murder.",
-"Nobody is confessing on the dock. You have to build a timeline from records that don't lie. The marine unit is waiting, detectives. Your case starts now."
+"Port Ellis. Four in the morning. Out on Lake Erie, a marine patrol finds a yacht drifting, engine idling. Nobody answers the radio.",
+"The yacht belongs to Mara Vale, a local video creator who films life on the lake. She left Pier 4 at sunset with four guests.",
+"Under the floodlights: a camera bag, red drops trailing to the back of the boat, a smear on the swim ladder. The dinghy is gone.",
+"Her manager. Her rival. Her captain. Her camera assistant. All four are back on shore, and all four say Mara was fine when they left.",
+"Rescue boats are searching the dark water. Someone on that list knows what happened out here. The case belongs to you, detectives."
+],
+"video": "video/yacht_intro.mp4",
+"shots": [
+"media/img/yacht-intro_patrol.jpg",
+"media/img/yacht-intro_owner.jpg",
+"media/img/yacht-intro_deck.jpg",
+"media/img/yacht-intro_four.jpg",
+"media/img/yacht-intro_search.jpg"
 ]
 },
 "suspects": [
@@ -128,151 +152,59 @@ window.CASES=[
 "letter": "A",
 "name": "Evan Rusk",
 "role": "Business manager",
-"desc": "Handles Mara's business accounts. She recently hired an accountant to check his records. Says he left by water taxi at midnight."
+"desc": "Runs Mara's business money. Her accountant is checking his books this week. He says he took a water taxi home at midnight.",
+"img": "media/img/yacht-p_evan.jpg"
 },
 {
 "id": "lila",
 "letter": "B",
 "name": "Lila Arden",
 "role": "Rival creator",
-"desc": "Used to film with Mara, but now they compete for local sponsors. They had a loud argument on the dock before launch."
+"desc": "Used to film with Mara; now they fight over the same sponsors. Lives above the marina. Had a shouting match with Mara on the dock.",
+"img": "media/img/yacht-p_lila.jpg"
 },
 {
 "id": "theo",
 "letter": "C",
 "name": "Theo Mercer",
 "role": "Hired captain",
-"desc": "Hired to pilot the yacht out before handing the wheel to Mara, an experienced boater. They argued over his pay."
+"desc": "Lives on his own boat at the marina. Mara threatened to report his careless docking, which could cost him his captain's license.",
+"img": "media/img/yacht-p_theo.jpg"
 },
 {
 "id": "june",
 "letter": "D",
 "name": "June Bell",
 "role": "Camera assistant",
-"desc": "Set up the cameras on board. Mara owes her money for past shoots, and June told friends she was done working for her."
+"desc": "Sets up all of Mara's cameras. Mara owes her months of pay, and June told friends she was done working for her.",
+"img": "media/img/yacht-p_june.jpg"
 }
 ],
-"rounds": []
-},
-{
-"id": "arson",
-"title": "The Lights on Breakwater Lane",
-"tagline": "An empty rental. A midnight departure. Lights that went out too late.",
-"crime": "Arson",
-"icon": "flame",
-"minutes": 40,
-"intro": {
-"video": "video/arson_intro.mp4",
-"script": [
-"Port Ellis. Breakwater Lane. At 2:12 in the morning, a neighbor calls 911 about an orange glow behind the curtains of a short-term rental.",
-"Firefighters pull up to smoke rolling over the harbor road. They knock down the flames and check every room. The house was empty, and nobody is hurt.",
-"The owner stands behind the tape in yesterday's clothes. He blames old wiring. The house is insured, and he is behind on his loan payments.",
-"But the fire marshal isn't looking at the breaker box. She's looking at the hallway floor, where the burn damage tells a different story.",
-"Four people had a reason to be angry about this house: a broke owner, a guest kicked out over damage fees, a neighbor fighting over the property line, and a caretaker owed a month of pay.",
-"One says he was two hours away. One says she was at work. One says she was out on the bay. And the guest says he drove off at midnight, down a street where all the lamps were already dark.",
-"It sounds like a throwaway detail. By the end of this case, those street lights will break the whole story open. Detectives, find where the fire started, then find the lie."
-]
-},
-"suspects": [
-{
-"id": "grant",
-"letter": "A",
-"name": "Grant Mercer",
-"role": "Property owner",
-"desc": "Behind on the rental's loan payments. Says he spent the night at a casino two hours from Port Ellis."
-},
-{
-"id": "owen",
-"letter": "B",
-"name": "Owen Vale",
-"role": "Departing guest",
-"desc": "His booking ended after an argument over damage charges. Says he left his key inside and drove away at midnight."
-},
-{
-"id": "mara",
-"letter": "C",
-"name": "Mara Quinn",
-"role": "Next-door neighbor",
-"desc": "Fighting Grant over the property line and loud guests. Says she was working an overnight bridge shift."
-},
-{
-"id": "lena",
-"letter": "D",
-"name": "Lena Pike",
-"role": "Rental caretaker",
-"desc": "Has a spare key and is owed a month of pay. Says she was working a night shift on a harbor ferry."
-}
-],
-"rounds": []
-},
-{
-"id": "sneaker",
-"title": "The Drop That Went Dark",
-"tagline": "A midnight launch. A locked stockroom. Five minutes missing from the screen.",
-"crime": "Cyber theft",
-"icon": "chip",
-"minutes": 40,
-"intro": {
-"video": "video/sneaker_intro.mp4",
-"script": [
-"Port Ellis. Harbor Row. A weekend sneaker pop-up has taken over an old ticket office, and the line outside stretches past the ferry clock.",
-"Inside sit eighty thousand dollars in numbered, limited-edition shoes. At midnight, invited buyers finally get their shot. The checkout tablets and the stockroom door lock run on the same staff network.",
-"At 12:00 sharp, the checkout screens freeze. The stock page goes blank. Behind the counter, the electric lock on the stockroom clicks open by itself.",
-"Five minutes later, the screens blink back on. Six boxes of shoes are gone. They've been wiped from the computer too, except yesterday's paper checklist still has every box number.",
-"The shop owner calls 911. A cyber detective walks in while the store server is still humming. Whatever happened is sitting in live memory, and pulling the plug will wipe it out.",
-"Four people had an angle: a developer fighting over her cut, a reseller carrying a laptop bag, a manager drowning in bills, and a driver who just lost the delivery contract.",
-"One swears his laptop stayed off the whole night. Inside the network logs is a connection that shouldn't be there, and online, money is already moving. Detectives, the case is yours."
-]
-},
-"suspects": [
-{
-"id": "sana",
-"letter": "A",
-"name": "Sana Voss",
-"role": "Payment-app developer",
-"desc": "Built the shop's checkout app and is fighting over her cut of the business. Knows how the network is wired."
-},
-{
-"id": "milo",
-"letter": "B",
-"name": "Milo Crane",
-"role": "Sneaker reseller",
-"desc": "Had a VIP pass and carried a laptop bag. Uses buying bots and was angry about the two-pair limit."
-},
-{
-"id": "dario",
-"letter": "C",
-"name": "Dario Wynn",
-"role": "Pop-up manager",
-"desc": "Has the staff password and a stockroom key. Admits he is behind on bills and taking every shift he can."
-},
-{
-"id": "june",
-"letter": "D",
-"name": "June Hale",
-"role": "Former delivery courier",
-"desc": "Knows the back loading door from past drops. Lost the shop's delivery contract last week over fees."
-}
-],
-"rounds": []
+"rounds": [],
+"v": 2
 },
 {
 "id": "carshow",
 "title": "Gone Before the Gates Open",
-"tagline": "One irreplaceable muscle car. One routine pickup. One very false delivery.",
-"crime": "Stolen property",
+"tagline": "One locked fairground. One one-of-a-kind car. Four people with a reason.",
+"crime": "Vehicle theft",
 "icon": "car",
-"minutes": 40,
+"minutes": 30,
 "intro": {
 "video": "video/carshow_intro.mp4",
 "script": [
-"Port Ellis. Saturday morning, 6:15. The fairground gates are still locked to the public. Beyond them, rows of classic cars sit under canvas covers, waiting for the second day of the show.",
-"At the center pavilion, one space is empty. Last night, it held a copper-colored 1969 Harbor Comet with a hand-painted heron on its dashboard. There is no other car built quite like it.",
-"Owner Selena Cross spent twelve years restoring it. She expected to drive it home on Sunday. She did not authorize anyone to move it overnight.",
-"The security guard remembers a transport truck. There was a clipboard, a show pickup pass and a driver who said everything had been arranged. It looked like another ordinary delivery.",
-"Now the car is gone. Its show sign is still standing. And before sunrise, an online account has advertised a copper muscle car for a price that makes no sense.",
-"You have four people to investigate: the owner with an insured car, a restorer she fired, a transport dispatcher who could arrange a pickup, and a photographer whose pictures appear in the listing.",
-"A plate can lead you to a truck. A photograph can lead you to a place. Neither automatically tells you who stole the car. Follow the records, check the numbers, and take the case, detectives."
+"Port Ellis. Saturday, 6:15 AM. The fairground gates are still locked. Rows of classic cars wait under canvas covers for day two of the show.",
+"At the center pavilion, one space is empty. Last night it held a copper 1969 Harbor Comet. Twelve years of work. One of a kind.",
+"At 2:14 AM, a transport truck rolled out with a covered car on its bed. The guard waved it through. The paperwork looked routine.",
+"By sunrise, an online ad offered a copper classic for almost nothing. And the one camera watching the Comet had gone dark.",
+"Four people had a reason. Only one was standing by that truck. Track every clue, test every story. Over to you, detectives."
+],
+"shots": [
+"media/img/carshow-intro_gates.jpg",
+"media/img/carshow-intro_empty.jpg",
+"media/img/carshow-intro_truck.jpg",
+"media/img/carshow-intro_listing.jpg",
+"media/img/carshow-intro_four.jpg"
 ]
 },
 "suspects": [
@@ -281,49 +213,181 @@ window.CASES=[
 "letter": "A",
 "name": "Selena Cross",
 "role": "Car owner",
-"desc": "Restored the Comet over twelve years. Recently insured it for an agreed value higher than she could easily sell it for."
+"desc": "Spent twelve years restoring the Comet. Two weeks ago she raised its insurance to $90,000, far more than a buyer would pay.",
+"img": "media/img/carshow-p_selena.jpg"
 },
 {
 "id": "jules",
 "letter": "B",
 "name": "Jules Mercer",
 "role": "Former restorer",
-"desc": "Worked on the car and knows its identifying details. Selena ended their contract after a payment dispute."
+"desc": "Rebuilt the Comet's engine and wiring. Selena fired him and still owes him $8,000. He sent her an angry text Monday.",
+"img": "media/img/carshow-p_jules.jpg"
 },
 {
 "id": "owen",
 "letter": "C",
 "name": "Owen Rusk",
 "role": "Transport dispatcher",
-"desc": "Dispatches trucks for the show’s transport cooperative and can issue pickup jobs. Says he arranged no overnight collection of Selena’s car."
+"desc": "Books trucks for the show and can create pickup jobs. He was written up last month after Selena complained about him.",
+"img": "media/img/carshow-p_owen.jpg"
 },
 {
 "id": "priya",
 "letter": "D",
 "name": "Priya Lane",
 "role": "Show photographer",
-"desc": "Photographed the Comet inside and out. Her watermarked image appears in an online sale listing posted before dawn."
+"desc": "Official show photographer who shot the Comet inside and out. She is three months behind on her studio rent.",
+"img": "media/img/carshow-p_priya.jpg"
 }
 ],
-"rounds": []
+"rounds": [],
+"v": 2
+},
+{
+"id": "arson",
+"title": "The Lights on Breakwater Lane",
+"tagline": "An empty rental. A 2 AM fire. Four alibis that might not matter.",
+"crime": "Rental house fire",
+"icon": "flame",
+"minutes": 30,
+"intro": {
+"script": [
+"Port Ellis, 2:12 AM. On Breakwater Lane, a neighbor calls 911. Orange light is flickering behind the curtains of a short-term rental.",
+"Firefighters knock down the flames and search every room. The house is empty. Nobody is hurt. But the upstairs hallway is burned black.",
+"The owner arrives in yesterday's clothes and blames old wiring. The fire marshal isn't so sure. The burns in that hallway tell another story.",
+"An owner behind on his loan. A guest who fought over fees. A neighbor at war over a fence line. A caretaker owed a month's pay.",
+"Everyone has an alibi for 2 AM. But on Breakwater Lane, the lights remember more than people do. Over to you, detectives."
+],
+"video": "video/arson_intro.mp4",
+"shots": [
+"media/img/arson-intro_glow.jpg",
+"media/img/arson-intro_trucks.jpg",
+"media/img/arson-intro_owner.jpg",
+"media/img/arson-intro_suspects.jpg",
+"media/img/arson-intro_lights.jpg"
+]
+},
+"suspects": [
+{
+"id": "grant",
+"letter": "A",
+"name": "Grant Mercer",
+"role": "Property owner",
+"desc": "Owns the rental and is behind on its loan payments. Says he spent the night at a casino two hours away.",
+"img": "media/img/arson-p_grant.jpg"
+},
+{
+"id": "owen",
+"letter": "B",
+"name": "Owen Vale",
+"role": "Last guest",
+"desc": "The rental's last guest. Fought with Grant over a $600 damage fee and texted him, \"You'll regret this.\"",
+"img": "media/img/arson-p_owen.jpg"
+},
+{
+"id": "mara",
+"letter": "C",
+"name": "Mara Quinn",
+"role": "Next-door neighbor",
+"desc": "Lives next door. Fighting Grant over the fence line and loud guests. Grant gave her the door code for packages.",
+"img": "media/img/arson-p_mara.jpg"
+},
+{
+"id": "lena",
+"letter": "D",
+"name": "Lena Pike",
+"role": "Rental caretaker",
+"desc": "Cleans and looks after the rental. Grant owes her a month's pay and just told her she's being replaced.",
+"img": "media/img/arson-p_lena.jpg"
+}
+],
+"rounds": [],
+"v": 2
+},
+{
+"id": "sneaker",
+"title": "The Drop That Went Dark",
+"tagline": "Forty rare pairs. One door code. Four people with a reason.",
+"crime": "Stockroom theft",
+"icon": "chip",
+"minutes": 30,
+"intro": {
+"script": [
+"Port Ellis. Harbor Row. All weekend, a sneaker pop-up in the old ticket office drew a line past the ferry clock.",
+"In the stockroom sat forty pairs of Kova Drift Ones, a limited release. Collectors pay two thousand dollars a pair. Eighty thousand dollars, on shelves.",
+"Sunday, 7:50 AM. Manager Dario Wynn opens the stockroom and stops. Every shelf is empty. The back door is shut. Nothing is broken.",
+"A broke manager. An angry reseller. A tech helper who is owed money. A courier who just lost her contract. All four had a reason.",
+"The truth is hiding in a door code, a group chat and a camera that went dark. The case is yours, detectives."
+],
+"video": "video/sneaker_intro.mp4",
+"shots": [
+"media/img/sneaker-intro_row.jpg",
+"media/img/sneaker-intro_shelves.jpg",
+"media/img/sneaker-intro_empty.jpg",
+"media/img/sneaker-intro_four.jpg",
+"media/img/sneaker-intro_dark.jpg"
+]
+},
+"suspects": [
+{
+"id": "dario",
+"letter": "A",
+"name": "Dario Wynn",
+"role": "Pop-up manager",
+"desc": "Runs the pop-up and has every key and code. Behind on rent, and moving apartments this weekend.",
+"img": "media/img/sneaker-p_dario.jpg"
+},
+{
+"id": "milo",
+"letter": "B",
+"name": "Milo Crane",
+"role": "Sneaker reseller",
+"desc": "Buys rare sneakers and resells them for more. Furious about the two-pairs-per-person limit. Called the shop \"a scam\" Saturday.",
+"img": "media/img/sneaker-p_milo.jpg"
+},
+{
+"id": "sana",
+"letter": "C",
+"name": "Sana Voss",
+"role": "Tech helper",
+"desc": "Set up the shop's camera, tablets and door keypad. Says the owner still owes her $3,000 for the work.",
+"img": "media/img/sneaker-p_sana.jpg"
+},
+{
+"id": "june",
+"letter": "D",
+"name": "June Hale",
+"role": "Former delivery courier",
+"desc": "Delivered the shop's stock for a year and knows the back loading door. Lost the delivery contract last week over fees.",
+"img": "media/img/sneaker-p_june.jpg"
+}
+],
+"rounds": [],
+"v": 2
 },
 {
 "id": "lighthouse",
 "title": "The Last Light at Gull Point",
-"tagline": "A fogbound lighthouse. A secret return. An accident nobody should assume.",
+"tagline": "A foggy lighthouse. A fall on the stairs. Four people with a reason to climb them.",
 "crime": "Suspicious death",
 "icon": "lighthouse",
-"minutes": 40,
+"minutes": 30,
 "intro": {
-"video": "video/lighthouse_intro.mp4",
 "script": [
-"Port Ellis. 7:10 in the morning. Fog wraps around Gull Point so tightly that the lighthouse disappears above its first window. Out on the water, a ferry sounds its horn.",
-"For forty years, the Gull Point Lighthouse has been a museum. Last night, its windows glowed for the annual fundraiser. There were speeches, photographs and promises that this piece of the harbor would stay open.",
-"This morning, the first employee unlocks the museum. The folding tables are still stacked by the entrance. A paper sign says THANK YOU FOR SAVING OUR LIGHT.",
-"The caretaker, Daniel Vale, is found at the bottom of the stairs; he did not survive. The employee calls 911, and patrol secures the museum.",
-"An accident, someone says. Those stairs are old. But nobody saw what happened, nobody has established when it happened, and the medical examiner has not completed an examination.",
-"Four people have questions to answer: a business partner who wants to sell, a volunteer who handles fundraiser money, a relative named in a will, and a developer who wants the waterfront land.",
-"A door recorded a card. A phone recorded a call. Across the fog, somebody thinks they saw a familiar coat. You will have to decide what each clue actually tells you. The case belongs to you, detectives."
+"Port Ellis, 7:10 AM. Fog swallows Gull Point so thick the lighthouse vanishes above its first window. Out on the lake, a ferry horn sounds.",
+"Last night the lighthouse museum glowed for its yearly fundraiser. Speeches, music, and a promise: this old light would never go dark.",
+"This morning, a museum worker unlocks the door. Caretaker Daniel Vale is at the bottom of the spiral stairs. He did not survive.",
+"A partner who wants to sell. A volunteer who guards the money. A nephew in the will. A developer who wants the land.",
+"Was it an accident? Or did someone climb those stairs with him? The fog is lifting, and the clues are waiting. Over to you, detectives."
+],
+"video": "video/lighthouse_intro.mp4",
+"shots": [
+"media/img/lighthouse-intro_fog.jpg",
+"media/img/lighthouse-intro_fundraiser.jpg",
+"media/img/lighthouse-intro_unlock.jpg",
+"media/img/lighthouse-intro_suspects.jpg",
+"media/img/lighthouse-intro_handoff.jpg"
 ]
 },
 "suspects": [
@@ -331,31 +395,36 @@ window.CASES=[
 "id": "rowan",
 "letter": "A",
 "name": "Rowan Pike",
-"role": "Business partner",
-"desc": "Co-owns the museum land with Daniel. Wants to sell their property and retire; Daniel refused."
+"role": "Co-owner of the land",
+"desc": "Owns the lighthouse land with Daniel. A developer offered millions, and Rowan wants to sell and retire. Daniel always says no.",
+"img": "media/img/lighthouse-p_rowan.jpg"
 },
 {
 "id": "mara",
 "letter": "B",
 "name": "Mara Bell",
-"role": "Museum volunteer",
-"desc": "Runs the fundraiser accounts and has a museum access card. Daniel recently demanded the original receipts for several reimbursements."
+"role": "Fundraiser volunteer",
+"desc": "Runs the museum's fundraiser money. Daniel found receipts that didn't add up and planned to show the board on Monday.",
+"img": "media/img/lighthouse-p_mara.jpg"
 },
 {
 "id": "eli",
 "letter": "C",
 "name": "Eli Vale",
-"role": "Caretaker’s nephew",
-"desc": "Named in Daniel’s will. Asked Daniel for money last week and was turned down."
+"role": "Caretaker's nephew",
+"desc": "Daniel's nephew, named in his will. Asked Daniel for money last week to pay off debts, and Daniel said no.",
+"img": "media/img/lighthouse-p_eli.jpg"
 },
 {
 "id": "tessa",
 "letter": "D",
 "name": "Tessa Ward",
 "role": "Waterfront developer",
-"desc": "Offered to buy the lighthouse property for a resort. Argued with Daniel at the fundraiser and wore a bright red coat."
+"desc": "Wants to build a resort at Gull Point. Daniel turned down her offer, and they argued loudly at the fundraiser.",
+"img": "media/img/lighthouse-p_tessa.jpg"
 }
 ],
-"rounds": []
+"rounds": [],
+"v": 2
 }
 ];

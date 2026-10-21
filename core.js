@@ -93,8 +93,10 @@ function tent(label, size) {
 }
 /* The options a question offers, as [{label, sub, value, tag}] */
 function optionsOf(c, r) {
-  if (r.kind === 'word') return [];
-  if (r.kind === 'suspect') return c.suspects.map(s => ({ label: s.name, sub: s.role, value: s.id, tag: s.letter }));
+  if (r.kind === 'word' || r.kind === 'order') return [];
+  if (r.kind === 'suspect') return c.suspects.map(s => ({ label: s.name, sub: s.role, value: s.id, tag: s.letter, img: s.img }));
+  if (r.kind === 'spot') return [0, 1, 2, 3].map(i => ({ label: r.options ? r.options[i] : 'Marker ' + 'ABCD'[i], value: i, tag: 'ABCD'[i] }));
+  if (r.kind === 'pics') return r.options.map((o, i) => ({ label: o.label, img: o.img, value: i, tag: 'ABCD'[i] }));
   if (r.kind === 'yn') return r.options.map((o, i) => ({ label: o, value: i, tag: i === 0 ? 'yes' : 'no' }));
   return r.options.map((o, i) => ({ label: o, value: i, tag: 'ABCD'[i] }));
 }
@@ -111,7 +113,14 @@ function isRight(r, v) {
 }
 function caseById(id) { return CASES.find(c => c.id === id) || CASES[0]; }
 function clearedBy(c, pos) { const out = {}; c.rounds.forEach((r, i) => { if (i <= pos && r.clears) r.clears.forEach(id => out[id] = r.title); }); return out; }
+/* An evidence photo; spot questions get lettered markers, `hit` = index of the right marker once revealed */
+function evHTML(r, opt) {
+  opt = opt || {};
+  const mk = r.kind === 'spot' && r.marks ? r.marks.map((m, i) => `<span class="mk${opt.hit == null ? '' : i === opt.hit ? ' hit' : ' miss'}" style="left:${m[0]}%;top:${m[1]}%">${tent('ABCD'[i], opt.small ? 30 : 46)}</span>`).join('') : '';
+  return `<div class="ev"${opt.style ? ' style="' + opt.style + '"' : ''}><img src="${esc(r.img)}" alt=""${opt.blur ? ' id="blurimg" style="filter:blur(' + opt.blur + 'px)"' : ''}>${mk}</div>`;
+}
 function suspectsHTML(c, pos, given) {
+  if (c.v === 2) return c.suspects.map(x => `<div class="sus v2"><div class="ptop"><img class="pimg" src="${esc(x.img)}" alt="">${tent(x.letter, 40)}</div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p>${esc(x.desc)}</p></div>`).join('');
   const cl = given || (pos == null ? {} : clearedBy(c, pos));
   return c.suspects.map(x => `<div class="sus${cl[x.id] ? ' cleared' : ''}">${cl[x.id] ? '<span class="vstamp">ALIBI VERIFIED</span>' : ''}<div class="sus-top"><div class="av">${icon('user', 40)}</div>${tent(x.letter, 38)}</div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p>${esc(x.desc)}</p></div>`).join('');
 }
