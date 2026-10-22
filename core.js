@@ -93,7 +93,7 @@ function tent(label, size) {
 }
 /* The options a question offers, as [{label, sub, value, tag}] */
 function optionsOf(c, r) {
-  if (r.kind === 'word' || r.kind === 'order') return [];
+  if (r.kind === 'word' || r.kind === 'order' || r.kind === 'draw') return [];
   if (r.kind === 'suspect') return c.suspects.map(s => ({ label: s.name, sub: s.role, value: s.id, tag: s.letter, img: s.img }));
   if (r.kind === 'spot') return [0, 1, 2, 3].map(i => ({ label: r.options ? r.options[i] : 'Marker ' + 'ABCD'[i], value: i, tag: 'ABCD'[i] }));
   if (r.kind === 'pics') return r.options.map((o, i) => ({ label: o.label, img: o.img, value: i, tag: 'ABCD'[i] }));
@@ -116,12 +116,12 @@ function clearedBy(c, pos) { const out = {}; c.rounds.forEach((r, i) => { if (i 
 /* An evidence photo; spot questions get lettered markers, `hit` = index of the right marker once revealed */
 function evHTML(r, opt) {
   opt = opt || {};
-  const mk = r.kind === 'spot' && r.marks ? r.marks.map((m, i) => `<span class="mk${opt.hit == null ? '' : i === opt.hit ? ' hit' : ' miss'}" style="left:${m[0]}%;top:${m[1]}%">${tent('ABCD'[i], opt.small ? 30 : 46)}</span>`).join('') : '';
+  const mk = r.kind === 'spot' && r.marks ? r.marks.map((m, i) => `<span class="mk${opt.hit == null ? '' : i === opt.hit ? ' hit' : ' miss'}" style="left:${m[0]}%;top:${m[1]}%">${tent('ABCD'[i], opt.small ? 34 : 60)}</span>`).join('') : '';
   const kb = opt.still ? '' : ' kb' + (String(r.img || '').length % 3);  /* slow zoom/pan; markers move with the photo */
   return `<div class="ev"${opt.style ? ' style="' + opt.style + '"' : ''}><div class="kbw${kb}"><img src="${esc(r.img)}" alt=""${opt.blur ? ' id="blurimg" style="filter:blur(' + opt.blur + 'px)"' : ''}>${mk}</div></div>`;
 }
 function suspectsHTML(c, pos, given) {
-  if (c.v === 2) return c.suspects.map(x => `<div class="sus v2"><div class="ptop"><img class="pimg" src="${esc(x.img)}" alt="">${tent(x.letter, 40)}</div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p>${esc(x.desc)}</p></div>`).join('');
+  if (c.v >= 2) return c.suspects.map(x => `<div class="sus v2"${x.color ? ' style="border-top-color:' + ({ red: '#e5484d', blue: '#3b82f6', yellow: '#f2b705', green: '#22a06b' }[x.color]) + '"' : ''}><div class="ptop"><img class="pimg" src="${esc(x.img)}" alt="">${tent(x.letter, 40)}</div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p>${esc(x.motive ? 'Motive: ' + x.motive : x.desc)}</p></div>`).join('');
   const cl = given || (pos == null ? {} : clearedBy(c, pos));
   return c.suspects.map(x => `<div class="sus${cl[x.id] ? ' cleared' : ''}">${cl[x.id] ? '<span class="vstamp">ALIBI VERIFIED</span>' : ''}<div class="sus-top"><div class="av">${icon('user', 40)}</div>${tent(x.letter, 38)}</div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p>${esc(x.desc)}</p></div>`).join('');
 }

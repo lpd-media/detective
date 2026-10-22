@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LPD Case Room · START</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+html,body{height:100%;overflow:hidden}
+#main{position:fixed;top:62px;bottom:64px;left:0;right:0;padding:40px 3vw 2.5vh;overflow-y:auto}
+h1{font-size:clamp(28px,3.2vw,50px);margin:8px 0 14px;line-height:1.18}
+.lob{display:grid;grid-template-columns:1.3fr 1fr;gap:3vw;height:100%;align-items:start}
+.lob h1{margin-bottom:6px}
+.joincard{background:#fff;color:var(--navy);border-radius:18px;padding:22px;text-align:center}
+.joincard #qr img{width:min(30vh,320px);height:auto;image-rendering:pixelated}
+.joincode{font-size:clamp(40px,5vw,76px);font-weight:700;letter-spacing:.25em;line-height:1;margin-top:6px}
+.joinurl{font-size:16px;color:#3a4a66;word-break:break-all;margin-top:6px}
+.steps{list-style:none;padding:0;margin:6px 0 0;font-size:clamp(17px,1.5vw,24px)}.steps li{display:flex;gap:14px;align-items:center;margin:6px 0}
+.steps .n{width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.who span,.who button{background:var(--navy3);color:#fff;border:0;border-radius:8px;padding:6px 12px;font-size:16px;display:inline-flex;gap:6px;align-items:center}
+.pick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 8px;margin-top:14px}.pick .file{cursor:pointer;padding:8px 10px}.pick .file h3{font-size:13px;margin:4px 0 0}.pick .file p,.pick .file .crime{display:none}
+.pick .file .thumb{display:block;width:100%;height:clamp(34px,6vh,64px);object-fit:cover;border-radius:6px}
+.mrow{display:flex;gap:10px;margin-top:12px}.mode{flex:1;background:var(--navy2);color:#fff;border:2px solid var(--line);border-radius:10px;padding:10px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}.mode.on{border-color:var(--gold);background:var(--navy3)}
+video{aspect-ratio:16/9;height:clamp(240px,calc(100vh - 300px),calc((100vw - 120px)*.5625));width:auto;max-width:100%;margin:0 auto;background:#000;border-radius:14px;display:block}
+.intro{max-width:1400px;margin:0 auto;text-align:center}.intro .kick{justify-content:center}
+.slide{position:relative;margin:0 auto;aspect-ratio:16/9;height:clamp(240px,calc(100vh - 300px),calc((100vw - 120px)*.5625));border-radius:14px;overflow:hidden}.slide img{width:100%;height:100%;object-fit:cover;animation:kb0 12s ease-out both}
+.slide .cap{position:absolute;left:4%;right:4%;bottom:5%;background:rgba(7,11,20,.82);border-radius:10px;padding:12px 18px;font-size:clamp(18px,1.9vw,30px);line-height:1.35;text-align:left}
+.susg{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw}
+.sus3{background:var(--navy2);border-radius:16px;overflow:hidden;border-top:8px solid var(--sc);position:relative}
+.sus3 img{display:block;width:100%;height:clamp(170px,calc(100vh - 470px),30vw);object-fit:cover;object-position:50% 12%}
+.sus3 .tx{padding:12px 16px 16px}.sus3 h3{margin:0;font-size:clamp(18px,1.6vw,26px)}.sus3 .role{color:var(--gold);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.sus3 p{font-size:clamp(14px,1.1vw,18px);line-height:1.4;color:#dbe3f0;margin:6px 0 0}.sus3 .mot{color:#fff}.sus3 .tent{position:absolute;top:10px;left:10px}
+.story2{display:grid;grid-template-columns:1.35fr 1fr;gap:2.6vw;align-items:center;max-width:1700px;margin:1vh auto 0}.story2 .ev{aspect-ratio:16/9;width:100%}.story2 p{font-size:clamp(20px,2vw,32px);line-height:1.45;margin:12px 0}
+.when{display:inline-block;background:var(--red);color:#fff;font-weight:700;letter-spacing:.12em;font-size:clamp(14px,1.2vw,19px);padding:4px 12px;border-radius:6px;margin-bottom:4px}
+.qwrap{display:flex;gap:2vw;align-items:flex-start}.qwrap .folder{flex:1}
+.clock{width:clamp(90px,8vw,130px);height:clamp(90px,8vw,130px);border-radius:50%;border:6px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.clock b{font-size:clamp(34px,3.4vw,54px);line-height:1}.clock span{font-size:12px;color:var(--mute);letter-spacing:.14em}
+.clock.low{border-color:var(--red);animation:pulse .6s infinite alternate}@keyframes pulse{to{transform:scale(1.06)}}
+.clock.paused{border-color:#6b7a99;opacity:.7}
+.ans{font-size:clamp(15px,1.2vw,19px);color:var(--mute);text-align:center;margin-top:6px}
+.optg{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;margin-top:1vh}
+.optg .opt{font-size:clamp(18px,1.8vw,28px);font-weight:500;min-height:11vh}.optg .opt .pc{font-size:clamp(20px,2vw,32px)}
+.optg.one{grid-template-columns:1fr;margin-top:0}.optg.one .opt{min-height:0;font-size:clamp(16px,1.45vw,24px);padding:12px 16px}
+.panelw{margin-top:2vh;background:var(--paper);color:var(--navy);border-radius:14px;padding:16px 22px;display:flex;gap:18px;align-items:flex-start;font-size:clamp(17px,1.45vw,24px);line-height:1.45}
+.panelw .tag{background:var(--red);color:#fff;font-weight:700;font-size:13px;letter-spacing:.16em;padding:6px 12px;border-radius:4px;white-space:nowrap;display:flex;gap:6px;align-items:center}
+.panelw.gold{background:var(--gold)}
+.qb{display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;margin-top:1.4vh}
+.qb .ev{aspect-ratio:16/9;height:clamp(240px,calc(100vh - 380px),calc(56vw * .5625));width:auto}.qb.sm .ev{height:clamp(190px,calc(100vh - 520px),calc(46vw * .5625))}
+.qb.spot .ev{height:clamp(300px,calc(100vh - 330px),calc(64vw * .5625))}
+.ev .mk .tent{width:66px;height:59px;filter:drop-shadow(0 0 0 #fff) drop-shadow(0 3px 6px rgba(0,0,0,.6))}.ev .mk:after{content:'';position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;border:4px solid #fff;border-radius:50%;box-shadow:0 0 0 3px rgba(0,0,0,.35);animation:ring 1.6s infinite}
+@keyframes ring{0%{transform:scale(.7);opacity:1}100%{transform:scale(1.25);opacity:0}}
+#blurimg{transition:filter 1s linear}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3vw;margin-top:1.4vh}.tiles .ptile .pl{font-size:clamp(14px,1.3vw,21px)}
+.tiles.sq .ptile img{aspect-ratio:1/1;object-position:50% 14%;max-height:max(170px,calc(100vh - 470px))}.ptile .confirmed{bottom:auto;top:10px}
+.ordg{display:grid;gap:10px;margin-top:1.4vh;max-width:1100px}.ocard{font-size:clamp(16px,1.6vw,26px)}.ocard .pc{margin-left:auto;color:var(--red);font-size:.75em}
+.bigstat{margin-top:2vh;font-size:clamp(18px,1.8vw,28px)}.bigstat b{color:var(--gold);font-size:1.8em;margin-right:10px}
+.cloud{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;align-items:center;padding:3vh 2vw;min-height:26vh;font-weight:700;color:#fff}.cloud span:nth-child(3n){color:var(--gold)}.cloud span{cursor:pointer}
+.lb{max-width:1000px;margin:0 auto}.row{display:flex;align-items:center;gap:18px;background:var(--navy2);border-left:6px solid var(--line);border-radius:10px;padding:14px 22px;margin-bottom:10px;font-size:clamp(20px,2vw,32px);font-weight:700}
+.row .n{width:46px;color:var(--gold)}.row .nm{flex:1}.row.p1{border-left-color:var(--gold);background:var(--navy3)}
+.avi{border-radius:50%;display:inline-block;vertical-align:middle;object-fit:cover}
+.lesson{background:var(--navy2);border-left:6px solid var(--gold);border-radius:10px;padding:14px 22px;font-size:clamp(17px,1.5vw,24px);text-align:left;margin-top:12px;display:flex;gap:12px;align-items:flex-start}
+.qa{margin-top:16px;background:var(--paper);color:var(--navy);border-radius:12px;padding:16px 22px;font-size:clamp(20px,1.9vw,30px);display:flex;gap:14px;align-items:flex-start}
+.asks{margin-top:12px}
+/* interview */
+.ivw{display:grid;grid-template-columns:minmax(200px,22vw) 1fr;gap:2.4vw;align-items:start;margin-top:1.4vh}
+.ivw .pt{border-radius:16px;overflow:hidden;border-top:8px solid var(--sc);background:var(--navy2)}.ivw .pt img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 12%}.ivw .pt h3{margin:8px 14px 12px;font-size:22px}
+.qcard{background:var(--navy2);border:2px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:center;font-size:clamp(17px,1.6vw,26px);position:relative;overflow:hidden}.qcard .pc{margin-left:auto;color:var(--gold);font-weight:700}
+.qcard.dim{opacity:.35}.qcard .bar{position:absolute;left:0;bottom:0;height:5px;background:var(--gold)}
+.reply{background:#fff;color:var(--navy);border-radius:18px 18px 18px 4px;padding:14px 20px;margin:-4px 0 14px 54px;font-size:clamp(17px,1.6vw,26px);line-height:1.4;animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
+.reply b{color:var(--red)}
+/* decision */
+.outc{background:#fff;color:var(--navy);border-radius:14px;padding:16px 22px;margin-top:1.4vh;font-size:clamp(17px,1.55vw,25px);line-height:1.45;border-left:10px solid var(--red)}.outc.good{border-left-color:var(--ok)}.outc .k{font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#3a4a66}
+/* drawings */
+.wit{background:var(--paper);color:var(--navy);border-radius:14px;padding:18px 24px;font-size:clamp(20px,2vw,32px);line-height:1.45;margin-top:1.6vh;display:flex;gap:16px}.wit b{color:var(--red);font-size:13px;letter-spacing:.16em;display:block}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;margin-top:1.4vh;align-items:start}
+.gal .sk{background:#fff;border-radius:12px;padding:8px;text-align:center;color:var(--navy);font-weight:700;animation:pop .5s cubic-bezier(.2,1.4,.4,1) both}.gal .sk img{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:6px;background:#fff}
+.gal .sk.truth{background:var(--gold)}.gal .sk.truth img{object-fit:cover}
+.wait{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:40vh;text-align:center;font-size:clamp(20px,2vw,30px)}
+#ovl{position:fixed;inset:0;background:rgba(4,8,16,.94);z-index:20;display:none;padding:30px;overflow:auto}#ovl .gal{grid-template-columns:repeat(6,1fr)}#ovl .sk{cursor:pointer;border:5px solid transparent}#ovl .sk.on{border-color:var(--red)}
+/* case board: link analysis */
+.cork{position:relative;min-height:calc(100vh - 160px);background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.06) 0 2px,transparent 3px) 0 0/23px 23px,linear-gradient(135deg,#a8773f,#835629);border:12px solid #4a2f17;border-radius:10px;box-shadow:inset 0 0 60px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.5);padding:14px 20px 16px;display:flex;flex-direction:column;gap:10px}
+.cork .bh{display:flex;gap:20px;align-items:center;justify-content:space-between}.cork h1{color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.6);margin:0;font-size:clamp(24px,2.4vw,38px)}
+.cork .bq{background:var(--paper);color:var(--navy);border-radius:6px;padding:8px 14px;max-width:520px;font-size:clamp(13px,1.1vw,18px);transform:rotate(1deg);box-shadow:0 6px 14px rgba(0,0,0,.4);display:flex;gap:10px;align-items:center}
+.bsr{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;position:relative;z-index:2}
+.bsus{background:#fbf8f1;color:#1d1606;border-radius:4px;box-shadow:0 10px 18px rgba(0,0,0,.45);display:flex;gap:10px;padding:8px;border-top:8px solid var(--sc);animation:pinin .55s cubic-bezier(.2,1.4,.4,1) both;position:relative}
+.bsus img{width:clamp(70px,7vw,120px);aspect-ratio:3/4;object-fit:cover;object-position:50% 12%;border-radius:3px}
+.bsus h3{margin:2px 0 2px;font-size:clamp(14px,1.25vw,20px)}.bsus .m{font-size:clamp(11px,.9vw,14px);line-height:1.3;color:#3a3020}.bsus .cnt{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.cnt span{font-weight:700;font-size:clamp(11px,.9vw,14px);border-radius:5px;padding:2px 8px}.cnt .p{background:#b5121b;color:#fff}.cnt .n{background:#d8dde8;color:#2a3550}
+.bev{display:flex;justify-content:center;gap:1.2vw;flex-wrap:nowrap;margin-top:auto;position:relative;z-index:2}
+.pe2{background:#fbf8f1;color:#1d1606;padding:7px 7px 6px;box-shadow:0 10px 18px rgba(0,0,0,.45);width:clamp(110px,11vw,200px);position:relative;animation:pinin .55s cubic-bezier(.2,1.4,.4,1) both}
+.pe2:before{content:'';position:absolute;top:-7px;left:50%;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff6b6b,#a10f17);box-shadow:0 2px 3px rgba(0,0,0,.5);z-index:3}
+.pe2 img{display:block;width:100%;aspect-ratio:16/11;object-fit:cover}.pe2 b{display:block;font-size:clamp(11px,.95vw,15px);margin-top:4px;line-height:1.2}
+.pe2 .key{position:absolute;top:4px;right:4px;background:var(--gold);color:var(--navy);border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;padding:1px 6px}
+.pe2.new{box-shadow:0 0 0 4px #fff,0 0 22px 6px rgba(255,214,90,.9)}.pe2 .lk{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}.pe2 .lk i{font-style:normal;font-size:10px;font-weight:700;border-radius:3px;padding:0 4px;color:#fff}
+.tline{display:flex;gap:6px;align-items:stretch;position:relative;z-index:2;overflow:hidden}.tline div{flex:1;background:rgba(7,11,20,.78);border-radius:6px;padding:6px 10px;font-size:clamp(11px,.95vw,15px);line-height:1.25;border-top:3px solid var(--gold)}.tline b{display:block;color:var(--gold);font-size:.9em;letter-spacing:.06em}
+.strings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.45))}
+@keyframes pinin{from{opacity:0;translate:0 -30px;scale:1.1}to{opacity:1;translate:0 0;scale:1}}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+/* reveal */
+.rev3{display:grid;grid-template-columns:minmax(220px,24vw) 1fr;gap:3vw;align-items:start;max-width:1500px;margin:1vh auto 0}.rev3 .rvp{text-align:center}.rev3 .rvp img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 12%;border-radius:14px;border-top:8px solid var(--sc)}
+.rev3 .rvp .stampbox{margin:-34px 0 8px;position:relative;font-size:clamp(18px,1.8vw,28px)}.rev3 .rvp h3{margin:4px 0 0;font-size:24px}.rev3 .role{color:var(--gold);font-weight:700;letter-spacing:.12em;font-size:13px;text-transform:uppercase}
+.rev3 p{font-size:clamp(17px,1.45vw,24px);line-height:1.5;margin:10px 0}.rev3 .mute2{color:#c8d2e4}
+.clr{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-bottom:10px}.clr .sus3 img{height:clamp(140px,26vh,280px)}
+.ngst{position:absolute;right:12px;top:12px;border:3px solid #6f8f6a;color:#a7d39f;background:rgba(7,11,20,.7);font:700 13px Poppins,Arial,sans-serif;letter-spacing:.2em;padding:2px 10px;transform:rotate(-4deg)}
+.offline{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-weight:700;padding:8px 18px;border-radius:8px;z-index:9;display:none}
+#bar{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;gap:10px;padding:0 20px;background:#081327;border-top:1px solid var(--line);z-index:5}
+#bar .hint{color:var(--mute);font-size:13px}
+#host{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-weight:700;font-size:14px}#host .eq{display:inline-flex;gap:2px;align-items:flex-end;height:16px}#host .eq i{width:3px;background:var(--gold);animation:eq .8s infinite alternate}#host .eq i:nth-child(2){animation-delay:.2s}#host .eq i:nth-child(3){animation-delay:.4s}
+#host.off .eq i{animation:none;height:3px!important}@keyframes eq{from{height:3px}to{height:16px}}
+@media (max-width:1100px){.susg{grid-template-columns:1fr 1fr}.lob{grid-template-columns:1.2fr 1fr;gap:18px}.joincard #qr img{width:220px}.optg .opt{min-height:9vh}.bsr{grid-template-columns:repeat(4,1fr);gap:8px}.bsus img{display:none}}
+</style></head>
+<body class="board">
+<div class="topbar"><img src="media/badge_white.png" alt="LPD"><div class="brand">LPD CASE ROOM<small id="ct">Lorain Police Department</small></div><div class="sp"></div><span class="pill" id="pc" style="display:none"></span><span class="pill" id="rp" style="display:none"></span><span class="dot" id="net"></span></div>
+<div id="main"></div><div class="offline" id="off">Reconnecting to the phones… check the internet</div><div id="ovl"></div>
+<div id="bar"><button class="btn" id="bk"></button><button class="btn" id="pz"></button><span id="host" class="off"><span class="eq"><i></i><i></i><i></i></span><span id="hs">Host</span></span><span class="hint" id="hint"></span><div class="sp"></div><span id="extra"></span><button class="btn red" id="nx" style="font-size:18px;padding:12px 26px"></button></div>
+<script src="core.js"></script><script src="cases.js"></script><script src="media/qrcode.js"></script>
+<script>
+/* LPD Case Room v3, one file: open this on the classroom computer (USB stick or web). It runs the game, shows the class screen,
+   plays the host voice and talks to the phones. Answers stay on this computer; phones only get them at the reveal. */
+const M=document.getElementById('main');
+const LIMIT=60;               /* every question: 60 seconds (Andre 10.22.26) */
+let OFF=0, ST=null, recv=0, shownKey='';
+let S=null; try{ S=JSON.parse(sessionStorage.getItem('cr_state')); }catch(e){}
+if(_q.has('new')||!S||!S.code||S.v!==3){ S={v:3,gameId:Math.random().toString(36).slice(2,10),code:Array.from({length:5},()=>AL[Math.floor(Math.random()*AL.length)]).join(''),caseId:CASES[0].id,mode:'team',step:0,players:{},order:[],removed:{},ans:{},opened:{},limit:{},seq:0,auto:true}; }
+if(_q.get('auto')==='0') S.auto=false;
+if(_q.has('new')){ const u=new URL(location.href); u.searchParams.delete('new'); history.replaceState(null,'',u); }
+function save(){ try{ sessionStorage.setItem('cr_state',JSON.stringify(S)); }catch(e){ /* full: drop sketches nobody picked */ try{ Object.entries(S.ans).forEach(([ri,a])=>{ const r=C().rounds[ri]; if(r&&r.kind==='draw') Object.keys(a).forEach(id=>{ if(!((S.drawPick||{})[ri]||[]).includes(id)) a[id].v=''; }); }); sessionStorage.setItem('cr_state',JSON.stringify(S)); }catch(_){} } }
+save();
+const LIVE=(_q.get('live')||CFG.live).replace(/\/?$/,'/');
+const JOIN=LIVE+'join.html?r='+S.code+relayQS();
+const TOPH=topicFor(S.code,'h'), TOPP=topicFor(S.code,'p');
+const C=()=>caseById(S.caseId);
+const SCOL={red:'#e5484d',blue:'#3b82f6',yellow:'#f2b705',green:'#22a06b'};
+const sus=(c,id)=>c.suspects.find(x=>x.id===id)||{};
+function buildSteps(){ const c=C(), st=[{t:'lobby'},{t:'intro'},{t:'suspects'}]; let qn=0;
+  c.rounds.forEach((r,i)=>{
+    if(r.type==='story'){ st.push({t:'story',ri:i}); return; }
+    if(r.kind==='suspect'&&r.scored!==false&&st[st.length-1].t!=='leader') st.push({t:'board',pos:i-1});   /* the big picture right before the final call */
+    if(r.kind==='interview') st.push({t:'q',ri:i},{t:'ans',ri:i});
+    else if(r.kind==='draw') st.push({t:'q',ri:i},{t:'gallery',ri:i});
+    else if(r.scored===false) st.push({t:'q',ri:i},{t:'bars',ri:i});
+    else { qn++; st.push({t:'q',ri:i},{t:'bars',ri:i},{t:'ans',ri:i}); if(qn%3===0&&r.kind!=='suspect') st.push({t:'board',pos:i},{t:'leader'}); } });
+  st.push({t:'reveal'},{t:'closure'},{t:'wrap'},{t:'final'}); return st; }
+let STEPS=buildSteps();
+const cur=()=>STEPS[Math.min(S.step,STEPS.length-1)];
+const live=()=>S.order.filter(id=>!S.removed[id]);
+function revealed(ri){ S.rev=S.rev||{}; return !!S.rev[ri]; }
+function scores(){ const sc={}; live().forEach(id=>sc[id]=0); const c=C();
+  Object.entries(S.ans).forEach(([ri,a])=>{ if(!c.rounds[ri]||!revealed(+ri)) return; Object.entries(a).forEach(([id,x])=>{ if(id in sc) sc[id]+=x.pts||0; }); });
+  live().forEach(id=>{ let run=0; c.rounds.forEach((r,ri)=>{ if(r.type!=='q'||r.scored===false||!revealed(ri)) return; const x=(S.ans[ri]||{})[id]; if(x&&isRight(r,x.v)){ run++; if(run%3===0) sc[id]+=100; } else run=0; }); });
+  return sc; }
+function ranking(){ const sc=scores(); return live().map(id=>({id,name:S.players[id],pts:sc[id]||0})).sort((a,b)=>b.pts-a.pts); }
+function pos(){ let p=-1; for(let i=0;i<=S.step&&i<STEPS.length;i++){ if(STEPS[i].ri!=null) p=STEPS[i].ri; if(STEPS[i].pos!=null) p=STEPS[i].pos; } return p; }
+function tally(ri){ const r=C().rounds[ri], a=S.ans[ri]||{}, out={}; (r.kind==='interview'?[0,1,2,3]:optionsOf(C(),r).map(o=>o.value)).forEach(v=>out[v]=0);
+  Object.entries(a).forEach(([id,x])=>{ if(S.removed[id]) return; if(r.kind==='interview') String(x.v).split('').forEach(L=>{ const k='ABCD'.indexOf(L); if(k>=0) out[k]++; }); else if(String(x.v) in out) out[String(x.v)]++; }); return out; }
+function words(ri){ const a=S.ans[ri]||{}, hid=(S.hide||{})[ri]||{}, out={}; Object.entries(a).forEach(([id,x])=>{ if(S.removed[id]) return; const w=String(x.v); if(BLOCK.test(w)||hid[w]) return; out[w]=(out[w]||0)+1; }); return Object.entries(out).sort((a,b)=>b[1]-a[1]).slice(0,30); }
+function answered(ri){ return Object.keys(S.ans[ri]||{}).filter(id=>!S.removed[id]&&S.players[id]).length; }
+const lim=ri=>S.limit[ri]||LIMIT, deadline=ri=>(S.opened[ri]||Date.now())+lim(ri)*1000;
+const leftOf=ri=>Math.max(0,Math.ceil((deadline(ri)-(S.pausedAt||Date.now()))/1000));
+function orderStats(ri){ const r=C().rounds[ri], a=S.ans[ri]||{}, p=[0,0,0,0]; let exact=0, n=0; Object.entries(a).forEach(([id,x])=>{ if(S.removed[id]) return; n++; const v=String(x.v); if(v===r.answer) exact++; for(let i=0;i<4;i++) if(v[i]===r.answer[i]) p[i]++; }); return {n,exact,pos:p}; }
+function topTwo(ri){ const t=tally(ri); return [0,1,2,3].sort((a,b)=>t[b]-t[a]||a-b).slice(0,2).sort((a,b)=>a-b); }
+function majority(ri){ const t=tally(ri); let best=null; Object.entries(t).forEach(([v,n])=>{ if(best===null||n>t[best]) best=v; }); return best===null?null:+best; }
+/* ---------- relay ---------- */
+function pubState(){ const s=cur(), c=C();
+  const R=s.ri==null?null:c.rounds[s.ri];
+  const m={k:'st',n:S.seq+1,t:Date.now(),g:S.gameId,pos:pos(),code:S.code,join:JOIN,caseId:S.caseId,mode:S.mode,step:s.t,ri:s.ri===undefined?null:s.ri,players:S.players,av:S.av||{},removed:S.removed,count:live().length,paused:!!S.pausedAt};
+  if(R) m.round=(({type,kind,scored,title,q,text,when,options,img,marks,items,witness,suspect})=>({type,kind,scored,title,q,text,when,witness,suspect,items,marks,
+      options:kind==='spot'&&s.t!=='ans'?null:options, img:kind==='draw'&&s.t!=='gallery'?null:img}))(R);
+  if(s.t==='q'){ m.limit=lim(s.ri); m.left=leftOf(s.ri); m.deadline=deadline(s.ri); m.answered=answered(s.ri); }
+  if(['q','bars','ans','gallery'].includes(s.t)) m.acc=Object.fromEntries(Object.keys(S.ans[s.ri]||{}).map(id=>[id,1]));
+  if(s.t==='ans'||s.t==='gallery'){ m.correct=R.kind==='word'||R.scored===false?null:R.answer; m.right=Object.fromEntries(Object.entries(S.ans[s.ri]||{}).map(([id,x])=>[id,isRight(R,x.v)?1:0])); m.why=R.why; m.pts=Object.fromEntries(Object.entries(S.ans[s.ri]||{}).map(([id,x])=>[id,x.pts||0]));
+    if(R.kind==='interview'){ m.iv=topTwo(s.ri); m.ivA=m.iv.map(k=>R.answers[k]); }
+    if(R.kind==='decision'){ m.maj=majority(s.ri); m.outM=m.maj==null?null:R.outcomes[m.maj]; m.outB=R.outcomes[R.answer]; } }
+  if(['reveal','closure','wrap','final'].includes(s.t)) m.reveal=c.reveal;
+  if(s.t==='final'&&S.qa) m.qa=S.qa;
+  if(s.t==='bars'||s.t==='ans'){ m.tally=tally(s.ri); m.answered=answered(s.ri); if(R.kind==='word') m.words=words(s.ri); if(R.kind==='order') m.ord=orderStats(s.ri); }
+  if(['ans','gallery','leader','reveal','closure','wrap','final'].includes(s.t)) m.scores=scores();
+  return m; }
+let retryT=null;
+function broadcast(){ S.seq++; save(); const m=pubState(); pub(TOPH,m).then(()=>{ document.getElementById('off').style.display='none'; },()=>{ document.getElementById('off').style.display='block'; clearTimeout(retryT); retryT=setTimeout(broadcast,2500); }); }
+let bcT=null; function broadcastSoon(){ clearTimeout(bcT); bcT=setTimeout(broadcast,150); }
+sub(TOPP,(m)=>{ if(!m||!validId(m.id)) return;
+  if(m.k==='join'){ if(!S.players[m.id]){ let nm=String(m.name||'Detective').replace(/[^\w .'-]/g,'').slice(0,24)||'Detective'; const used=new Set(Object.values(S.players)); if(used.has(nm)){ let i=2; while(used.has(nm+' '+i)) i++; nm=nm+' '+i; } S.players[m.id]=nm; S.av=S.av||{}; S.av[m.id]=AVATARS.includes(m.av)?m.av:'badge'; S.order.push(m.id); save(); draw(); }
+    broadcastSoon(); }
+  else if(m.k==='ask'){ if(!S.players[m.id]||S.removed[m.id]||m.g!==S.gameId) return; S.seenAsk=S.seenAsk||{}; if(!m.mid||S.seenAsk[m.mid]) return; S.seenAsk[m.mid]=1; const t=String(m.text||'').replace(/\s+/g,' ').trim().slice(0,160); if(!t) return; S.asks=S.asks||[]; if(S.asks.filter(x=>x.id===m.id).length>=3) return; S.asks.push({id:m.id,text:t,bad:BLOCK.test(t)}); save(); draw(); }
+  else if(m.k==='ans'){ if(S.removed[m.id]||!S.players[m.id]||m.g!==S.gameId) return; const s=cur(); if(s.t!=='q'||m.ri!==s.ri) return;
+    const r=C().rounds[s.ri], now=Date.now(); if(S.pausedAt||now>=deadline(s.ri)+1500) return;
+    if(r.kind==='word'){ m.v=cleanWord(m.v); if(!m.v) return; }
+    else if(r.kind==='order'){ if(!/^[ABCD]{4}$/.test(String(m.v))||new Set(String(m.v)).size!==4) return; }
+    else if(r.kind==='interview'){ const v=String(m.v); if(!/^[ABCD]{1,2}$/.test(v)||new Set(v).size!==v.length) return; }
+    else if(r.kind==='draw'){ if(typeof m.v!=='string'||!/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/.test(m.v)||m.v.length>150000) return; }
+    else if(!optionsOf(C(),r).some(o=>String(o.value)===String(m.v))) return;
+    const a=S.ans[s.ri]=S.ans[s.ri]||{}; if(a[m.id]) return;
+    const ms=Math.max(0,now-(S.opened[s.ri]||now)), k=r.kind==='suspect'?2:1;
+    a[m.id]={v:m.v,ms,pts:isRight(r,m.v)?k*(500+Math.round(500*Math.max(0,1-ms/(lim(s.ri)*1000)))):0}; save(); if(r.kind!=='draw'||true) draw(); broadcastSoon(); autoLock(); }
+}, ok=>{ document.getElementById('net').className='dot '+(ok?'on':'off'); clearTimeout(window._offT); if(ok) document.getElementById('off').style.display='none'; else window._offT=setTimeout(()=>document.getElementById('off').style.display='block',4000); });
+function autoLock(){ const st=S.step, ri=cur().ri; setTimeout(()=>{ if(S.step!==st||cur().t!=='q'||cur().ri!==ri||S.pausedAt) return; const a=S.ans[ri]||{}, ids=live(); if(ids.length&&ids.every(id=>a[id])) go(st+1); },400); }
+/* ---------- host voice + autoplay (Jackbox style: the host reads, the clock runs, answers reveal, the game moves on) ---------- */
+const AU=new Audio(); AU.preload='auto';
+let hostTok=0, autoT=null, pending=null, speaking=false;
+const HOSTTXT={board:'Case board time. Look at the strings. Which suspect does each clue point to? Talk it over.',hunch:'No points on this one. Who is your top suspect right now? Go with your gut.',final:'Final call, detectives. Double points. Who did it?',allin:"Everyone is in. Let's see it.",timeup:"Time's up!",draw:'Grab your phone and sketch it. Your detective picks the best three.',closure:'So why not the others? Here is what clears them.',standings:'Here are the standings.'};
+function clipSrc(k){ const c=C(); if((c.vo||[]).includes(k)) return 'media/vo/'+c.id+'/'+k+'.mp3'; if((window.HOSTVO||[]).includes(k)) return 'media/vo/_host/'+k+'.mp3'; return null; }
+function hostUI(on,label){ const h=document.getElementById('host'); h.className=on?'':'off'; document.getElementById('hs').textContent=label||(S.auto?(S.pausedAt?'Paused':'Host'):'Host off'); }
+function say(items,done){ const tok=++hostTok; let i=0; speaking=true;
+  const nx=()=>{ if(tok!==hostTok) return; if(i>=items.length){ speaking=false; hostUI(false); done&&done(); return; } const it=items[i++]; it.on&&it.on(); const src=clipSrc(it.k);
+    const after=()=>{ if(tok===hostTok) setTimeout(nx,320); };
+    if(src){ AU.src=src; AU.onended=after; AU.onerror=()=>tts(it.t,after); hostUI(true); AU.play().catch(()=>{ if(tok!==hostTok) return; hostTok++; speaking=false; blockedPause(); }); }
+    else if(it.t) tts(it.t,after); else after(); };
+  nx(); }
+function tts(t,cb){ if(!t||!window.speechSynthesis){ setTimeout(cb,200); return; } try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.rate=1.03; u.onend=cb; u.onerror=cb; hostUI(true); speechSynthesis.speak(u); }catch(e){ setTimeout(cb,200); } }
+function hush(){ hostTok++; speaking=false; AU.onended=null; try{ AU.pause(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} clearTimeout(autoT); pending=null; hostUI(false); }
+function blockedPause(){ if(!S.pausedAt){ S.pausedAt=Date.now(); save(); } bar(); hostUI(false,'Press Play to start the host'); }
+function schedule(ms){ if(ms==null) return; const f=()=>{ clearTimeout(autoT); autoT=setTimeout(()=>{ if(S.pausedAt){ pending=f; return; } next(); },ms); }; if(S.pausedAt) pending=f; else f(); }
+function plan(s){ const c=C(), r=s.ri!=null?c.rounds[s.ri]:null, v=(k,t)=>({k,t});
+  switch(s.t){
+    case 'intro': return c.intro.video&&!S.noVideo?{say:[],after:null}:{say:c.intro.script.map((t,i)=>Object.assign(v('intro_'+i,t),{on:()=>{ S.introN=i; draw(); }})),after:1500};
+    case 'suspects': return {say:[v('sus','Meet the suspects. '+c.suspects.map(x=>x.name+', '+x.role).join('. '))],after:2500};
+    case 'story': return {say:[v('s_'+s.ri,r.text)],after:1400};
+    case 'q': { const q=v('q_'+s.ri,r.q+(r.witness?' The witness says: '+r.witness:'')); return {say:r.kind==='suspect'&&r.scored!==false?[v('final',HOSTTXT.final),q]:r.kind==='draw'?[q,v('draw',HOSTTXT.draw)]:[q],after:null}; }
+    case 'bars': { const all=answered(s.ri)>=live().length&&live().length>0; return {say:[all?v('allin',HOSTTXT.allin):v('timeup',HOSTTXT.timeup)],after:r.scored===false?12000:2600}; }
+    case 'ans': { const out=[];
+      if(r.kind==='interview') topTwo(s.ri).forEach(k=>out.push(Object.assign(v('ia_'+s.ri+'_'+k,r.answers[k]),{on:()=>{ S.ivShown=(S.ivShown||0)+1; draw(); }})));
+      if(r.kind==='decision'){ const mj=majority(s.ri); if(mj!=null) out.push(v('do_'+s.ri+'_'+mj,r.outcomes[mj])); if(mj!==r.answer) out.push(v('do_'+s.ri+'_'+r.answer,r.outcomes[r.answer])); }
+      out.push(v('w_'+s.ri,r.why)); return {say:out,after:3500}; }
+    case 'gallery': return (S.drawPick||{})[s.ri]?{say:[v('w_'+s.ri,r.why)],after:7000}:{say:[],after:null};
+    case 'board': return {say:[v('board',HOSTTXT.board)],after:null};
+    case 'leader': return {say:[v('standings',HOSTTXT.standings)],after:5000};
+    case 'reveal': return {say:[v('rev',c.reveal.headline+' '+c.reveal.how+' '+c.reveal.motive)],after:null};
+    case 'closure': return {say:[v('closure',HOSTTXT.closure)],after:null};
+    case 'wrap': return c.wrap.video&&!S.noVideo?{say:[],after:null}:{say:c.wrap.script.map((t,i)=>Object.assign(v('wrap_'+i,t),{on:()=>{ S.introN=i; draw(); }})),after:1500};
+    default: return {say:[],after:null}; } }
+function hostRun(){ hush(); if(!S.auto) return; const s=cur(); if(s.t==='lobby') return; S.ivShown=0; const p=plan(s); say(p.say,()=>schedule(p.after)); }
+function setPaused(p){ const s=cur();
+  if(p&&!S.pausedAt){ S.pausedAt=Date.now(); try{ AU.pause(); }catch(e){} try{ speechSynthesis.pause(); }catch(e){} const vd=document.getElementById('iv'); if(vd) vd.pause(); clearTimeout(autoT); }
+  else if(!p&&S.pausedAt){ const d=Date.now()-S.pausedAt; if(s.t==='q'&&S.opened[s.ri]) S.opened[s.ri]+=d; S.pausedAt=0;
+    const vd=document.getElementById('iv'); if(vd) vd.play().catch(()=>{ vd.controls=true; });
+    if(speaking){ if(AU.src&&AU.paused&&!AU.ended) AU.play().catch(()=>{}); try{ speechSynthesis.resume(); }catch(e){} }
+    else if(pending){ const f=pending; pending=null; f(); }
+    else if(!speaking&&s.t!=='lobby'&&!autoT) hostRun(); }
+  save(); shownKey=''; draw(); broadcast(); }
+/* ---------- navigation ---------- */
+setInterval(()=>{ const s=cur(); if(s.t==='q'&&S.opened[s.ri]&&!S.pausedAt&&Date.now()>=deadline(s.ri)) go(S.step+1); },500);
+function go(i){ if(i<0||i>=STEPS.length) return;
+  if(STEPS[i].t==='q'&&i>S.step&&S.opened[STEPS[i].ri]&&Date.now()>=deadline(STEPS[i].ri)) i++;   /* F5: a closed question never reopens */
+  if(S.step===0&&i>0&&!live().length&&!confirm('Nobody has joined yet. Start anyway?')) return;
+  S.step=i; S.introN=0; const s=cur(); if(S.pausedAt&&s.t!=='q') S.pausedAt=0;
+  if(s.t==='ans'||s.t==='gallery'){ S.rev=S.rev||{}; S.rev[s.ri]=1; }
+  if(s.t==='q'&&!S.opened[s.ri]){ S.opened[s.ri]=Date.now(); S.limit[s.ri]=LIMIT; S.pausedAt=0; }
+  save(); draw(); broadcast(); hostRun(); }
+function next(){ go(S.step+1); }
+function back(){ let i=S.step-1; while(i>0&&STEPS[i].t==='q'&&Date.now()>=deadline(STEPS[i].ri)) i--; go(i); }
+document.addEventListener('keydown',e=>{ if(e.target&&/INPUT|TEXTAREA|SELECT|BUTTON|^A$/.test(e.target.tagName)) return; if(e.repeat||e.metaKey||e.ctrlKey||e.altKey) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); next(); } if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); back(); } if(e.key===' '||e.key==='p'||e.key==='P'||e.key==='b'||e.key==='.'){ e.preventDefault(); setPaused(!S.pausedAt); } });
+/* sound effects */
+let AC=null; function tone(f,d,vol){ try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)(); const o=AC.createOscillator(),g=AC.createGain(); o.frequency.value=f; o.type='sine'; g.gain.value=vol||.1; o.connect(g); g.connect(AC.destination); o.start(); g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d); o.stop(AC.currentTime+d); }catch(e){} }
+const sting=()=>[392,523,659].forEach((f,i)=>setTimeout(()=>tone(f,.4,.12),i*140));
+let clockI=null;
+/* ---------- class screen ---------- */
+function folder(c,r,sub,still){ const qn=c.rounds.slice(0,ST.ri+1).filter(x=>x.type==='q').length;
+  const stamp=r.scored===false&&r.kind==='suspect'?'HUNCH CHECK':r.kind==='suspect'?'FINAL CALL':r.kind==='interview'?'INTERVIEW':r.kind==='decision'?'YOUR CALL':r.kind==='draw'?'SKETCH IT':'EVIDENCE';
+  return `<div class="folder${still?' still':''}" data-tab="CASE ${ST.code} · EXHIBIT ${qn}"><span class="stamp">${stamp}</span><div class="kick">${sub}</div><h1>${esc(r.q)}</h1>${r.kind==='suspect'&&r.scored!==false?'<div class="kick" style="color:var(--red)">DOUBLE POINTS</div>':''}</div>`; }
+function render(){ const c=caseById(ST.caseId), s=ST.step, r=ST.ri!=null?c.rounds[ST.ri]:null, key=s+':'+ST.ri+':'+ST.mode+':'+ST.caseId+':'+(S.introN||0)+':'+(S.ivShown||0)+':'+JSON.stringify((S.drawPick||{})[ST.ri]||'')+':'+!!S.pausedAt;
+  document.getElementById('ct').textContent=s==='lobby'?'Lorain Police Department':c.title;
+  const pc=document.getElementById('pc'); pc.style.display=''; pc.innerHTML=icon(ST.mode==='team'?'users':'user',16)+' '+ST.count+(ST.mode==='team'?' teams':' detectives');
+  const rp=document.getElementById('rp'); rp.style.display=s==='lobby'?'none':''; rp.innerHTML='Join <b>'+ST.code+'</b>';
+  if(key===shownKey&&(s==='q'||s==='gallery')){ const a=document.getElementById('na'); if(a) a.textContent=ST.answered+' of '+ST.count+' '+(r.kind==='draw'?'sketches in':'answered'); const g=document.getElementById('gn'); if(g) g.textContent=answered(ST.ri); return; }
+  if(key===shownKey&&s==='lobby'){ drawWho(); return; }
+  if(key===shownKey&&['intro','wrap','board'].includes(s)) return;
+  shownKey=key; clearInterval(clockI);
+  if(s==='lobby'){
+    M.innerHTML=`<div class="lob"><div><div class="kick">${icon('shield',18)} Lorain Police Department</div><h1>Today, you're the detectives.</h1>
+     <ol class="steps"><li><span class="n">1</span>${ST.mode==='team'?'One phone per team: scan the code':'Scan the code with your phone'}</li><li><span class="n">2</span>Pick a ${ST.mode==='team'?'squad':'detective'} name and a character</li><li><span class="n">3</span>Listen to the host and work the case</li></ol>
+     <div class="who" id="who"></div></div>
+     <div class="joincard"><div style="font-weight:700;font-size:20px">Scan to join</div><div id="qr"></div><div class="mute" style="color:#3a4a66">or go to</div><div class="joinurl">${esc(ST.join.replace(/^https?:\/\//,'').replace(/\?.*$/,''))}</div><div class="joincode">${ST.code}</div></div></div>`;
+    try{ const qq=qrcode(0,'M'); qq.addData(ST.join); qq.make(); document.getElementById('qr').innerHTML=qq.createImgTag(8,8); }catch(e){}
+    drawWho(); return; }
+  if(s==='intro'||s==='wrap'){ const src=s==='intro'?c.intro:c.wrap, n=S.introN||0;
+    const head=`<div class="kick">${icon(s==='intro'?'folder':'shield',18)} ${s==='intro'?'Case file · '+esc(c.crime):'Case closed'}</div><h1 style="margin-top:0">${esc(s==='intro'?c.title:c.reveal.headline)}</h1>`;
+    if(src.video&&!S.noVideo){ if(document.getElementById('iv')&&M.dataset.v===src.video) return; M.dataset.v=src.video;
+      M.innerHTML=`<div class="intro">${head}<video id="iv" src="${src.video}" playsinline></video></div>`;
+      const v=document.getElementById('iv'); v.onloadeddata=()=>{ if(!S.pausedAt) v.play().catch(()=>{ v.controls=true; blockedPause(); }); }; v.onended=()=>{ if(S.auto) schedule(800); }; v.onerror=()=>{ S.noVideo=1; save(); shownKey=''; draw(); hostRun(); }; return; }
+    M.dataset.v=''; M.innerHTML=`<div class="intro">${head}<div class="slide"><img src="${esc(src.shots[n]||src.shots[0])}" alt=""><div class="cap">${esc(src.script[n]||'')}</div></div></div>`; return; }
+  M.dataset.v='';
+  if(s==='suspects'){ M.innerHTML=`<div class="kick">${icon('users',18)} The suspects</div><h1>Four suspects. Keep all of them in mind.</h1><div class="susg">${c.suspects.map(x=>`<div class="sus3" style="--sc:${SCOL[x.color]||'#d9a521'}"><img src="${esc(x.img)}" alt="">${tent(x.letter,40)}<div class="tx"><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div><p class="mot"><b>Motive:</b> ${esc(x.motive)}</p></div></div>`).join('')}</div>`; return; }
+  if(s==='story'){ const fb=`<div class="folder" data-tab="CASE ${ST.code} · FIELD REPORT">${r.when?`<span class="when">${esc(r.when)}</span>`:''}<div class="kick">${icon('note',18)} ${esc(r.title)}</div><p>${esc(r.text)}</p></div>`;
+    M.innerHTML=r.img?`<div class="story2">${evHTML(r)}${fb}</div>`:`<div class="story" style="max-width:1200px;margin:6vh auto 0">${fb}</div>`; return; }
+  if(s==='board'){ renderBoard(c); return; }
+  if(s==='gallery'){ renderGallery(c,r); return; }
+  if(s==='q'||s==='bars'||s==='ans'){ renderQ(c,r,s); return; }
+  if(s==='leader'||s==='final'){ const sc=ST.scores||{}, rk=Object.entries(sc).filter(([id])=>!ST.removed[id]&&ST.players[id]).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    M.innerHTML=`<div class="lb"><div class="kick">${icon(s==='final'?'award':'chart',18)} ${s==='final'?'Final standings':'Standings'}</div><h1>${ST.mode==='team'?(s==='final'?'Top squads':'Top squads so far'):(s==='final'?'Top investigators':'Top investigators so far')}</h1>${rk.map(([id,p],i)=>`<div class="row${i===0?' p1':''}"><span class="n">${i+1}</span><span class="nm">${avHTML((ST.av||{})[id]||'badge',44,'style="margin-right:12px"')}${esc(ST.players[id])}</span><span>${p.toLocaleString()}</span></div>`).join('')||'<p class="mute">No scores yet.</p>'}
+     ${s==='final'?(ST.qa?`<div class="qa">${icon('help',28)}<div><b>Student question:</b> ${esc(ST.qa)}</div></div>`:`<div class="lesson">${icon('help',24)}<div>Questions for the detective? Send one from your phone.</div></div>`):''}</div>`; if(s==='final') sting(); return; }
+  if(s==='reveal'){ const RV=c.reveal, cu=sus(c,RV.culprit);
+    M.innerHTML=`<div class="rev3"><div class="rvp" style="--sc:${SCOL[cu.color]}"><img src="${esc(cu.img)}" alt=""><div class="stampbox">CASE CLOSED</div><h3>${esc(cu.name)}</h3><div class="role">${esc(cu.role)}</div></div><div><div class="kick">${icon('shield',18)} What really happened</div><h1>${esc(RV.headline)}</h1><p><b>How it fits:</b> ${esc(RV.how)}</p><p><b>Why:</b> ${esc(RV.motive)}</p><p class="mute2">${esc(RV.text)}</p></div></div>`; sting(); return; }
+  if(s==='closure'){ const RV=c.reveal; M.innerHTML=`<div class="kick">${icon('check',18)} Why not the others</div><h1>Each innocent suspect fails a key clue</h1><div class="clr">${(RV.others||[]).map(o=>{ const x=sus(c,o.id); return `<div class="sus3" style="--sc:${SCOL[x.color]}"><img src="${esc(x.img)}" alt=""><span class="ngst">NOT GUILTY</span><div class="tx"><h3>${esc(x.name)}</h3><p>${esc(o.why)}</p></div></div>`; }).join('')}</div><div class="lesson">${icon('shield',26)}<div><b>Stay safe:</b> ${esc(RV.safety)}</div></div><div class="lesson">${icon('star',26)}<div>${esc(RV.lesson)}</div></div>`; return; }
+}
+function clockStart(r){ clearInterval(clockI); clockI=setInterval(()=>{ const el=document.getElementById('cl'); if(!el) return; const l=ST.deadline?Math.max(0,Math.ceil((ST.deadline-(S.pausedAt||Date.now()))/1000)):0; el.textContent=l; const ck=document.getElementById('clk'); ck.classList.toggle('low',l<=5&&!S.pausedAt); ck.classList.toggle('paused',!!S.pausedAt); if(l<=5&&l>0&&!S.pausedAt) tone(660,.07,.05);
+  const bi=document.getElementById('blurimg'); if(bi) bi.style.filter='blur('+Math.round(28*Math.max(0,l-4)/Math.max(1,(ST.limit||LIMIT)-4))+'px)'; },1000); }
+function renderQ(c,r,s){ const opts=r.kind==='interview'?r.options.map((o,i)=>({label:o,value:i,tag:'ABCD'[i]})):optionsOf(c,r), n=ST.answered||0, t=ST.tally||{}, K=r.kind, rev=s==='ans';
+  const pct=v=>n?Math.round(100*(t[v]||0)/n):0, isR=v=>rev&&ST.correct!=null&&String(v)===String(ST.correct);
+  const LBL={yn:'Yes or no',suspect:'Make the call',word:'Type it in',spot:'Spot the clue',pics:'Pick a picture',order:'Put it in order',blur:'What is it? Answer early for more points',interview:'Pick 2 questions on your phone',decision:'What do you do next?',draw:'Sketch it on your phone'};
+  const lbl=r.scored===false&&K==='suspect'?'No points, just your gut':LBL[K]||'Pick one';
+  const sub=(ic,tail)=>icon(ic,18)+' '+esc(r.title)+' · '+tail;
+  const clockH=`<div><div class="clock${S.pausedAt?' paused':''}" id="clk"><b id="cl">${ST.left}</b><span>${S.pausedAt?'PAUSED':'SEC'}</span></div><div class="ans" id="na">${n} of ${ST.count} ${K==='draw'?'sketches in':'answered'}</div></div>`;
+  const optH=cls=>`<div class="optg${cls||''}">`+opts.map(o=>{ const p=pct(o.value), right=isR(o.value), lab=K==='spot'&&!rev?'Marker '+o.tag:o.label;
+    return `<div class="opt${rev?(right?' right':' dim'):''}">${tent(o.tag,52)}<span class="lab">${esc(lab)}${o.sub?`<small>${esc(o.sub)}</small>`:''}</span>${s!=='q'?`<span class="pc">${p}%</span><span class="bar" style="width:${p}%"></span>`:''}${right?'<span class="confirmed">CONFIRMED</span>':''}</div>`; }).join('')+'</div>';
+  const tiles=()=>`<div class="tiles${K==='suspect'?' sq':''}">`+opts.map(o=>{ const p=pct(o.value), right=isR(o.value);
+    return `<div class="ptile${rev?(right?' right':' dim'):''}"><img src="${esc(o.img)}" alt=""><div class="pl">${tent(o.tag,36)}<span>${esc(o.label)}</span>${s!=='q'?`<span class="pc">${p}%</span>`:''}</div>${s!=='q'?`<span class="bar" style="width:${p}%"></span>`:''}${right?'<span class="confirmed">CONFIRMED</span>':''}</div>`; }).join('')+'</div>';
+  const why=`<div class="panelw"><span class="tag">${icon('search',14)} WHY</span><div>${esc(ST.why||'')}</div></div>`;
+  if(K==='word'){
+    if(s==='q'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('search',lbl))}${clockH}</div>${r.img?`<div class="qb">${evHTML(r)}<div class="panelw"><span class="tag">${icon('phone',14)} YOUR PHONE</span><div>Type one or two words. Answers stay hidden until everyone's in.</div></div></div>`:''}`; clockStart(r); tone(523,.15); return; }
+    const W=ST.words||[], mx=Math.max(1,...W.map(x=>x[1]));
+    M.innerHTML=`${folder(c,r,sub('chart',rev?'the answer':'what you said'),1)}<div class="cloud">${W.map(([w,k])=>`<span style="font-size:${22+38*k/mx}px;opacity:${.55+.45*k/mx}">${esc(w)}</span>`).join('')||'<span class="mute">No answers</span>'}</div>${rev?why:''}`; if(rev) sting(); return; }
+  if(K==='interview'){ const x=sus(c,r.suspect), top=rev?(ST.iv||[]):[], shown=S.ivShown||0;
+    const cards=opts.map(o=>{ const p=pct(o.value), k=top.indexOf(o.value), asked=rev&&k>=0;
+      return `<div class="qcard${rev&&!asked?' dim':''}">${tent(o.tag,44)}<span>${esc(o.label)}</span>${s!=='q'?`<span class="pc">${p}%</span><span class="bar" style="width:${p}%"></span>`:''}</div>${asked&&(k<shown||!S.auto)?`<div class="reply"><b>${esc(x.name.split(' ')[0])}:</b> ${esc(r.answers[o.value])}</div>`:''}`; }).join('');
+    M.innerHTML=`<div class="qwrap">${folder(c,r,sub('mic',rev?'the answers':lbl),rev)}${s==='q'?clockH:''}</div><div class="ivw"><div class="pt" style="--sc:${SCOL[x.color]}"><img src="${esc(x.img)}" alt=""><h3>${esc(x.name)}</h3></div><div>${cards}${rev&&shown>=2?why:''}</div></div>`;
+    if(s==='q'){ clockStart(r); tone(523,.15); } return; }
+  if(K==='draw'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('note',lbl))}${clockH}</div><div class="wit">${icon('ear',40)}<div><b>WHAT THE WITNESS SAYS</b>“${esc(r.witness)}”</div></div><div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('phone',14)} YOUR PHONE</span><div>Draw it with your finger. Your detective picks the best three to show.</div></div>`; clockStart(r); tone(523,.15); return; }
+  let body='', pic=false;
+  if(K==='order'){ const O=ST.ord||{n:0,exact:0,pos:[0,0,0,0]};
+    if(rev){ const seq=String(r.answer).split(''); body=`<div class="ordg">${seq.map((L,i)=>`<div class="ocard"><span class="num">${i+1}</span>${tent(L,40)}<span>${esc(r.items['ABCD'.indexOf(L)])}</span><span class="pc">${O.n?Math.round(100*O.pos[i]/O.n):0}% had it here</span></div>`).join('')}</div><div class="bigstat"><b>${O.n?Math.round(100*O.exact/O.n):0}%</b> got all four in the right order</div>`; }
+    else body=`<div class="ordg">${r.items.map((it,i)=>`<div class="ocard">${tent('ABCD'[i],40)}<span>${esc(it)}</span></div>`).join('')}</div>${s==='bars'?`<div class="bigstat"><b>${O.n?Math.round(100*O.exact/O.n):0}%</b> put all four in the right order</div>`:''}`;
+    if(r.img){ body=`<div class="qb${s!=='q'?' sm':''}">${evHTML(r)}<div>${body}</div></div>`; pic=true; } }
+  else if(K==='pics'||K==='suspect'){ body=tiles(); pic=true; }
+  else if(r.img){ body=`<div class="qb${K==='spot'?' spot':s!=='q'?' sm':''}">${evHTML(r,{hit:K==='spot'&&rev?+ST.correct:null,blur:K==='blur'&&s==='q'?28:0})}${optH(' one')}</div>`; pic=true; }
+  else body=optH();
+  if(s==='q'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('search',lbl))}${clockH}</div>${body}`; clockStart(r); tone(523,.15); return; }
+  if(s==='bars'){ M.innerHTML=`${folder(c,r,sub('chart',r.scored===false?'your hunches':'how you voted'),1)}<div style="margin-top:1.4vh">${body}</div><div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('help',14)} DETECTIVE</span><div>${r.scored===false&&r.ifwrong?'<b>Talk it through:</b><br>'+r.ifwrong.map(esc).join('<br>'):'<b>Before the answer:</b> why did people pick different answers?'}</div></div>`; tone(440,.25); return; }
+  let extra='';
+  if(K==='decision'){ const mj=ST.maj; extra=(mj!=null?`<div class="outc${mj===r.answer?' good':''}"><div class="k">Your room chose: ${esc(r.options[mj])}</div>${esc(r.outcomes[mj])}</div>`:'')+(mj!==r.answer?`<div class="outc good"><div class="k">Best move: ${esc(r.options[r.answer])}</div>${esc(r.outcomes[r.answer])}</div>`:''); }
+  M.innerHTML=`${folder(c,r,sub('check','the answer'),1)}<div style="margin-top:1.4vh">${body}</div>${extra}${why}`; sting(); }
+/* sketches: phones draw, the detective privately picks 3, the class sees those next to the real thing */
+function sketches(ri){ return Object.entries(S.ans[ri]||{}).filter(([id,x])=>!S.removed[id]&&x.v).map(([id,x])=>({id,v:x.v,name:S.players[id]})); }
+function renderGallery(c,r){ const pick=(S.drawPick||{})[ST.ri];
+  if(!pick){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · sketches',1)}<div class="wait">${icon('lock',60)}<div><b><span id="gn">${answered(ST.ri)}</span> sketches are in.</b></div><div class="mute">Your detective is choosing three to show.</div></div>`; return; }
+  const sk=sketches(ST.ri), byId=Object.fromEntries(sk.map(x=>[x.id,x]));
+  M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · your sketches',1)}<div class="gal">${pick.filter(id=>byId[id]).map((id,i)=>`<div class="sk" style="animation-delay:${i*.25}s"><img src="${byId[id].v}" alt=""><div>${esc(byId[id].name)}</div></div>`).join('')}<div class="sk truth" style="animation-delay:${pick.length*.25+.3}s"><img src="${esc(r.img)}" alt=""><div>THE REAL THING</div></div></div><div class="panelw"><span class="tag">${icon('search',14)} WHY</span><div>${esc(r.why)}</div></div>`; sting(); }
+let revWin=null;
+function openReview(){ const ri=cur().ri, sk=sketches(ri); let sel=[];
+  const html=`<html><head><title>Pick 3 sketches</title><style>body{font-family:Arial;background:#111d36;color:#fff;margin:0;padding:16px}h2{margin:0 0 10px}.g{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.s{background:#fff;color:#111;border-radius:8px;padding:6px;text-align:center;cursor:pointer;border:5px solid transparent;font-weight:700;font-size:13px}.s img{width:100%;aspect-ratio:4/3;object-fit:contain}.s.on{border-color:#d9a521}button{font-size:18px;padding:12px 22px;border:0;border-radius:8px;background:#b5121b;color:#fff;margin:12px 8px 0 0;cursor:pointer}</style></head><body><h2>Only you see this window. Click up to 3 sketches, then Show.</h2><div class="g">${sk.map(x=>`<div class="s" data-id="${esc(x.id)}"><img src="${x.v}"><div>${esc(x.name)}</div></div>`).join('')||'<p>No sketches came in.</p>'}</div><button id="go">Show on the big screen</button><button id="skip" style="background:#1a2c52">Show none</button></body></html>`;
+  const wire=(doc,close)=>{ doc.querySelectorAll('.s').forEach(el=>el.onclick=()=>{ const id=el.dataset.id, k=sel.indexOf(id); if(k>=0) sel.splice(k,1); else if(sel.length<3) sel.push(id); doc.querySelectorAll('.s').forEach(e=>e.classList.toggle('on',sel.includes(e.dataset.id))); });
+    doc.getElementById('go').onclick=()=>{ pickDraw(ri,sel); close(); }; doc.getElementById('skip').onclick=()=>{ pickDraw(ri,[]); close(); }; };
+  try{ revWin=window.open('','lpdreview','width=980,height=760'); }catch(e){ revWin=null; }
+  if(revWin&&revWin.document){ revWin.document.open(); revWin.document.write(html); revWin.document.close(); wire(revWin.document,()=>revWin.close()); revWin.focus(); return; }
+  const o=document.getElementById('ovl'); o.innerHTML=html.replace(/^[\s\S]*<body>|<\/body>[\s\S]*$/g,''); o.style.display='block'; wire(o,()=>{ o.style.display='none'; o.innerHTML=''; }); }
+function pickDraw(ri,ids){ S.drawPick=S.drawPick||{}; S.drawPick[ri]=ids; save(); shownKey=''; draw(); broadcast(); hostRun(); }
+/* case board: suspects on top, evidence pinned below, string from each clue to the suspects it points at, timeline along the bottom */
+function renderBoard(c){ const p=ST.pos==null?-1:ST.pos, R=c.rounds;
+  const pinned=[], prevB=STEPS.slice(0,S.step).filter(x=>x.t==='board').map(x=>x.pos), lastB=prevB.length?Math.max(...prevB):-1;
+  R.forEach((r,i)=>{ if(i<=p&&r.ev){ const e=c.evidence.find(x=>x.id===r.ev); if(e) pinned.push(Object.assign({isNew:i>lastB},e)); } });
+  const beats=R.map((r,i)=>({r,i})).filter(x=>x.i<=p&&x.r.type==='story').map(x=>x.r);
+  const cnt=id=>{ let a=0,b=0; pinned.forEach(e=>(e.links||[]).forEach(l=>{ if(l.s===id){ if(l.t==='+') a++; else b++; } })); return [a,b]; };
+  M.innerHTML=`<div class="cork" id="cork"><div class="bh"><div><div class="kick" style="color:#ffe3a0">${icon('folder',18)} Case board · ${pinned.length} clue${pinned.length===1?'':'s'} pinned</div><h1>Follow the strings</h1></div><div class="bq">${icon('help',22)}<span><b>Red string</b> = the clue points at them. <b>Gray dashes</b> = it points away. Who has the most red, and who fits <b>every</b> clue?</span></div></div>
+    <div class="bsr">${c.suspects.map((x,i)=>{ const [a,b]=cnt(x.id); return `<div class="bsus" data-s="${x.id}" style="--sc:${SCOL[x.color]};animation-delay:${.06*i}s"><img src="${esc(x.img)}" alt=""><div><h3>${esc(x.letter)} · ${esc(x.name)}</h3><div class="m">${esc(x.motive)}</div><div class="cnt"><span class="p">${a} toward</span><span class="n">${b} away</span></div></div></div>`; }).join('')}</div>
+    <div class="bev">${pinned.map((e,i)=>`<div class="pe2${e.isNew?' new':''}" data-e="${e.id}" style="animation-delay:${.3+.1*i}s;transform:rotate(${[-2,1.5,-1,2.5][i%4]}deg)"><img src="${esc(e.img)}" alt="">${e.key?'<span class="key">KEY</span>':''}<b>${esc(e.label)}</b><div class="lk">${(e.links||[]).map(l=>{ const x=sus(c,l.s); return `<i style="background:${l.t==='+'?SCOL[x.color]:'#8a94a8'}" title="${esc(l.why)}">${l.t==='+'?'▲':'▼'} ${esc((x.name||'').split(' ')[0])}</i>`; }).join('')}</div></div>`).join('')||'<div class="bq">No clues pinned yet.</div>'}</div>
+    <div class="tline">${beats.map(b=>`<div><b>${esc(b.when||'')}</b>${esc(b.title)}</div>`).join('')}</div><svg class="strings" id="strings"></svg></div>`;
+  setTimeout(drawStrings,700); setTimeout(drawStrings,2000); }
+function drawStrings(){ const sv=document.getElementById('strings'), cork=document.getElementById('cork'); if(!sv||!cork) return; const box=cork.getBoundingClientRect(), c=C();
+  sv.setAttribute('viewBox',`0 0 ${box.width} ${box.height}`); let h='';
+  document.querySelectorAll('.pe2').forEach(el=>{ const e=c.evidence.find(x=>x.id===el.dataset.e); if(!e) return; const b=el.getBoundingClientRect(), ex=b.left+b.width/2-box.left, ey=b.top-box.top+4;
+    (e.links||[]).forEach((l,k)=>{ const se=document.querySelector(`.bsus[data-s="${l.s}"]`); if(!se) return; const sb=se.getBoundingClientRect(), x=sus(c,l.s), sx=sb.left+sb.width*(.3+.4*((k%3)/2))-box.left, sy=sb.bottom-box.top-2, my=(ey+sy)/2+30;
+      h+=`<path d="M${ex} ${ey} C${ex} ${my} ${sx} ${my} ${sx} ${sy}" stroke="${l.t==='+'?SCOL[x.color]:'#c9d0dc'}" stroke-width="${l.t==='+'?4:2.5}" ${l.t==='+'?'':'stroke-dasharray="8 7"'} fill="none" stroke-linecap="round" opacity="${l.t==='+'?.95:.8}"/>`; }); });
+  sv.innerHTML=h; }
+window.addEventListener('resize',()=>{ if(cur().t==='board') drawStrings(); });
+function drawWho(){ const w=document.getElementById('who'); if(!w) return; const ids=live();
+  w.innerHTML=ids.length?ids.map(id=>`<button data-id="${esc(id)}" title="Click to remove a duplicate phone">${avHTML((S.av||{})[id]||'badge',30)} ${esc(S.players[id])} ${icon('x',12)}</button>`).join(''):`<span class="mute">Waiting for ${S.mode==='team'?'teams':'detectives'}…</span>`;
+  w.querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(confirm('Remove '+S.players[b.dataset.id]+'?')){ S.removed[b.dataset.id]=1; save(); draw(); broadcast(); } }); }
+const NEXTLBL={board:'Next',lobby:'Start the case',intro:'Skip',suspects:'Next',story:'Next',q:'Lock answers',bars:'Reveal',ans:'Next',gallery:'Next',leader:'Next',reveal:'Next',closure:'Wrap-up video',wrap:'Final standings',final:'New game'};
+function draw(){ ST=pubState(); recv=Date.now(); render(); extras(); bar(); }
+function bar(){ const s=cur();
+  document.getElementById('bk').innerHTML=icon('back',16)+' Back'; document.getElementById('bk').disabled=S.step===0;
+  const pz=document.getElementById('pz'); pz.innerHTML=S.pausedAt?icon('play',16)+' Play':'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause'; pz.style.display=s.t==='lobby'?'none':''; pz.className='btn'+(S.pausedAt?' gold':'');
+  const holds={board:'Paused for discussion: press Next when ready',reveal:'Talk it over, then press Next',closure:'Talk it over, then press Next',gallery:(S.drawPick||{})[s.ri]?'':'Pick the sketches to show',final:''};
+  document.getElementById('hint').textContent=s.t==='lobby'?'Space = pause · arrows = back / next':(holds[s.t]!=null?holds[s.t]:'');
+  hostUI(speaking);
+  const nx=document.getElementById('nx'); nx.innerHTML=(NEXTLBL[s.t]||'Next')+' '+icon('next',16); nx.className='btn '+(s.t==='bars'?'gold':'red');
+  const nq=(S.asks||[]).filter(x=>!x.bad).length;
+  document.getElementById('extra').innerHTML=s.t==='q'?`<button class="btn" id="plus">${icon('plus',14)} 15 s</button>`:s.t==='gallery'?`<button class="btn gold" id="rev">${icon('eye',16)} Review sketches (${answered(s.ri)})</button>`:['reveal','closure','wrap'].includes(s.t)&&nq?`<span class="pill">${icon('help',14)} ${nq} student question${nq>1?'s':''} waiting</span>`:'';
+  const p=document.getElementById('plus'); if(p) p.onclick=e=>{ e.currentTarget.blur(); S.limit[s.ri]=lim(s.ri)+15; save(); shownKey=''; draw(); broadcast(); };
+  const rv=document.getElementById('rev'); if(rv) rv.onclick=e=>{ e.currentTarget.blur(); openReview(); }; }
+document.getElementById('bk').onclick=e=>{ e.currentTarget.blur(); back(); };
+document.getElementById('pz').onclick=e=>{ e.currentTarget.blur(); setPaused(!S.pausedAt); };
+document.getElementById('nx').onclick=e=>{ e.currentTarget.blur(); if(cur().t==='final'){ if(confirm('Start a new game? Everyone will need to scan again.')){ sessionStorage.removeItem('cr_state'); location.href=location.pathname+location.search.replace(/[?&]new=1/,''); } return; } next(); };
+/* things only this computer can do: pick the case, remove a duplicate phone, hide a word, put a student question up */
+function extras(){ const s=cur(), c=C();
+  if(s.t==='lobby'){ const L=M.querySelector('.lob > div'); if(L&&!document.getElementById('pick')){ L.insertAdjacentHTML('beforeend',`<div id="pick"><div class="pick">${CASES.map(k=>`<div class="file${k.id===S.caseId?' on':''}" data-c="${k.id}"><img class="thumb" src="${esc(k.intro.shots[0])}" alt=""><h3>${esc(k.title)}</h3></div>`).join('')}</div>
+      <div class="mrow"><button class="mode${S.mode==='team'?' on':''}" data-m="team">${icon('users',18)} Teams</button><button class="mode${S.mode==='solo'?' on':''}" data-m="solo">${icon('user',18)} Solo</button></div></div>`);
+      M.querySelectorAll('.pick .file').forEach(b=>b.onclick=()=>{ S.caseId=b.dataset.c; S.gameId=Math.random().toString(36).slice(2,10); S.ans={}; S.opened={}; S.limit={}; S.hide={}; S.asks=[]; S.qa=null; S.rev={}; S.seenAsk={}; S.drawPick={}; S.noVideo=0; STEPS=buildSteps(); save(); shownKey=''; draw(); broadcast(); });
+      M.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{ S.mode=b.dataset.m; save(); shownKey=''; draw(); broadcast(); }); } }
+  if(s.t==='bars'&&c.rounds[s.ri].kind==='word') M.querySelectorAll('.cloud span').forEach(sp=>{ sp.title='Click to hide this word'; sp.onclick=()=>{ S.hide=S.hide||{}; (S.hide[s.ri]=S.hide[s.ri]||{})[sp.textContent]=1; save(); shownKey=''; draw(); broadcast(); }; });
+  if(s.t==='ans'&&c.rounds[s.ri].ifwrong&&c.rounds[s.ri].scored!==false){ const w=M.querySelector('.panelw:last-child'); if(w) w.insertAdjacentHTML('afterend',`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('help',14)} IF THEY MISSED IT, ASK</span><div>${c.rounds[s.ri].ifwrong.map(esc).join('<br>')}</div></div>`); }
+  if(s.t==='ans'&&c.rounds[s.ri].kind==='word'){ const r=c.rounds[s.ri]; M.querySelectorAll('.cloud span').forEach(sp=>{ if(isRight(r,sp.textContent)){ sp.style.color='#7ee2a6'; sp.style.textDecoration='underline'; } else sp.style.color='#8794ad'; }); }
+  if(s.t==='final'){ const ok=(S.asks||[]).filter(x=>!x.bad); if(!S.qa&&ok.length&&!S.qaShown){ S.qaShown=1; S.qa=ok[0].text; save(); setTimeout(()=>{ shownKey=''; draw(); broadcast(); },0); return; } const i=ok.findIndex(x=>x.text===S.qa), lb=M.querySelector('.lb');
+    if(lb) lb.insertAdjacentHTML('beforeend',`<div class="asks"><button class="btn gold" id="qnext">${icon('help',16)} ${ok.length?(i<0?'Show a student question':'Next question')+' ('+(i+1>0?i+1:0)+' of '+ok.length+')':'No student questions yet'}</button>${S.qa?' <button class="btn" id="qhide">Hide</button>':''}</div>`);
+    const qn=document.getElementById('qnext'); if(qn) qn.onclick=()=>{ if(!ok.length) return; S.qa=ok[(i+1)%ok.length].text; save(); shownKey=''; draw(); broadcast(); };
+    const qh=document.getElementById('qhide'); if(qh) qh.onclick=()=>{ S.qa=null; save(); shownKey=''; draw(); broadcast(); }; }
+}
+draw(); broadcast(); if(cur().t!=='lobby') hostRun();
+</script></body></html>
