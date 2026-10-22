@@ -196,7 +196,7 @@ function autoLock(){ const st=S.step, ri=cur().ri; setTimeout(()=>{ if(S.step!==
 const AU=new Audio(); AU.preload='auto';
 let hostTok=0, autoT=null, pending=null, speaking=false;
 const HOSTTXT={board:'Case board time. Look at the strings. Which suspect does each clue point to? Talk it over.',hunch:'No points on this one. Who is your top suspect right now? Go with your gut.',final:'Final call, detectives. Double points. Who did it?',allin:"Everyone is in. Let's see it.",timeup:"Time's up!",draw:'Grab your phone and sketch it. Your detective picks the best three.',closure:'So why not the others? Here is what clears them.',standings:'Here are the standings.'};
-function clipSrc(k){ const c=C(); if((c.vo||[]).includes(k)) return 'media/vo/'+c.id+'/'+k+'.mp3'; if((window.HOSTVO||[]).includes(k)) return 'media/vo/_host/'+k+'.mp3'; return null; }
+function clipSrc(k){ const c=C(); if((c.vo||[]).includes(k)) return 'media/vo/'+c.id+'/'+k+'.mp3'; if((window.HOSTVO||[]).includes(k)) return 'media/vo/host/'+k+'.mp3'; return null; }
 function hostUI(on,label){ const h=document.getElementById('host'); h.className=on?'':'off'; document.getElementById('hs').textContent=label||(S.auto?(S.pausedAt?'Paused':'Host'):'Host off'); }
 function say(items,done){ const tok=++hostTok; let i=0; speaking=true;
   const nx=()=>{ if(tok!==hostTok) return; if(i>=items.length){ speaking=false; hostUI(false); done&&done(); return; } const it=items[i++]; it.on&&it.on(); const src=clipSrc(it.k);
