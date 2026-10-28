@@ -100,7 +100,26 @@ function optionsOf(c, r) {
   if (r.kind === 'yn') return r.options.map((o, i) => ({ label: o, value: i, tag: i === 0 ? 'yes' : 'no' }));
   return r.options.map((o, i) => ({ label: o, value: i, tag: 'ABCD'[i] }));
 }
-const BLOCK = /(fuck|shit|bitch|cunt|dick|cock|pussy|fag|nigg|whore|slut|bastard|asshole|porn|sex|nazi|kill\s*(your|ur)self|kys|rape|retard)/i;
+const BLOCK = { test: t => isBad(t) };  /* kept for older callers: BLOCK.test(text) */
+/* Classroom filter: catches swears, body/crude words and the usual dodges (l33t, spaces, dots, repeated letters). */
+const BAD_SUB = ['fuck','fuk','fck','fuq','shit','sh1t','bitch','biatch','cunt','pussy','puss','nigg','nigr','whore','slut','bastard','asshole','arsehole','porn','penis','penus','peen','vagina','vajay','vulva','douche','dildo','jizz','boner','horny','blowjob','handjob','masturb','orgasm','ejacul','testicle','scrotum','nutsack','ballsack','titties','titty','boobie','boobs','booty','butthole','buttcrack','peehole','weiner','wiener','schlong','dickhead','cocksucker','motherf','stfu','killyourself','kysnow','nazi','hitler','retard','queef','smegma','anus','condom','tampon','pubes','pubic','thong','hentai','onlyfans','sexy','sexting','nudes','naked','fart'];
+const BAD_WORD = ['anal','rapist','vag','vaj','ass','asses','arse','butt','butts','dick','dicks','dik','cock','cocks','fag','fags','sex','cum','tit','tits','boob','nude','pee','peepee','poop','poo','crap','piss','balls','nuts','pp','thot','hoe','hoes','kys','rape','raped','damn','dammit','hell','bra','panties','wtf','lmfao','stfu','gtfo','omfg','milf','dildo','turd','deez','ligma','sugma','suck','sucks','sucker','pecker','junk','nipple','nipples','crotch','groin','weed','vape','beer','drunk','idiot','dumbass','loser'];
+/* order rounds: hide the printed time while students answer, show it at the reveal */
+function noTime(s) { return String(s).replace(/^[^:]*?\d{1,2}:\d{2}\s*[AP]M[^:]*:\s*/i, ''); }
+function isBad(t) {
+  const low = String(t || '').toLowerCase().replace(/[0@4]/g, m => ({ '0': 'o', '@': 'a', '4': 'a' })[m]).replace(/[1!|]/g, 'i').replace(/3/g, 'e').replace(/[5$]/g, 's').replace(/7/g, 't').replace(/8/g, 'b');
+  const ALLOW = /scunthorpe|therapist|analys|analog|canal|banal|penistone|cocktail|cockpit|peacock|hancock|dickens|dickinson|arsenal|shitake|shiitake|cumber|document|circumstanc|titan|title|constitut|competit|petit|repetit|pass|class|assass|assist|assign|assum|assembl|assess|grass|mass|bass|brass|glass|hello|shell|butter|button|buttress|scrap|hellen|michelle|rochelle/g;
+  const squash = low.replace(ALLOW, '').replace(/[^a-z]/g, '').replace(/(.)\1+/g, '$1');
+  const squash2 = low.replace(ALLOW, '').replace(/[^a-z]/g, '').replace(/(.)\1{2,}/g, '$1$1');
+  if (BAD_SUB.some(w => { const d = w.replace(/(.)\1+/g, '$1'); return squash2.includes(w) || ((d === w || d.length >= 5) && squash.includes(d)); })) return true;
+  const words = low.replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(Boolean);
+  const w2 = words.map(w => w.replace(/(.)\1{2,}/g, '$1$1'));
+  const wset = new Set(words.concat(w2, words.map(w => w.replace(/(.)\1+/g, '$1')), w2.map(w => w.replace(/s$/, ''))));
+  if (BAD_WORD.some(w => wset.has(w))) return true;
+  /* spaced-out letters: "p e n i s", "a s s" */
+  const singles = low.match(/\b([a-z])(?:[\s._\-*]+[a-z]\b)+/g) || [];
+  return singles.some(g => { const j = g.replace(/[^a-z]/g, ''); return BAD_WORD.includes(j) || BAD_SUB.some(w => j.includes(w)); });
+}
 function cleanWord(v) { return String(v || '').toLowerCase().replace(/[^a-z0-9 '-]/g, ' ').replace(/\s+/g, ' ').trim().split(' ').slice(0, 3).join(' ').slice(0, 24); }
 function isRight(r, v) {
   if (v === undefined || v === null || r.scored === false) return false;

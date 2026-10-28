@@ -121,6 +121,30 @@ video{aspect-ratio:16/9;height:clamp(240px,calc(100vh - 300px),calc((100vw - 120
 .who2.d2{gap:6px}.who2.d2 .chip{font-size:13px;padding:2px 10px 2px 2px;gap:6px}.who2.d2 .chip .avi{width:26px!important;height:26px!important}
 .who2.d3{gap:5px}.who2.d3 .chip{font-size:12px;padding:2px 9px 2px 2px;gap:4px}.who2.d3 .chip .avi{width:20px!important;height:20px!important}
 @media (max-height:820px){.joincard #qr img{width:min(21vh,200px)!important}.joincard .joincode{font-size:clamp(36px,4vw,56px)}.joincard{padding:12px 16px!important}}
+
+/* case board v2: one column per suspect, clues stacked under who they point at (no crossing strings) */
+.cork2{position:relative;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.06) 0 2px,transparent 3px) 0 0/23px 23px,linear-gradient(135deg,#a8773f,#835629);border:12px solid #4a2f17;border-radius:10px;box-shadow:inset 0 0 60px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.5);padding:14px 20px 16px;display:flex;flex-direction:column;gap:12px}
+.bh2{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}.cork2 h1{color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.6);margin:2px 0 0;font-size:clamp(24px,2.4vw,40px)}
+.legend2{background:var(--paper);color:var(--navy);border-radius:8px;padding:8px 14px;display:flex;flex-direction:column;gap:4px;font-size:clamp(14px,1.15vw,19px);box-shadow:0 6px 14px rgba(0,0,0,.4)}.legend2 span{display:flex;align-items:center;gap:10px}
+.lg{display:inline-block;width:34px;height:20px;border-radius:4px;background:#fff}.lg.to{border:4px solid #e5484d;box-shadow:inset 0 0 0 0 #000;background:linear-gradient(90deg,#e5484d 0 25%,#f2b705 25% 50%,#3b82f6 50% 75%,#22a06b 75%);}.lg.away{border:3px dashed #7d8698;background:#eef0f4}
+.cols2{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;align-items:start}
+.col2{display:flex;flex-direction:column;gap:10px;animation:pinin .55s cubic-bezier(.2,1.4,.4,1) both}
+.sp2{background:#fbf8f1;color:#1d1606;border-radius:4px;box-shadow:0 10px 18px rgba(0,0,0,.45);padding:8px;border-top:10px solid var(--sc);position:relative}
+.sp2:after{content:'';position:absolute;left:50%;bottom:-14px;width:4px;height:14px;margin-left:-2px;background:var(--sc)}
+.sp2 img{display:block;width:100%;height:clamp(110px,22vh,260px);object-fit:cover;object-position:50% 15%;border-radius:3px}
+.nm2{display:flex;align-items:center;gap:8px;margin-top:6px}.nm2 b{font-size:clamp(17px,1.5vw,26px);line-height:1.1}
+.tally2{margin-top:4px;font-weight:700;font-size:clamp(13px,1vw,17px);color:#3a3020}.tally2 .t{background:var(--sc);color:#fff;border-radius:5px;padding:0 8px;font-size:1.15em}.tally2 .a{background:#d8dde8;color:#2a3550;border-radius:5px;padding:0 8px}
+.stack2{display:flex;flex-direction:column;gap:8px;position:relative}.stack2:before{content:'';position:absolute;left:50%;top:-12px;bottom:10px;width:4px;margin-left:-2px;background:var(--sc);opacity:.85}
+.clue2{display:flex;gap:10px;align-items:center;background:#fbf8f1;color:#1d1606;border-radius:5px;padding:6px;box-shadow:0 6px 12px rgba(0,0,0,.4);border:4px solid var(--sc);animation:pinin .55s cubic-bezier(.2,1.4,.4,1) both;position:relative}
+.clue2 img{width:clamp(52px,4.6vw,90px);aspect-ratio:4/3;object-fit:cover;border-radius:3px;flex:none}.clue2 b{font-size:clamp(14px,1.2vw,21px);line-height:1.2}
+.clue2.away{border:3px dashed #7d8698;background:#e9ecf2;opacity:.92}.clue2.away b{color:#3c4659}.clue2.away img{filter:grayscale(.7);width:clamp(40px,3.6vw,70px)}
+.clue2.new{box-shadow:0 0 0 3px #fff,0 0 20px 6px rgba(255,214,90,.9)}
+.clue2 .key{display:inline-block;margin-left:6px;background:var(--gold);color:var(--navy);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.1em;padding:1px 6px;vertical-align:middle}
+.stack2:has(.none2):before{display:none}
+.none2{color:#fff;opacity:.75;font-weight:700;text-align:center;padding:8px;background:rgba(0,0,0,.18);border-radius:6px;font-size:clamp(13px,1vw,16px)}
+.classcard{background:var(--navy2);border:2px solid var(--line);border-radius:18px;padding:28px 30px;font-size:clamp(17px,1.4vw,22px);line-height:1.45}.classcard h2{margin:10px 0 6px;font-size:clamp(26px,2.4vw,40px)}.classcard svg{color:var(--gold)}
+.pickme{cursor:pointer;transition:transform .12s,box-shadow .12s}.pickme:hover{transform:translateY(-2px);box-shadow:0 0 0 4px var(--gold)}.chosen{box-shadow:0 0 0 5px var(--gold)!important}
+.classword{display:flex;gap:12px;justify-content:center;margin-top:3vh}.classword input{font:700 clamp(24px,2.4vw,40px) Poppins,Arial;padding:14px 20px;border-radius:12px;border:3px solid var(--gold);width:min(640px,60vw)}.btn.red{background:var(--red);color:#fff}
 </style></head>
 <body class="board">
 <div class="topbar"><img src="media/badge_white.png" alt="LPD"><div class="brand">LPD CASE ROOM<small id="ct">Lorain Police Department</small></div><div class="sp"></div><span class="pill" id="pc" style="display:none"></span><span class="pill" id="rp" style="display:none"></span><span class="dot" id="net"></span></div>
@@ -145,6 +169,9 @@ const TOPH=topicFor(S.code,'h'), TOPP=topicFor(S.code,'p');
 const C=()=>caseById(S.caseId);
 const SCOL={red:'#e5484d',blue:'#3b82f6',yellow:'#f2b705',green:'#22a06b'};
 const sus=(c,id)=>c.suspects.find(x=>x.id===id)||{};
+const CLASS='class0';
+function setClassPlayer(){ if(S.mode==='class'){ S.players[CLASS]='The class'; S.av=S.av||{}; S.av[CLASS]='badge'; if(!S.order.includes(CLASS)) S.order.push(CLASS); delete S.removed[CLASS]; } else { delete S.players[CLASS]; S.order=S.order.filter(x=>x!==CLASS); } }
+const CLS=()=>S.mode==='class';
 function buildSteps(){ const c=C(), st=[{t:'lobby'},{t:'intro'},{t:'suspects'}]; let qn=0;
   c.rounds.forEach((r,i)=>{
     if(r.type==='story'){ st.push({t:'story',ri:i}); return; }
@@ -152,7 +179,7 @@ function buildSteps(){ const c=C(), st=[{t:'lobby'},{t:'intro'},{t:'suspects'}];
     if(r.kind==='interview') st.push({t:'q',ri:i},{t:'ans',ri:i});
     else if(r.kind==='draw') st.push({t:'q',ri:i},{t:'gallery',ri:i});
     else if(r.scored===false) st.push({t:'q',ri:i},{t:'bars',ri:i});
-    else { qn++; st.push({t:'q',ri:i},{t:'bars',ri:i},{t:'ans',ri:i}); if(qn%3===0&&r.kind!=='suspect') st.push({t:'board',pos:i},{t:'leader'}); } });
+    else { qn++; st.push({t:'q',ri:i},{t:'bars',ri:i},{t:'ans',ri:i}); if(qn%3===0&&r.kind!=='suspect'){ st.push({t:'board',pos:i}); if(S.mode!=='class') st.push({t:'leader'}); } } });
   st.push({t:'reveal'},{t:'closure'},{t:'wrap'},{t:'final'}); return st; }
 let STEPS=buildSteps();
 const cur=()=>STEPS[Math.min(S.step,STEPS.length-1)];
@@ -190,14 +217,14 @@ function pubState(){ const s=cur(), c=C();
   if(['ans','gallery','leader','reveal','closure','wrap','final'].includes(s.t)) m.scores=scores();
   return m; }
 let retryT=null;
-function broadcast(){ S.seq++; save(); const m=pubState(); pub(TOPH,m).then(()=>{ document.getElementById('off').style.display='none'; },()=>{ document.getElementById('off').style.display='block'; clearTimeout(retryT); retryT=setTimeout(broadcast,2500); }); }
+function broadcast(){ S.seq++; save(); if(S.mode==='class'){ document.getElementById('off').style.display='none'; return; } const m=pubState(); pub(TOPH,m).then(()=>{ document.getElementById('off').style.display='none'; },()=>{ document.getElementById('off').style.display='block'; clearTimeout(retryT); retryT=setTimeout(broadcast,2500); }); }
 let bcT=null; function broadcastSoon(){ clearTimeout(bcT); bcT=setTimeout(broadcast,150); }
-sub(TOPP,(m)=>{ if(!m||!validId(m.id)) return;
+function onMsg(m){ if(!m||!validId(m.id)) return;
   if(m.k==='join'){ if(!S.players[m.id]){ let nm=String(m.name||'Detective').replace(/[^\w .'-]/g,'').slice(0,24)||'Detective'; const used=new Set(Object.values(S.players)); if(used.has(nm)){ let i=2; while(used.has(nm+' '+i)) i++; nm=nm+' '+i; } S.players[m.id]=nm; S.av=S.av||{}; S.av[m.id]=AVATARS.includes(m.av)?m.av:'badge'; S.order.push(m.id); save(); draw(); }
     broadcastSoon(); }
   else if(m.k==='ask'){ if(!S.players[m.id]||S.removed[m.id]||m.g!==S.gameId) return; S.seenAsk=S.seenAsk||{}; if(!m.mid||S.seenAsk[m.mid]) return; S.seenAsk[m.mid]=1; const t=String(m.text||'').replace(/\s+/g,' ').trim().slice(0,160); if(!t) return; S.asks=S.asks||[]; if(S.asks.filter(x=>x.id===m.id).length>=3) return; S.asks.push({id:m.id,text:t,bad:BLOCK.test(t)}); save(); draw(); }
   else if(m.k==='ans'){ if(S.removed[m.id]||!S.players[m.id]||m.g!==S.gameId) return; const s=cur(); if(s.t!=='q'||m.ri!==s.ri) return;
-    const r=C().rounds[s.ri], now=Date.now(); if(S.pausedAt||now>=deadline(s.ri)+1500) return;
+    const r=C().rounds[s.ri], now=Date.now(); if(m.id!==CLASS&&(S.pausedAt||now>=deadline(s.ri)+1500)) return;
     if(r.kind==='word'){ m.v=cleanWord(m.v); if(!m.v) return; }
     else if(r.kind==='order'){ if(!/^[ABCD]{4}$/.test(String(m.v))||new Set(String(m.v)).size!==4) return; }
     else if(r.kind==='interview'){ const v=String(m.v); if(!/^[ABCD]{1,2}$/.test(v)||new Set(v).size!==v.length) return; }
@@ -206,12 +233,13 @@ sub(TOPP,(m)=>{ if(!m||!validId(m.id)) return;
     const a=S.ans[s.ri]=S.ans[s.ri]||{}; if(a[m.id]) return;
     const ms=Math.max(0,now-(S.opened[s.ri]||now)), k=r.kind==='suspect'?2:1;
     a[m.id]={v:m.v,ms,pts:isRight(r,m.v)?k*(500+Math.round(500*Math.max(0,1-ms/(lim(s.ri)*1000)))):0}; save(); if(r.kind!=='draw'||true) draw(); broadcastSoon(); autoLock(); }
-}, ok=>{ document.getElementById('net').className='dot '+(ok?'on':'off'); clearTimeout(window._offT); if(ok) document.getElementById('off').style.display='none'; else window._offT=setTimeout(()=>document.getElementById('off').style.display='block',4000); });
+}
+sub(TOPP,onMsg,ok=>{ document.getElementById('net').className='dot '+(ok?'on':'off'); clearTimeout(window._offT); if(ok||S.mode==='class') document.getElementById('off').style.display='none'; else window._offT=setTimeout(()=>{ if(S.mode!=='class') document.getElementById('off').style.display='block'; },4000); });
 function autoLock(){ const st=S.step, ri=cur().ri; setTimeout(()=>{ if(S.step!==st||cur().t!=='q'||cur().ri!==ri||S.pausedAt) return; const a=S.ans[ri]||{}, ids=live(); if(ids.length&&ids.every(id=>a[id])) go(st+1); },400); }
 /* ---------- host voice + autoplay (Jackbox style: the host reads, the clock runs, answers reveal, the game moves on) ---------- */
 const AU=new Audio(); AU.preload='auto';
 let hostTok=0, autoT=null, pending=null, speaking=false;
-const HOSTTXT={board:'Case board time. Look at the strings. Which suspect does each clue point to? Talk it over.',hunch:'No points on this one. Who is your top suspect right now? Go with your gut.',final:'Final call, detectives. Double points. Who did it?',allin:"Everyone is in. Let's see it.",timeup:"Time's up!",draw:'Grab your phone and sketch it. Your detective picks the best three.',closure:'So why not the others? Here is what clears them.',standings:'Here are the standings.'};
+const HOSTTXT={board:'Case board time. Which suspect does each clue point to? Talk it over.',hunch:'No points on this one. Who is your top suspect right now? Go with your gut.',final:'Final call, detectives. Double points. Who did it?',allin:"Everyone is in. Let's see it.",timeup:"Time's up!",draw:'Grab your phone and sketch it. Your detective picks the best three.',closure:'So why not the others? Here is what clears them.',standings:'Here are the standings.'};
 function clipSrc(k){ const c=C(); if((c.vo||[]).includes(k)) return 'media/vo/'+c.id+'/'+k+'.mp3'; if((window.HOSTVO||[]).includes(k)) return 'media/vo/host/'+k+'.mp3'; return null; }
 function hostUI(on,label){ const h=document.getElementById('host'); h.className=on?'':'off'; document.getElementById('hs').textContent=label||(S.auto?(S.pausedAt?'Paused':'Host'):'Host off'); }
 function say(items,done){ const tok=++hostTok; let i=0; speaking=true;
@@ -229,7 +257,7 @@ function plan(s){ const c=C(), r=s.ri!=null?c.rounds[s.ri]:null, v=(k,t)=>({k,t}
     case 'intro': return c.intro.video&&!S.noVideo?{say:[],after:null}:{say:c.intro.script.map((t,i)=>Object.assign(v('intro_'+i,t),{on:()=>{ S.introN=i; draw(); }})),after:1500};
     case 'suspects': return {say:[v('sus','Meet the suspects. '+c.suspects.map(x=>x.name+', '+x.role).join('. '))],after:2500};
     case 'story': return {say:[v('s_'+s.ri,r.text)],after:1400};
-    case 'q': { const q=v('q_'+s.ri,r.q+(r.witness?' The witness says: '+r.witness:'')); return {say:r.kind==='suspect'&&r.scored!==false?[v('final',HOSTTXT.final),q]:r.kind==='draw'?[q,v('draw',HOSTTXT.draw)]:[q],after:null}; }
+    case 'q': { const q=v('q_'+s.ri,r.q+(r.witness?' The witness says: '+r.witness:'')); return {say:r.kind==='suspect'&&r.scored!==false?[v('final',HOSTTXT.final),q]:r.kind==='draw'?(S.mode==='class'?[q]:[q,v('draw',HOSTTXT.draw)]):[q],after:null}; }
     case 'bars': { const all=answered(s.ri)>=live().length&&live().length>0; return {say:[all?v('allin',HOSTTXT.allin):v('timeup',HOSTTXT.timeup)],after:r.scored===false?12000:2600}; }
     case 'ans': { const out=[];
       if(r.kind==='interview') topTwo(s.ri).forEach(k=>out.push(Object.assign(v('ia_'+s.ri+'_'+k,r.answers[k]),{on:()=>{ S.ivShown=(S.ivShown||0)+1; draw(); }})));
@@ -274,17 +302,17 @@ function folder(c,r,sub,still){ const qn=c.rounds.slice(0,ST.ri+1).filter(x=>x.t
   return `<div class="folder${still?' still':''}" data-tab="CASE ${ST.code} · EXHIBIT ${qn}"><span class="stamp">${stamp}</span><div class="kick">${sub}</div><h1>${esc(r.q)}</h1>${r.kind==='suspect'&&r.scored!==false?'<div class="kick" style="color:var(--red)">DOUBLE POINTS</div>':''}</div>`; }
 function render(){ const c=caseById(ST.caseId), s=ST.step, r=ST.ri!=null?c.rounds[ST.ri]:null, key=s+':'+ST.ri+':'+ST.mode+':'+ST.caseId+':'+(S.introN||0)+':'+(S.ivShown||0)+':'+JSON.stringify((S.drawPick||{})[ST.ri]||'')+':'+!!S.pausedAt;
   document.getElementById('ct').textContent=s==='lobby'?'Lorain Police Department':c.title;
-  const pc=document.getElementById('pc'); pc.style.display=''; pc.innerHTML=icon(ST.mode==='team'?'users':'user',16)+' '+ST.count+(ST.mode==='team'?' teams':' detectives');
-  const rp=document.getElementById('rp'); rp.style.display=s==='lobby'?'none':''; rp.innerHTML='Join <b>'+ST.code+'</b>';
+  const pc=document.getElementById('pc'); pc.style.display=''; pc.innerHTML=ST.mode==='class'?icon('monitor',16)+' No phones':icon(ST.mode==='team'?'users':'user',16)+' '+ST.count+(ST.mode==='team'?' teams':' detectives');
+  const rp=document.getElementById('rp'); rp.style.display=s==='lobby'||ST.mode==='class'?'none':''; rp.innerHTML='Join <b>'+ST.code+'</b>';
   if(key===shownKey&&(s==='q'||s==='gallery')){ const a=document.getElementById('na'); if(a) a.textContent=ST.answered+' of '+ST.count+' '+(r.kind==='draw'?'sketches in':'answered'); const g=document.getElementById('gn'); if(g) g.textContent=answered(ST.ri); return; }
   if(key===shownKey&&s==='lobby'){ drawWho(); return; }
   if(key===shownKey&&['intro','wrap','board'].includes(s)) return;
   shownKey=key; clearInterval(clockI);
   if(s==='lobby'){
     M.innerHTML=`<div class="lob"><div class="lobL"><div class="kick">${icon('shield',18)} Lorain Police Department</div><h1>Today, you're the detectives.</h1>
-     <ol class="steps"><li><span class="n">1</span>${ST.mode==='team'?'One phone per team: scan the code':'Scan the code with your phone'}</li><li><span class="n">2</span>Pick a ${ST.mode==='team'?'squad':'detective'} name and a character</li><li><span class="n">3</span>Listen to the host and work the case</li></ol></div>
-     <div class="lobR"><div class="joincard"><div id="qr"></div><div class="jc"><div class="jt">Scan to join</div><div class="joincode">${ST.code}</div><div class="joinurl">or go to ${esc(ST.join.replace(/^https?:\/\//,'').replace(/\?.*$/,''))}</div></div></div>
-     <div class="pool"><div class="poolh"><span>${icon(ST.mode==='team'?'users':'user',18)} ${ST.mode==='team'?'Squads':'Detectives'} on the case</span><b id="pcount">0</b></div><div class="who2" id="who"></div></div></div></div>`;
+     <ol class="steps">${ST.mode==='class'?'<li><span class="n">1</span>Listen to the host</li><li><span class="n">2</span>Talk it over as a class</li><li><span class="n">3</span>Your detective locks in the answer</li>':`<li><span class="n">1</span>${ST.mode==='team'?'One phone per team: scan the code':'Scan the code with your phone'}</li><li><span class="n">2</span>Pick a ${ST.mode==='team'?'squad':'detective'} name and a character</li><li><span class="n">3</span>Listen to the host and work the case</li>`}</ol></div>
+     ${ST.mode==='class'?`<div class="lobR"><div class="classcard">${icon('monitor',54)}<h2>No phones needed</h2><p>The whole class plays together. The host reads each clue; the class talks it over out loud; <b>you click the class's answer on the screen</b>.</p><p>For the sketch round, pick a volunteer to draw on the whiteboard.</p><p class="mute2">Works offline from the USB stick too.</p></div></div></div>`:`<div class="lobR"><div class="joincard"><div id="qr"></div><div class="jc"><div class="jt">Scan to join</div><div class="joincode">${ST.code}</div><div class="joinurl">or go to ${esc(ST.join.replace(/^https?:\/\//,'').replace(/\?.*$/,''))}</div></div></div>
+     <div class="pool"><div class="poolh"><span>${icon(ST.mode==='team'?'users':'user',18)} ${ST.mode==='team'?'Squads':'Detectives'} on the case</span><b id="pcount">0</b></div><div class="who2" id="who"></div></div></div></div>`}`;
     try{ const qq=qrcode(0,'M'); qq.addData(ST.join); qq.make(); document.getElementById('qr').innerHTML=qq.createImgTag(8,8); }catch(e){}
     drawWho(); return; }
   if(s==='intro'||s==='wrap'){ const src=s==='intro'?c.intro:c.wrap, n=S.introN||0;
@@ -300,6 +328,7 @@ function render(){ const c=caseById(ST.caseId), s=ST.step, r=ST.ri!=null?c.round
   if(s==='board'){ renderBoard(c); return; }
   if(s==='gallery'){ renderGallery(c,r); return; }
   if(s==='q'||s==='bars'||s==='ans'){ renderQ(c,r,s); return; }
+  if(s==='final'&&ST.mode==='class'){ M.innerHTML=`<div class="lb" style="text-align:center"><div class="kick" style="justify-content:center">${icon('award',18)} Case closed</div><h1>Great work, detectives.</h1><div class="lesson">${icon('help',24)}<div>Questions for the detective? Ask them now, out loud.</div></div></div>`; sting(); return; }
   if(s==='leader'||s==='final'){ const sc=ST.scores||{}, rk=Object.entries(sc).filter(([id])=>!ST.removed[id]&&ST.players[id]).sort((a,b)=>b[1]-a[1]).slice(0,5);
     M.innerHTML=`<div class="lb"><div class="kick">${icon(s==='final'?'award':'chart',18)} ${s==='final'?'Final standings':'Standings'}</div><h1>${ST.mode==='team'?(s==='final'?'Top squads':'Top squads so far'):(s==='final'?'Top investigators':'Top investigators so far')}</h1>${rk.map(([id,p],i)=>`<div class="row${i===0?' p1':''}"><span class="n">${i+1}</span><span class="nm">${avHTML((ST.av||{})[id]||'badge',44,'style="margin-right:12px"')}${esc(ST.players[id])}</span><span>${p.toLocaleString()}</span></div>`).join('')||'<p class="mute">No scores yet.</p>'}
      ${s==='final'?(ST.qa?`<div class="qa">${icon('help',28)}<div><b>Student question:</b> ${esc(ST.qa)}</div></div>`:`<div class="lesson">${icon('help',24)}<div>Questions for the detective? Send one from your phone.</div></div>`):''}</div>`; if(s==='final') sting(); return; }
@@ -309,36 +338,43 @@ function render(){ const c=caseById(ST.caseId), s=ST.step, r=ST.ri!=null?c.round
 }
 function clockStart(r){ clearInterval(clockI); clockI=setInterval(()=>{ const el=document.getElementById('cl'); if(!el) return; const l=ST.deadline?Math.max(0,Math.ceil((ST.deadline-(S.pausedAt||Date.now()))/1000)):0; el.textContent=l; const ck=document.getElementById('clk'); ck.classList.toggle('low',l<=5&&!S.pausedAt); ck.classList.toggle('paused',!!S.pausedAt); if(l<=5&&l>0&&!S.pausedAt) tone(660,.07,.05);
   const bi=document.getElementById('blurimg'); if(bi) bi.style.filter='blur('+Math.round(44*Math.pow(Math.max(0,l-4)/Math.max(1,(ST.limit||LIMIT)-4),.55))+'px)'; },1000); }
+/* no-phones mode: the detective clicks the class's answer on the big screen */
+function classAns(v){ onMsg({k:'ans',id:CLASS,g:S.gameId,ri:cur().ri,v}); }
+function wireClass(r){ if(S.mode!=='class'||cur().t!=='q') return; const K=r.kind;
+  if(K==='word'){ const i=document.getElementById('cw'), go=()=>{ const v=i.value.trim(); if(v) classAns(v); }; document.getElementById('cwgo').onclick=go; i.onkeydown=e=>{ e.stopPropagation(); if(e.key==='Enter') go(); }; setTimeout(()=>i.focus(),50); return; }
+  if(K==='order'){ let seq=[]; M.querySelectorAll('.ocard[data-l]').forEach(el=>{ el.classList.add('pickme'); el.onclick=()=>{ const L=el.dataset.l; if(seq.includes(L)) return; seq.push(L); el.insertAdjacentHTML('afterbegin',`<span class="num">${seq.length}</span>`); el.classList.add('chosen'); if(seq.length===4) setTimeout(()=>classAns(seq.join('')),500); }; }); return; }
+  if(K==='interview'){ let sel=[]; M.querySelectorAll('.qcard[data-v]').forEach(el=>{ el.classList.add('pickme'); el.onclick=()=>{ const v='ABCD'[+el.dataset.v]; if(sel.includes(v)) return; sel.push(v); el.classList.add('chosen'); if(sel.length===2) setTimeout(()=>classAns(sel.join('')),500); }; }); return; }
+  M.querySelectorAll('.opt[data-v],.ptile[data-v]').forEach(el=>{ el.classList.add('pickme'); el.onclick=()=>{ el.classList.add('chosen'); const raw=el.dataset.v; classAns(/^-?\d+$/.test(raw)&&r.kind!=='suspect'?+raw:raw); }; }); }
 function renderQ(c,r,s){ const opts=r.kind==='interview'?r.options.map((o,i)=>({label:o,value:i,tag:'ABCD'[i]})):optionsOf(c,r), n=ST.answered||0, t=ST.tally||{}, K=r.kind, rev=s==='ans';
   const pct=v=>n?Math.round(100*(t[v]||0)/n):0, isR=v=>rev&&ST.correct!=null&&String(v)===String(ST.correct);
   const LBL={yn:'Yes or no',suspect:'Make the call',word:'Type it in',spot:'Spot the clue',pics:'Pick a picture',order:'Put it in order',blur:'What is it? Answer early for more points',interview:'Pick 2 questions on your phone',decision:'What do you do next?',draw:'Sketch it on your phone'};
   const lbl=r.scored===false&&K==='suspect'?'No points, just your gut':LBL[K]||'Pick one';
   const sub=(ic,tail)=>icon(ic,18)+' '+esc(r.title)+' · '+tail;
-  const clockH=`<div><div class="clock${S.pausedAt?' paused':''}" id="clk"><b id="cl">${ST.left}</b><span>${S.pausedAt?'PAUSED':'SEC'}</span></div><div class="ans" id="na">${n} of ${ST.count} ${K==='draw'?'sketches in':'answered'}</div></div>`;
+  const clockH=`<div><div class="clock${S.pausedAt?' paused':''}" id="clk"><b id="cl">${ST.left}</b><span>${S.pausedAt?'PAUSED':'SEC'}</span></div><div class="ans" id="na">${ST.mode==='class'?'Click the class answer':n+' of '+ST.count+' '+(K==='draw'?'sketches in':'answered')}</div></div>`;
   const optH=cls=>`<div class="optg${cls||''}">`+opts.map(o=>{ const p=pct(o.value), right=isR(o.value), lab=K==='spot'&&!rev?'Marker '+o.tag:o.label;
-    return `<div class="opt${rev?(right?' right':' dim'):''}">${tent(o.tag,52)}<span class="lab">${esc(lab)}${o.sub?`<small>${esc(o.sub)}</small>`:''}</span>${s!=='q'?`<span class="pc">${p}%</span><span class="bar" style="width:${p}%"></span>`:''}${right?'<span class="confirmed">CONFIRMED</span>':''}</div>`; }).join('')+'</div>';
+    return `<div class="opt${rev?(right?' right':' dim'):''}" data-v="${esc(String(o.value))}">${tent(o.tag,52)}<span class="lab">${esc(lab)}${o.sub?`<small>${esc(o.sub)}</small>`:''}</span>${s!=='q'?`<span class="pc">${p}%</span><span class="bar" style="width:${p}%"></span>`:''}${right?'<span class="confirmed">CONFIRMED</span>':''}</div>`; }).join('')+'</div>';
   const tiles=()=>`<div class="tiles${K==='suspect'?' sq':''}">`+opts.map(o=>{ const p=pct(o.value), right=isR(o.value);
-    return `<div class="ptile${rev?(right?' right':' dim'):''}"><img src="${esc(o.img)}" alt=""><div class="pl">${tent(o.tag,36)}<span>${esc(o.label)}</span>${s!=='q'?`<span class="pc">${p}%</span>`:''}</div>${s!=='q'?`<span class="bar" style="width:${p}%"></span>`:''}${right?'<span class="confirmed">CONFIRMED</span>':''}</div>`; }).join('')+'</div>';
+    return `<div class="ptile${rev?(right?' right':' dim'):''}" data-v="${esc(String(o.value))}"><img src="${esc(o.img)}" alt=""><div class="pl">${tent(o.tag,36)}<span>${esc(o.label)}</span>${s!=='q'?`<span class="pc">${p}%</span>`:''}</div>${s!=='q'?`<span class="bar" style="width:${p}%"></span>`:''}${right?'<span class="confirmed">CONFIRMED</span>':''}</div>`; }).join('')+'</div>';
   const why=`<div class="panelw"><span class="tag">${icon('search',14)} WHY</span><div>${esc(ST.why||'')}</div></div>`;
   if(K==='word'){
-    if(s==='q'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('search',lbl))}${clockH}</div>${r.img?`<div class="qb">${evHTML(r)}<div class="panelw"><span class="tag">${icon('phone',14)} YOUR PHONE</span><div>Type one or two words. Answers stay hidden until everyone's in.</div></div></div>`:''}`; clockStart(r); tone(523,.15); return; }
+    if(s==='q'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('search',lbl))}${clockH}</div>${r.img?`<div class="qb">${evHTML(r)}${ST.mode==='class'?'':`<div class="panelw"><span class="tag">${icon('phone',14)} YOUR PHONE</span><div>Type one or two words. Answers stay hidden until everyone's in.</div></div>`}</div>`:''}${ST.mode==='class'?`<div class="classword"><input id="cw" maxlength="24" autocomplete="off" placeholder="Type the class answer"><button class="btn red" id="cwgo">Lock it in</button></div>`:''}`; clockStart(r); tone(523,.15); wireClass(r); return; }
     const W=ST.words||[], mx=Math.max(1,...W.map(x=>x[1]));
     M.innerHTML=`${folder(c,r,sub('chart',rev?'the answer':'what you said'),1)}<div class="cloud">${W.map(([w,k])=>`<span style="font-size:${22+38*k/mx}px;opacity:${.55+.45*k/mx}">${esc(w)}</span>`).join('')||'<span class="mute">No answers</span>'}</div>${rev?why:''}`; if(rev) sting(); return; }
   if(K==='interview'){ const x=sus(c,r.suspect), top=rev?(ST.iv||[]):[], shown=S.ivShown||0;
     const cards=opts.map(o=>{ const p=pct(o.value), k=top.indexOf(o.value), asked=rev&&k>=0;
-      return `<div class="qcard${rev&&!asked?' dim':''}">${tent(o.tag,44)}<span>${esc(o.label)}</span>${s!=='q'?`<span class="pc">${p}%</span><span class="bar" style="width:${p}%"></span>`:''}</div>${asked&&(k<shown||!S.auto)?`<div class="reply"><b>${esc(x.name.split(' ')[0])}:</b> ${esc(r.answers[o.value])}</div>`:''}`; }).join('');
+      return `<div class="qcard${rev&&!asked?' dim':''}" data-v="${esc(String(o.value))}">${tent(o.tag,44)}<span>${esc(o.label)}</span>${s!=='q'?`<span class="pc">${p}%</span><span class="bar" style="width:${p}%"></span>`:''}</div>${asked&&(k<shown||!S.auto)?`<div class="reply"><b>${esc(x.name.split(' ')[0])}:</b> ${esc(r.answers[o.value])}</div>`:''}`; }).join('');
     M.innerHTML=`<div class="qwrap">${folder(c,r,sub('mic',rev?'the answers':lbl),rev)}${s==='q'?clockH:''}</div><div class="ivw"><div class="pt" style="--sc:${SCOL[x.color]}"><img src="${esc(x.img)}" alt=""><h3>${esc(x.name)}</h3></div><div>${cards}${rev&&shown>=2?why:''}</div></div>`;
-    if(s==='q'){ clockStart(r); tone(523,.15); } return; }
-  if(K==='draw'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('note',lbl))}${clockH}</div><div class="wit">${icon('ear',40)}<div><b>WHAT THE WITNESS SAYS</b>“${esc(r.witness)}”</div></div><div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('phone',14)} YOUR PHONE</span><div>Draw it with your finger. Your detective picks the best three to show.</div></div>`; clockStart(r); tone(523,.15); return; }
+    if(s==='q'){ clockStart(r); tone(523,.15); wireClass(r); } return; }
+  if(K==='draw'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('note',lbl))}${clockH}</div><div class="wit">${icon('ear',40)}<div><b>WHAT THE WITNESS SAYS</b>“${esc(r.witness)}”</div></div>${ST.mode==='class'?`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('users',14)} VOLUNTEER</span><div>Pick a volunteer to draw it on the whiteboard while the class helps. Press Next when the drawing is done.</div></div>`:`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('phone',14)} YOUR PHONE</span><div>Draw it with your finger. Your detective picks the best three to show.</div></div>`}`; clockStart(r); tone(523,.15); return; }
   let body='', pic=false;
   if(K==='order'){ const O=ST.ord||{n:0,exact:0,pos:[0,0,0,0]};
     if(rev){ const seq=String(r.answer).split(''); body=`<div class="ordg">${seq.map((L,i)=>`<div class="ocard"><span class="num">${i+1}</span>${tent(L,40)}<span>${esc(r.items['ABCD'.indexOf(L)])}</span><span class="pc">${O.n?Math.round(100*O.pos[i]/O.n):0}% had it here</span></div>`).join('')}</div><div class="bigstat"><b>${O.n?Math.round(100*O.exact/O.n):0}%</b> got all four in the right order</div>`; }
-    else body=`<div class="ordg">${r.items.map((it,i)=>`<div class="ocard">${tent('ABCD'[i],40)}<span>${esc(it)}</span></div>`).join('')}</div>${s==='bars'?`<div class="bigstat"><b>${O.n?Math.round(100*O.exact/O.n):0}%</b> put all four in the right order</div>`:''}`;
+    else body=`<div class="ordg">${r.items.map((it,i)=>`<div class="ocard" data-l="${'ABCD'[i]}">${tent('ABCD'[i],40)}<span>${esc(noTime(it))}</span></div>`).join('')}</div>${s==='bars'?`<div class="bigstat"><b>${O.n?Math.round(100*O.exact/O.n):0}%</b> put all four in the right order</div>`:''}`;
     if(r.img){ body=`<div class="qb${s!=='q'?' sm':''}">${evHTML(r)}<div>${body}</div></div>`; pic=true; } }
   else if(K==='pics'||K==='suspect'){ body=tiles(); pic=true; }
   else if(r.img){ body=`<div class="qb${K==='spot'?' spot':s!=='q'?' sm':''}">${evHTML(r,{hit:K==='spot'&&rev?+ST.correct:null,blur:K==='blur'&&s==='q'?44:0})}${optH(' one')}</div>`; pic=true; }
   else body=optH();
-  if(s==='q'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('search',lbl))}${clockH}</div>${body}`; clockStart(r); tone(523,.15); return; }
+  if(s==='q'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('search',lbl))}${clockH}</div>${body}`; clockStart(r); tone(523,.15); wireClass(r); return; }
   if(s==='bars'){ M.innerHTML=`${folder(c,r,sub('chart',r.scored===false?'your hunches':'how you voted'),1)}<div style="margin-top:1.4vh">${body}</div><div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('help',14)} DETECTIVE</span><div>${r.scored===false&&r.ifwrong?'<b>Talk it through:</b><br>'+r.ifwrong.map(esc).join('<br>'):'<b>Before the answer:</b> why did people pick different answers?'}</div></div>`; tone(440,.25); return; }
   let extra='';
   if(K==='decision'){ const mj=ST.maj; extra=(mj!=null?`<div class="outc${mj===r.answer?' good':''}"><div class="k">Your room chose: ${esc(r.options[mj])}</div>${esc(r.outcomes[mj])}</div>`:'')+(mj!==r.answer?`<div class="outc good"><div class="k">Best move: ${esc(r.options[r.answer])}</div>${esc(r.outcomes[r.answer])}</div>`:''); }
@@ -346,8 +382,9 @@ function renderQ(c,r,s){ const opts=r.kind==='interview'?r.options.map((o,i)=>({
 /* sketches: phones draw, the detective privately picks 3, the class sees those next to the real thing */
 function sketches(ri){ return Object.entries(S.ans[ri]||{}).filter(([id,x])=>!S.removed[id]&&x.v).map(([id,x])=>({id,v:x.v,name:S.players[id]})); }
 function galPick(ri){ const p=(S.drawPick||{})[ri]; return p?p:sketches(ri).slice(0,7).map(x=>x.id); }
-function renderGallery(c,r){ const pick=galPick(ST.ri);
-  if(!pick.length){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · sketches',1)}<div class="wait">${icon('note',60)}<div><b>No sketches came in this time.</b></div><div class="mute">Here is what the witness described.</div></div><div class="gal"><div class="sk truth"><img src="${esc(r.img)}" alt=""><div>THE REAL THING</div></div></div>`; return; }
+function renderGallery(c,r){ if(S.mode==='class'){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · the real thing',1)}<div class="qb" style="grid-template-columns:minmax(0,1.1fr) 1fr;align-items:center"><div class="sk truth" style="background:var(--gold);border-radius:12px;padding:8px;text-align:center;font-weight:700;color:var(--navy)"><img src="${esc(r.img)}" alt="" style="width:100%;border-radius:6px;display:block"><div>THE REAL THING</div></div><div><h2 style="margin:0 0 10px">How close did your volunteer get?</h2><div class="panelw" style="margin:0"><span class="tag">${icon('search',14)} WHY</span><div>${esc(r.why)}</div></div></div></div>`; sting(); return; }
+  const pick=galPick(ST.ri);
+  if(!pick.length){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · sketches',1)}<div class="wait">${icon('note',60)}<div><b>${S.mode==='class'?'Here is the real thing.':'No sketches came in this time.'}</b></div><div class="mute">${S.mode==='class'?'How close did your volunteer get?':'Here is what the witness described.'}</div></div><div class="gal"><div class="sk truth"><img src="${esc(r.img)}" alt=""><div>THE REAL THING</div></div></div>`; return; }
   const sk=sketches(ST.ri), byId=Object.fromEntries(sk.map(x=>[x.id,x]));
   M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · your sketches',1)}<div class="gal${pick.length>3?' many':''}">${pick.filter(id=>byId[id]).map((id,i)=>`<div class="sk" data-id="${esc(id)}" title="Click to hide this sketch" style="cursor:pointer;animation-delay:${i*.25}s"><img src="${byId[id].v}" alt=""><div>${esc(byId[id].name)}</div></div>`).join('')}<div class="sk truth" style="animation-delay:${pick.length*.25+.3}s"><img src="${esc(r.img)}" alt=""><div>THE REAL THING</div></div></div><div class="panelw"><span class="tag">${icon('search',14)} WHY</span><div>${esc(r.why)}</div></div>`; M.querySelectorAll('.gal .sk[data-id]').forEach(e=>e.onclick=()=>{ S.drawPick=S.drawPick||{}; S.drawPick[ST.ri]=galPick(ST.ri).filter(x=>x!==e.dataset.id); save(); shownKey=''; draw(); broadcast(); }); sting(); }
 let revWin=null;
@@ -362,21 +399,23 @@ function pickDraw(ri,ids){ S.drawPick=S.drawPick||{}; S.drawPick[ri]=ids; save()
 /* case board: suspects on top, evidence pinned below, string from each clue to the suspects it points at, timeline along the bottom */
 function renderBoard(c){ const p=ST.pos==null?-1:ST.pos, R=c.rounds;
   const pinned=[], prevB=STEPS.slice(0,S.step).filter(x=>x.t==='board').map(x=>x.pos), lastB=prevB.length?Math.max(...prevB):-1;
-  R.forEach((r,i)=>{ if(i<=p&&r.ev){ const e=c.evidence.find(x=>x.id===r.ev); if(e) pinned.push(Object.assign({isNew:i>lastB},e)); } });
+  R.forEach((r,i)=>{ if(i<=p&&r.ev){ const e=c.evidence.find(x=>x.id===r.ev); if(e&&!pinned.some(z=>z.id===e.id)) pinned.push(Object.assign({isNew:i>lastB},e)); } });
   const beats=R.map((r,i)=>({r,i})).filter(x=>x.i<=p&&x.r.type==='story').map(x=>x.r);
-  const cnt=id=>{ let a=0,b=0; pinned.forEach(e=>(e.links||[]).forEach(l=>{ if(l.s===id){ if(l.t==='+') a++; else b++; } })); return [a,b]; };
-  M.innerHTML=`<div class="cork" id="cork"><div class="bh"><div><div class="kick" style="color:#ffe3a0">${icon('folder',18)} Case board · ${pinned.length} clue${pinned.length===1?'':'s'} pinned</div><h1>Follow the strings</h1></div><div class="bq">${icon('help',22)}<span><svg width="44" height="8" style="vertical-align:middle"><line x1="2" y1="4" x2="9" y2="4" stroke="#e5484d" stroke-width="4" stroke-linecap="round"/><line x1="13" y1="4" x2="20" y2="4" stroke="#f2b705" stroke-width="4" stroke-linecap="round"/><line x1="24" y1="4" x2="31" y2="4" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/><line x1="35" y1="4" x2="42" y2="4" stroke="#22a06b" stroke-width="4" stroke-linecap="round"/></svg> <b>Solid string</b> in a suspect's color = the clue points at them. <svg width="34" height="8" style="vertical-align:middle"><line x1="2" y1="4" x2="32" y2="4" stroke="#c9d0dc" stroke-width="2.5" stroke-dasharray="6 5"/></svg> <b>Gray dashes</b> = it points away. Who has the most solid strings, and who fits <b>every</b> clue?</span></div></div>
-    <div class="bsr">${c.suspects.map((x,i)=>{ const [a,b]=cnt(x.id); return `<div class="bsus" data-s="${x.id}" style="--sc:${SCOL[x.color]};animation-delay:${.06*i}s"><img src="${esc(x.img)}" alt=""><div><h3>${esc(x.letter)} · ${esc(x.name)}</h3><div class="m">${esc(x.motive)}</div><div class="cnt"><span class="p">${a} toward</span><span class="n">${b} away</span></div></div></div>`; }).join('')}</div>
-    <div class="bev">${pinned.map((e,i)=>`<div class="pe2${e.isNew?' new':''}" data-e="${e.id}" style="animation-delay:${.3+.1*i}s;transform:rotate(${[-2,1.5,-1,2.5][i%4]}deg)"><img src="${esc(e.img)}" alt="">${e.key?'<span class="key">KEY</span>':''}<b>${esc(e.label)}</b><div class="lk">${(e.links||[]).map(l=>{ const x=sus(c,l.s); return `<i style="background:${l.t==='+'?SCOL[x.color]:'#8a94a8'}" title="${esc(l.why)}">${l.t==='+'?'▲':'▼'} ${esc((x.name||'').split(' ')[0])}</i>`; }).join('')}</div></div>`).join('')||'<div class="bq">No clues pinned yet.</div>'}</div>
-    <div class="tline">${beats.map(b=>`<div><b>${esc(b.when||'')}</b>${esc(b.title)}</div>`).join('')}</div><svg class="strings" id="strings"></svg></div>`;
-  setTimeout(drawStrings,700); setTimeout(drawStrings,2000); }
+  const card=(e,l,x,k)=>`<div class="clue2${l.t==='+'?' to':' away'}${e.isNew?' new':''}" style="animation-delay:${.25+.08*k}s" title="${esc(l.why||'')}"><img src="${esc(e.img)}" alt=""><div><b>${esc(e.label)}</b>${e.key?'<span class="key">KEY</span>':''}</div></div>`;
+  M.innerHTML=`<div class="cork2" id="cork"><div class="bh2"><div><div class="kick" style="color:#ffe3a0;margin:0">${icon('folder',18)} Case board · ${pinned.length} clue${pinned.length===1?'':'s'} pinned</div><h1>Who do the clues point to?</h1></div>
+    <div class="legend2"><span><i class="lg to"></i>Clue under a suspect = it points <b>at</b> them</span><span><i class="lg away"></i>Gray dashed = it points <b>away</b> from them</span></div></div>
+    <div class="cols2">${c.suspects.map((x,si)=>{ const to=[], aw=[]; pinned.forEach(e=>(e.links||[]).forEach(l=>{ if(l.s===x.id) (l.t==='+'?to:aw).push([e,l]); }));
+      return `<div class="col2" style="--sc:${SCOL[x.color]};animation-delay:${.06*si}s"><div class="sp2"><img src="${esc(x.img)}" alt=""><div class="nm2">${tent(x.letter,30)}<b>${esc(x.name)}</b></div><div class="tally2"><span class="t">${to.length}</span> toward · <span class="a">${aw.length}</span> away</div></div>
+        <div class="stack2">${to.map(([e,l],k)=>card(e,l,x,k)).join('')}${aw.map(([e,l],k)=>card(e,l,x,to.length+k)).join('')}${!to.length&&!aw.length?'<div class="none2">No clues yet</div>':''}</div></div>`; }).join('')}</div>
+    <div class="tline">${beats.map(b=>`<div><b>${esc(b.when||'')}</b>${esc(b.title)}</div>`).join('')}</div></div>`;
+  }
 function drawStrings(){ const sv=document.getElementById('strings'), cork=document.getElementById('cork'); if(!sv||!cork) return; const box=cork.getBoundingClientRect(), c=C();
   sv.setAttribute('viewBox',`0 0 ${box.width} ${box.height}`); let h='';
   document.querySelectorAll('.pe2').forEach(el=>{ const e=c.evidence.find(x=>x.id===el.dataset.e); if(!e) return; const b=el.getBoundingClientRect(), ex=b.left+b.width/2-box.left, ey=b.top-box.top+4;
     (e.links||[]).forEach((l,k)=>{ const se=document.querySelector(`.bsus[data-s="${l.s}"]`); if(!se) return; const sb=se.getBoundingClientRect(), x=sus(c,l.s), sx=sb.left+sb.width*(.3+.4*((k%3)/2))-box.left, sy=sb.bottom-box.top-2, my=(ey+sy)/2+30;
       h+=`<path d="M${ex} ${ey} C${ex} ${my} ${sx} ${my} ${sx} ${sy}" stroke="${l.t==='+'?SCOL[x.color]:'#c9d0dc'}" stroke-width="${l.t==='+'?4:2.5}" ${l.t==='+'?'':'stroke-dasharray="8 7"'} fill="none" stroke-linecap="round" opacity="${l.t==='+'?.95:.8}"/>`; }); });
   sv.innerHTML=h; }
-window.addEventListener('resize',()=>{ if(cur().t==='board') drawStrings(); });
+
 function drawWho(){ const w=document.getElementById('who'); if(!w) return; const ids=live(); const pc=document.getElementById('pcount'); if(pc) pc.textContent=ids.length;
   w.querySelectorAll('.wait0').forEach(e=>e.remove());
   w.querySelectorAll('.chip').forEach(e=>{ if(!ids.includes(e.dataset.id)) e.remove(); });
@@ -385,7 +424,7 @@ function drawWho(){ const w=document.getElementById('who'); if(!w) return; const
     b.onclick=()=>{ if(confirm('Remove '+S.players[id]+'?')){ S.removed[id]=1; save(); draw(); broadcast(); } }; w.appendChild(b); tone(660+((w.children.length%5)*80),.12,.06); });
   fitPool(w);
   if(!ids.length) w.innerHTML=`<div class="wait0">Waiting for ${S.mode==='team'?'squads':'detectives'} to scan in…</div>`; }
-const NEXTLBL={board:'Next',lobby:'Start the case',intro:'Skip',suspects:'Next',story:'Next',q:'Lock answers',bars:'Reveal',ans:'Next',gallery:'Next',leader:'Next',reveal:'Next',closure:'Wrap-up video',wrap:'Final standings',final:'New game'};
+const NEXTLBL={board:'Next',lobby:'Start the case',intro:'Skip',suspects:'Next',story:'Next',q:'Lock answers',bars:'Reveal',ans:'Next',gallery:'Next',leader:'Next',reveal:'Next',closure:'Wrap-up video',wrap:'Finish',final:'New game'};
 function fitPool(w){ for(let d=0;d<4;d++){ w.className='who2 d'+d; if(w.scrollHeight<=w.clientHeight+2) break; } }
 function fitMain(){ const kids=[...M.children]; kids.forEach(k=>k.style.zoom=''); const avail=M.clientHeight; if(M.scrollHeight<=avail+2) return;
   const cs=getComputedStyle(M), pv=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom); const z=Math.max(.62,(avail-pv-6)/(M.scrollHeight-pv)); kids.forEach(k=>k.style.zoom=z); }
@@ -394,12 +433,12 @@ function draw(){ ST=pubState(); recv=Date.now(); render(); extras(); bar(); fitM
 function bar(){ const s=cur();
   document.getElementById('bk').innerHTML=icon('back',16)+' Back'; document.getElementById('bk').disabled=S.step===0;
   const pz=document.getElementById('pz'); pz.innerHTML=S.pausedAt?icon('play',16)+' Play':'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause'; pz.style.display=s.t==='lobby'?'none':''; pz.className='btn'+(S.pausedAt?' gold':'');
-  const holds={board:'Paused for discussion: press Next when ready',reveal:'Talk it over, then press Next',closure:'Talk it over, then press Next',gallery:'Click a sketch to hide it',final:''};
+  const holds={board:'Paused for discussion: press Next when ready',reveal:'Talk it over, then press Next',closure:'Talk it over, then press Next',gallery:S.mode==='class'?'':'Click a sketch to hide it',final:''};
   document.getElementById('hint').textContent=s.t==='lobby'?'Space = pause · arrows = back / next':(holds[s.t]!=null?holds[s.t]:'');
   hostUI(speaking);
   const nx=document.getElementById('nx'); nx.innerHTML=(NEXTLBL[s.t]||'Next')+' '+icon('next',16); nx.className='btn '+(s.t==='bars'?'gold':'red');
   const nq=(S.asks||[]).filter(x=>!x.bad).length;
-  document.getElementById('extra').innerHTML=s.t==='q'?`<button class="btn" id="plus">${icon('plus',14)} 15 s</button>`:s.t==='gallery'?`<button class="btn" id="rev">${icon('eye',16)} Pick sketches privately</button>`:['reveal','closure','wrap'].includes(s.t)&&nq?`<span class="pill">${icon('help',14)} ${nq} student question${nq>1?'s':''} waiting</span>`:'';
+  document.getElementById('extra').innerHTML=s.t==='q'?`<button class="btn" id="plus">${icon('plus',14)} 15 s</button>`:s.t==='gallery'&&S.mode!=='class'?`<button class="btn" id="rev">${icon('eye',16)} Pick sketches privately</button>`:['reveal','closure','wrap'].includes(s.t)&&nq?`<span class="pill">${icon('help',14)} ${nq} student question${nq>1?'s':''} waiting</span>`:'';
   const p=document.getElementById('plus'); if(p) p.onclick=e=>{ e.currentTarget.blur(); S.limit[s.ri]=lim(s.ri)+15; save(); shownKey=''; draw(); broadcast(); };
   const rv=document.getElementById('rev'); if(rv) rv.onclick=e=>{ e.currentTarget.blur(); openReview(); }; }
 document.getElementById('bk').onclick=e=>{ e.currentTarget.blur(); back(); };
@@ -408,13 +447,13 @@ document.getElementById('nx').onclick=e=>{ e.currentTarget.blur(); if(cur().t===
 /* things only this computer can do: pick the case, remove a duplicate phone, hide a word, put a student question up */
 function extras(){ const s=cur(), c=C();
   if(s.t==='lobby'){ const L=M.querySelector('.lob > div'); if(L&&!document.getElementById('pick')){ L.insertAdjacentHTML('beforeend',`<div id="pick"><div class="pick">${CASES.map(k=>`<div class="file${k.id===S.caseId?' on':''}" data-c="${k.id}"><img class="thumb" src="${esc(k.intro.shots[0])}" alt=""><h3>${esc(k.title)}</h3></div>`).join('')}</div>
-      <div class="mrow"><button class="mode${S.mode==='team'?' on':''}" data-m="team">${icon('users',18)} Teams</button><button class="mode${S.mode==='solo'?' on':''}" data-m="solo">${icon('user',18)} Solo</button></div></div>`);
-      M.querySelectorAll('.pick .file').forEach(b=>b.onclick=()=>{ S.caseId=b.dataset.c; S.gameId=Math.random().toString(36).slice(2,10); S.ans={}; S.opened={}; S.limit={}; S.hide={}; S.asks=[]; S.qa=null; S.rev={}; S.seenAsk={}; S.drawPick={}; S.noVideo=0; STEPS=buildSteps(); save(); shownKey=''; draw(); broadcast(); });
-      M.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{ S.mode=b.dataset.m; save(); shownKey=''; draw(); broadcast(); }); } }
+      <div class="mrow"><button class="mode${S.mode==='team'?' on':''}" data-m="team">${icon('users',18)} Teams</button><button class="mode${S.mode==='solo'?' on':''}" data-m="solo">${icon('user',18)} Solo</button><button class="mode${S.mode==='class'?' on':''}" data-m="class">${icon('monitor',18)} No phones</button></div></div>`);
+      M.querySelectorAll('.pick .file').forEach(b=>b.onclick=()=>{ S.caseId=b.dataset.c; S.gameId=Math.random().toString(36).slice(2,10); S.ans={}; S.opened={}; S.limit={}; S.hide={}; S.asks=[]; S.qa=null; S.rev={}; S.seenAsk={}; S.drawPick={}; S.noVideo=0; setClassPlayer(); STEPS=buildSteps(); save(); shownKey=''; draw(); broadcast(); });
+      M.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{ S.mode=b.dataset.m; setClassPlayer(); STEPS=buildSteps(); save(); shownKey=''; draw(); broadcast(); }); } }
   if(s.t==='bars'&&c.rounds[s.ri].kind==='word') M.querySelectorAll('.cloud span').forEach(sp=>{ sp.title='Click to hide this word'; sp.onclick=()=>{ S.hide=S.hide||{}; (S.hide[s.ri]=S.hide[s.ri]||{})[sp.textContent]=1; save(); shownKey=''; draw(); broadcast(); }; });
   if(s.t==='ans'&&c.rounds[s.ri].ifwrong&&c.rounds[s.ri].scored!==false){ const w=M.querySelector('.panelw:last-child'); if(w) w.insertAdjacentHTML('afterend',`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('help',14)} IF THEY MISSED IT, ASK</span><div>${c.rounds[s.ri].ifwrong.map(esc).join('<br>')}</div></div>`); }
   if(s.t==='ans'&&c.rounds[s.ri].kind==='word'){ const r=c.rounds[s.ri]; M.querySelectorAll('.cloud span').forEach(sp=>{ if(isRight(r,sp.textContent)){ sp.style.color='#7ee2a6'; sp.style.textDecoration='underline'; } else sp.style.color='#8794ad'; }); }
-  if(s.t==='final'){ const ok=(S.asks||[]).filter(x=>!x.bad); if(!S.qa&&ok.length&&!S.qaShown){ S.qaShown=1; S.qa=ok[0].text; save(); setTimeout(()=>{ shownKey=''; draw(); broadcast(); },0); return; } const i=ok.findIndex(x=>x.text===S.qa), lb=M.querySelector('.lb');
+  if(s.t==='final'&&S.mode!=='class'){ const ok=(S.asks||[]).filter(x=>!x.bad); if(!S.qa&&ok.length&&!S.qaShown){ S.qaShown=1; S.qa=ok[0].text; save(); setTimeout(()=>{ shownKey=''; draw(); broadcast(); },0); return; } const i=ok.findIndex(x=>x.text===S.qa), lb=M.querySelector('.lb');
     if(lb) lb.insertAdjacentHTML('beforeend',`<div class="asks"><button class="btn gold" id="qnext">${icon('help',16)} ${ok.length?(i<0?'Show a student question':'Next question')+' ('+(i+1>0?i+1:0)+' of '+ok.length+')':'No student questions yet'}</button>${S.qa?' <button class="btn" id="qhide">Hide</button>':''}</div>`);
     const qn=document.getElementById('qnext'); if(qn) qn.onclick=()=>{ if(!ok.length) return; S.qa=ok[(i+1)%ok.length].text; save(); shownKey=''; draw(); broadcast(); };
     const qh=document.getElementById('qhide'); if(qh) qh.onclick=()=>{ S.qa=null; save(); shownKey=''; draw(); broadcast(); }; }
