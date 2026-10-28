@@ -260,20 +260,20 @@ window.CASES=[
 "q": "Max says he left at six. Which of these could prove when his boat left?",
 "options": [
 {
-"label": "Fishing rod",
-"img": "media/c/missing/fishing_rod.jpg"
+"label": "Max's written statement",
+"img": "media/c/missing/written_note.jpg"
 },
 {
-"label": "Life jacket",
-"img": "media/c/missing/life_jacket.jpg"
+"label": "Max's boat key",
+"img": "media/c/missing/boat_key.jpg"
 },
 {
 "label": "Boat GPS",
 "img": "media/c/missing/gps_unit.jpg"
 },
 {
-"label": "Anchor and rope",
-"img": "media/c/missing/anchor_rope.jpg"
+"label": "Marina weather report",
+"img": "media/c/missing/weather_report.jpg"
 }
 ],
 "answer": 2,
@@ -580,7 +580,7 @@ window.CASES=[
 },
 {
 "id": "gloria",
-"why": "Biscuit barks at Gloria every time, but Biscuit stayed silent when the cabin door opened at six forty."
+"why": "Biscuit barks at Gloria every time, and the dock radio log puts Gloria in the ferry office from six thirty to seven, so she was not at the cabin at six forty."
 }
 ],
 "safety": "Before any trip, tell a trusted adult your plan, check schedules yourself from the official source, and keep your phone with you.",
@@ -1055,20 +1055,20 @@ window.CASES=[
 "q": "The mud also holds one clear boot print, and more rain is coming. How do you save it?",
 "options": [
 {
-"label": "Dig it up with a shovel",
-"img": "media/c/heist/shovel_mud.jpg"
+"label": "Pour a cast right away, no photo",
+"img": "media/c/heist/cast_nophoto.jpg"
 },
 {
 "label": "Photo with a ruler, then cast it",
 "img": "media/c/heist/cast_print.jpg"
 },
 {
-"label": "Sweep it clean first",
-"img": "media/c/heist/broom_sweep.jpg"
+"label": "Cover it and wait for the lab tomorrow",
+"img": "media/c/heist/tarp_wait.jpg"
 },
 {
-"label": "Rinse off the mud",
-"img": "media/c/heist/bucket_water.jpg"
+"label": "Lift it out with a shovel",
+"img": "media/c/heist/shovel_mud.jpg"
 }
 ],
 "answer": 1,
@@ -1634,20 +1634,20 @@ window.CASES=[
 "q": "Which boat most likely left that yellow scrape?",
 "options": [
 {
-"label": "White dinghy",
-"img": "media/c/yacht/pic_dinghy.jpg"
+"label": "Yellow kayak, dry and dusty",
+"img": "media/c/yacht/kayak_dusty.jpg"
 },
 {
-"label": "Yellow kayak",
+"label": "Yellow kayak, still dripping wet",
 "img": "media/c/yacht/pic_kayak.jpg"
 },
 {
-"label": "Red canoe",
-"img": "media/c/yacht/pic_canoe.jpg"
+"label": "Yellow paddleboard, dry",
+"img": "media/c/yacht/paddleboard_dry.jpg"
 },
 {
-"label": "Gray rowboat",
-"img": "media/c/yacht/pic_rowboat.jpg"
+"label": "Yellow pedal boat, dry",
+"img": "media/c/yacht/pedalboat_dry.jpg"
 }
 ],
 "answer": 1,
@@ -1839,7 +1839,7 @@ window.CASES=[
 "others": [
 {
 "id": "tasha",
-"why": "Biscuit barked nonstop at Tasha, so the quiet dog points away from her."
+"why": "Biscuit barked nonstop at Tasha, and the marina camera shows Tasha on her balcony from one to two, nowhere near the swim ladder."
 },
 {
 "id": "gus",
@@ -2224,20 +2224,20 @@ window.CASES=[
 "q": "Which of these would you collect as evidence?",
 "options": [
 {
-"label": "Neighbor's trophy",
-"img": "media/c/carshow/obj_trophy.jpg"
+"label": "Boot prints by the guard's desk",
+"img": "media/c/carshow/guard_prints.jpg"
 },
 {
-"label": "Sneaker prints in oil",
+"label": "Sneaker prints in the oil",
 "img": "media/c/carshow/cu_prints.jpg"
 },
 {
-"label": "Closed food truck",
-"img": "media/c/carshow/obj_foodtruck.jpg"
+"label": "Crowd footprints at the front gate",
+"img": "media/c/carshow/entrance_prints.jpg"
 },
 {
-"label": "Folding lawn chairs",
-"img": "media/c/carshow/obj_chairs.jpg"
+"label": "Old dried oil stain from setup day",
+"img": "media/c/carshow/old_oil_stain.jpg"
 }
 ],
 "answer": 1,
@@ -2988,16 +2988,16 @@ window.CASES=[
 "img": "media/c/arson/metal_can.jpg"
 },
 {
-"label": "Plastic grocery bag",
-"img": "media/c/arson/plastic_bag.jpg"
-},
-{
-"label": "Paper coffee cup",
-"img": "media/c/arson/paper_cup.jpg"
+"label": "Zip-top plastic bag",
+"img": "media/c/arson/zip_bag.jpg"
 },
 {
 "label": "Open cardboard box",
 "img": "media/c/arson/cardboard_box.jpg"
+},
+{
+"label": "Paper evidence envelope",
+"img": "media/c/arson/paper_envelope.jpg"
 }
 ],
 "answer": 0,
@@ -4272,20 +4272,20 @@ window.CASES=[
 "q": "Mara says she was shopping at ten forty. Which item can prove the time?",
 "options": [
 {
-"label": "Car key",
-"img": "media/c/lighthouse/car_key.jpg"
+"label": "A grocery bag",
+"img": "media/c/lighthouse/shopping_bag.jpg"
 },
 {
 "label": "Store receipt",
 "img": "media/c/lighthouse/receipt.jpg"
 },
 {
-"label": "Grocery bag",
-"img": "media/c/lighthouse/shopping_bag.jpg"
+"label": "Her shopping list",
+"img": "media/c/lighthouse/shopping_list.jpg"
 },
 {
-"label": "Milk carton",
-"img": "media/c/lighthouse/milk.jpg"
+"label": "A text saying she was at the store",
+"img": "media/c/lighthouse/phone_text.jpg"
 }
 ],
 "answer": 1,
