@@ -105,6 +105,21 @@ video{aspect-ratio:16/9;height:clamp(240px,calc(100vh - 300px),calc((100vw - 120
 #host{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-weight:700;font-size:14px}#host .eq{display:inline-flex;gap:2px;align-items:flex-end;height:16px}#host .eq i{width:3px;background:var(--gold);animation:eq .8s infinite alternate}#host .eq i:nth-child(2){animation-delay:.2s}#host .eq i:nth-child(3){animation-delay:.4s}
 #host.off .eq i{animation:none;height:3px!important}@keyframes eq{from{height:3px}to{height:16px}}
 @media (max-width:1100px){.susg{grid-template-columns:1fr 1fr}.lob{grid-template-columns:1.2fr 1fr;gap:18px}.joincard #qr img{width:220px}.optg .opt{min-height:9vh}.bsr{grid-template-columns:repeat(4,1fr);gap:8px}.bsus img{display:none}}
+.lob{grid-template-columns:1.3fr 1fr!important;align-items:stretch!important;height:100%}.lobL{min-width:0}.lobR{display:flex;flex-direction:column;gap:16px;min-height:0;height:100%}
+.joincard{display:flex;gap:20px;align-items:center;text-align:left!important;padding:16px 20px!important}.joincard #qr img{width:min(24vh,250px)!important;display:block}.jc{min-width:0}.jt{font-weight:700;font-size:20px}.joincard .joincode{font-size:clamp(40px,4.4vw,72px);margin:4px 0}.joincard .joinurl{margin:0;font-size:15px}
+.pool{flex:1;min-height:150px;background:radial-gradient(ellipse at 50% 120%,rgba(217,165,33,.14),transparent 60%),var(--navy2);border:2px solid var(--line);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;overflow:hidden}
+.poolh{display:flex;justify-content:space-between;align-items:center;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:var(--mute);margin-bottom:10px}.poolh b{font-size:26px;color:#fff;letter-spacing:0}
+.who2{flex:1;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-content:flex-start;overflow:auto;padding:4px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--navy3);color:#fff;border:2px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 16px 4px 4px;font:700 17px Poppins,Arial,sans-serif;cursor:pointer;animation:chipin .5s cubic-bezier(.2,1.5,.4,1) both,bob var(--d,4s) ease-in-out .6s infinite alternate}
+.chip:hover{border-color:var(--red)}.chip .avi{background:#fff}
+.wait0{color:var(--mute);font-size:18px;margin:auto;text-align:center;animation:pulse 1.4s infinite alternate}
+@keyframes chipin{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}@keyframes bob{from{translate:0 -3px}to{translate:0 4px}}
+.pick{grid-template-columns:repeat(4,1fr)!important;gap:12px!important;margin-top:18px!important}.pick .file .thumb{height:clamp(56px,10vh,110px)!important}.pick .file h3{font-size:clamp(12px,.95vw,16px)!important;line-height:1.25}
+
+.who2.d1{gap:8px}.who2.d1 .chip{font-size:15px;padding:3px 13px 3px 3px}.who2.d1 .chip .avi{width:34px!important;height:34px!important}
+.who2.d2{gap:6px}.who2.d2 .chip{font-size:13px;padding:2px 10px 2px 2px;gap:6px}.who2.d2 .chip .avi{width:26px!important;height:26px!important}
+.who2.d3{gap:5px}.who2.d3 .chip{font-size:12px;padding:2px 9px 2px 2px;gap:4px}.who2.d3 .chip .avi{width:20px!important;height:20px!important}
+@media (max-height:820px){.joincard #qr img{width:min(21vh,200px)!important}.joincard .joincode{font-size:clamp(36px,4vw,56px)}.joincard{padding:12px 16px!important}}
 </style></head>
 <body class="board">
 <div class="topbar"><img src="media/badge_white.png" alt="LPD"><div class="brand">LPD CASE ROOM<small id="ct">Lorain Police Department</small></div><div class="sp"></div><span class="pill" id="pc" style="display:none"></span><span class="pill" id="rp" style="display:none"></span><span class="dot" id="net"></span></div>
@@ -265,10 +280,10 @@ function render(){ const c=caseById(ST.caseId), s=ST.step, r=ST.ri!=null?c.round
   if(key===shownKey&&['intro','wrap','board'].includes(s)) return;
   shownKey=key; clearInterval(clockI);
   if(s==='lobby'){
-    M.innerHTML=`<div class="lob"><div><div class="kick">${icon('shield',18)} Lorain Police Department</div><h1>Today, you're the detectives.</h1>
-     <ol class="steps"><li><span class="n">1</span>${ST.mode==='team'?'One phone per team: scan the code':'Scan the code with your phone'}</li><li><span class="n">2</span>Pick a ${ST.mode==='team'?'squad':'detective'} name and a character</li><li><span class="n">3</span>Listen to the host and work the case</li></ol>
-     <div class="who" id="who"></div></div>
-     <div class="joincard"><div style="font-weight:700;font-size:20px">Scan to join</div><div id="qr"></div><div class="mute" style="color:#3a4a66">or go to</div><div class="joinurl">${esc(ST.join.replace(/^https?:\/\//,'').replace(/\?.*$/,''))}</div><div class="joincode">${ST.code}</div></div></div>`;
+    M.innerHTML=`<div class="lob"><div class="lobL"><div class="kick">${icon('shield',18)} Lorain Police Department</div><h1>Today, you're the detectives.</h1>
+     <ol class="steps"><li><span class="n">1</span>${ST.mode==='team'?'One phone per team: scan the code':'Scan the code with your phone'}</li><li><span class="n">2</span>Pick a ${ST.mode==='team'?'squad':'detective'} name and a character</li><li><span class="n">3</span>Listen to the host and work the case</li></ol></div>
+     <div class="lobR"><div class="joincard"><div id="qr"></div><div class="jc"><div class="jt">Scan to join</div><div class="joincode">${ST.code}</div><div class="joinurl">or go to ${esc(ST.join.replace(/^https?:\/\//,'').replace(/\?.*$/,''))}</div></div></div>
+     <div class="pool"><div class="poolh"><span>${icon(ST.mode==='team'?'users':'user',18)} ${ST.mode==='team'?'Squads':'Detectives'} on the case</span><b id="pcount">0</b></div><div class="who2" id="who"></div></div></div></div>`;
     try{ const qq=qrcode(0,'M'); qq.addData(ST.join); qq.make(); document.getElementById('qr').innerHTML=qq.createImgTag(8,8); }catch(e){}
     drawWho(); return; }
   if(s==='intro'||s==='wrap'){ const src=s==='intro'?c.intro:c.wrap, n=S.introN||0;
@@ -360,11 +375,20 @@ function drawStrings(){ const sv=document.getElementById('strings'), cork=docume
       h+=`<path d="M${ex} ${ey} C${ex} ${my} ${sx} ${my} ${sx} ${sy}" stroke="${l.t==='+'?SCOL[x.color]:'#c9d0dc'}" stroke-width="${l.t==='+'?4:2.5}" ${l.t==='+'?'':'stroke-dasharray="8 7"'} fill="none" stroke-linecap="round" opacity="${l.t==='+'?.95:.8}"/>`; }); });
   sv.innerHTML=h; }
 window.addEventListener('resize',()=>{ if(cur().t==='board') drawStrings(); });
-function drawWho(){ const w=document.getElementById('who'); if(!w) return; const ids=live();
-  w.innerHTML=ids.length?ids.map(id=>`<button data-id="${esc(id)}" title="Click to remove a duplicate phone">${avHTML((S.av||{})[id]||'badge',30)} ${esc(S.players[id])} ${icon('x',12)}</button>`).join(''):`<span class="mute">Waiting for ${S.mode==='team'?'teams':'detectives'}…</span>`;
-  w.querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(confirm('Remove '+S.players[b.dataset.id]+'?')){ S.removed[b.dataset.id]=1; save(); draw(); broadcast(); } }); }
+function drawWho(){ const w=document.getElementById('who'); if(!w) return; const ids=live(); const pc=document.getElementById('pcount'); if(pc) pc.textContent=ids.length;
+  w.querySelectorAll('.wait0').forEach(e=>e.remove());
+  w.querySelectorAll('.chip').forEach(e=>{ if(!ids.includes(e.dataset.id)) e.remove(); });
+  ids.forEach((id,i)=>{ if(w.querySelector(`.chip[data-id="${CSS.escape(id)}"]`)) return; const b=document.createElement('button'); b.className='chip'; b.dataset.id=id; b.title='Click to remove a duplicate phone';
+    b.style.setProperty('--d',(3+((id.charCodeAt(0)+i)%5)*.6)+'s'); b.innerHTML=avHTML((S.av||{})[id]||'badge',44)+'<span>'+esc(S.players[id])+'</span>';
+    b.onclick=()=>{ if(confirm('Remove '+S.players[id]+'?')){ S.removed[id]=1; save(); draw(); broadcast(); } }; w.appendChild(b); tone(660+((w.children.length%5)*80),.12,.06); });
+  fitPool(w);
+  if(!ids.length) w.innerHTML=`<div class="wait0">Waiting for ${S.mode==='team'?'squads':'detectives'} to scan in…</div>`; }
 const NEXTLBL={board:'Next',lobby:'Start the case',intro:'Skip',suspects:'Next',story:'Next',q:'Lock answers',bars:'Reveal',ans:'Next',gallery:'Next',leader:'Next',reveal:'Next',closure:'Wrap-up video',wrap:'Final standings',final:'New game'};
-function draw(){ ST=pubState(); recv=Date.now(); render(); extras(); bar(); }
+function fitPool(w){ for(let d=0;d<4;d++){ w.className='who2 d'+d; if(w.scrollHeight<=w.clientHeight+2) break; } }
+function fitMain(){ const kids=[...M.children]; kids.forEach(k=>k.style.zoom=''); const avail=M.clientHeight; if(M.scrollHeight<=avail+2) return;
+  const cs=getComputedStyle(M), pv=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom); const z=Math.max(.62,(avail-pv-6)/(M.scrollHeight-pv)); kids.forEach(k=>k.style.zoom=z); }
+M.addEventListener('load',()=>fitMain(),true); addEventListener('resize',()=>fitMain());
+function draw(){ ST=pubState(); recv=Date.now(); render(); extras(); bar(); fitMain(); }
 function bar(){ const s=cur();
   document.getElementById('bk').innerHTML=icon('back',16)+' Back'; document.getElementById('bk').disabled=S.step===0;
   const pz=document.getElementById('pz'); pz.innerHTML=S.pausedAt?icon('play',16)+' Play':'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause'; pz.style.display=s.t==='lobby'?'none':''; pz.className='btn'+(S.pausedAt?' gold':'');
