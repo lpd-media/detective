@@ -343,11 +343,11 @@ window.CASES=[
 "kind": "blur",
 "title": "What is it?",
 "img": "media/c/missing/ticket_scanner.jpg",
-"q": "The ferry crew points this at every ticket. What is it?",
+"q": "The ferry crew uses this at the gate. What is it?",
 "options": [
+"Card reader",
 "Flashlight",
-"Fish finder",
-"Walkie-talkie",
+"Handheld radio",
 "Ticket scanner"
 ],
 "answer": 3,
@@ -515,8 +515,8 @@ window.CASES=[
 "q": "If Jess misses five o'clock, Devon gets the deal. Who gains money?",
 "options": [
 "Devon and Tara",
-"Only Max",
-"Only Gloria",
+"Only Tara",
+"Devon and Gloria",
 "Only Devon"
 ],
 "answer": 0,
@@ -909,10 +909,10 @@ window.CASES=[
 "img": "media/c/heist/latch_close.jpg",
 "q": "This close-up is coming into focus. What are you looking at?",
 "options": [
-"A door hinge",
-"A padlock",
+"A cabinet hinge",
+"A sliding bolt",
 "A window latch",
-"A light switch"
+"A gas valve"
 ],
 "answer": 2,
 "concept": "Point of entry",
@@ -973,9 +973,9 @@ window.CASES=[
 "img": "media/c/heist/insurance.jpg",
 "q": "Victor is deep in debt, and the necklace is insured. Why does that matter?",
 "options": [
-"It proves Victor is honest",
-"Insurance makes the alarm stronger",
-"It does not matter at all",
+"It gives him an alibi",
+"It proves he staged the theft",
+"It clears the other suspects",
 "He gets paid if it vanishes"
 ],
 "answer": 3,
@@ -1085,12 +1085,12 @@ window.CASES=[
 "kind": "mc",
 "title": "Whose size?",
 "img": "media/c/heist/boot_print.jpg",
-"q": "The lab says size eight. Victor and Kai wear eleven. Celia and Nina wear eight. Who fits?",
+"q": "The lab says the print is a size eight. Celia and Nina both wear size eight. What does that tell us?",
 "options": [
-"Celia and Nina",
-"Victor and Kai",
-"Victor and Celia",
-"Kai and Nina"
+"Both stay on the list",
+"The print does not matter",
+"Nina did it",
+"Celia did it"
 ],
 "answer": 0,
 "concept": "Class evidence",
@@ -1527,10 +1527,10 @@ window.CASES=[
 "img": "media/c/yacht/s_patrol.jpg",
 "q": "You step aboard the yacht. What do you do first?",
 "options": [
-"Swab the swim ladder",
-"Chase the kayak in the dark",
-"Check Mara and search every cabin",
-"Call the four guests"
+"Photograph the shoe print first",
+"Call the four guests",
+"Make sure Mara is safe and nobody is hiding",
+"Pull the marina camera video"
 ],
 "answer": 2,
 "concept": "Safety comes first",
@@ -1573,9 +1573,9 @@ window.CASES=[
 "img": "media/c/yacht/c_print.jpg",
 "q": "This was drying on the deck. What left it?",
 "options": [
-"Bare foot",
+"Flip-flop",
 "Rubber boot",
-"Dog paw",
+"Work boot",
 "Sneaker"
 ],
 "answer": 3,
@@ -1726,16 +1726,16 @@ window.CASES=[
 "kind": "mc",
 "title": "Take my shoes",
 "img": "media/c/yacht/s_station.jpg",
-"q": "Tasha says, go ahead, test my sneakers. What lets us take them without a warrant?",
+"q": "Tasha says, you can photograph my sneakers, but you cannot keep them. What does her yes allow?",
 "options": [
-"Her free consent",
-"The water taxi log",
-"Our hunch about her",
-"Her angry shouting"
+"Photographing her sneakers",
+"Keeping her sneakers",
+"Taking all her shoes",
+"Searching her room"
 ],
 "answer": 0,
 "concept": "Consent searches",
-"why": "When a person freely says yes, we can search without a warrant. They can also say no or change their mind. Then we need a judge.",
+"why": "Consent has limits. Tasha said yes to photos only, so that is all we do. To take the sneakers, we need a new yes, or a warrant from a judge.",
 "ifwrong": [
 "What did Tasha just tell us?",
 "Who has to agree if there is no warrant?"
@@ -2146,10 +2146,10 @@ window.CASES=[
 "title": "What does yelling prove?",
 "q": "Gus yelled at Selena about money. What does that tell us?",
 "options": [
-"Gus is innocent",
+"Gus has an alibi",
 "Gus stole the Comet",
 "Gus has a motive",
-"Selena owes nobody money"
+"Selena staged the theft"
 ],
 "answer": 2,
 "img": "media/c/carshow/st_shout.jpg",
@@ -2174,9 +2174,9 @@ window.CASES=[
 "title": "What is it?",
 "q": "Here is the secret part under the Comet's dashboard. What is it?",
 "options": [
+"Fuse box",
 "Radio dial",
-"Seat belt buckle",
-"Glove box latch",
+"Hood release",
 "Hidden kill switch"
 ],
 "answer": 3,
@@ -2781,10 +2781,10 @@ window.CASES=[
 "img": "media/c/arson/scene_tape.jpg",
 "q": "The fire is out. What has to happen before investigators go inside?",
 "options": [
-"Let Grant grab his papers",
-"Ask the crowd who did it",
+"The smoke clears from the street",
+"A detective arrives on scene",
 "Firefighters say the building is safe",
-"Run in before evidence is lost"
+"The owner gives permission"
 ],
 "answer": 2,
 "concept": "Scene safety and security",
@@ -2897,14 +2897,14 @@ window.CASES=[
 "img": "media/c/arson/fence_close.jpg",
 "q": "Grant gets an insurance payout. Dax sent a threat. What do motives like these give you?",
 "options": [
-"A solid alibi",
+"Enough for an arrest",
 "Proof of who did it",
-"Nothing worth writing down",
+"A reason to clear them",
 "A reason to look, not proof"
 ],
 "answer": 3,
 "concept": "Motive is not proof",
-"why": "All four have a reason to be angry at Grant. Motive tells you why. Only evidence shows who.",
+"why": "All four have a reason. Grant gets paid, Dax is angry, Marisol fights him, and Lena is owed money. Motive tells you why. Only evidence shows who.",
 "ifwrong": [
 "Do all four suspects have a reason?",
 "Can a reason alone put someone at the house?"
@@ -2959,7 +2959,7 @@ window.CASES=[
 "when": "SUN 9:00 AM",
 "title": "Twist: a timer",
 "img": "media/c/arson/timer_blur.jpg",
-"text": "Twist! The timer was set to switch the heater on at two. Someone set it up hours earlier. Grant's casino alibi and Lena's ferry alibi stop mattering.",
+"text": "Twist! The timer switched the heater on at two, so someone set it up hours earlier. Grant was at the casino at two, and Lena was on the ferry.",
 "ev": "timer"
 },
 {
@@ -2981,7 +2981,7 @@ window.CASES=[
 "kind": "pics",
 "title": "Pack it right",
 "img": "media/c/arson/timer_blur.jpg",
-"q": "The melted timer is going to the state lab. What should fire evidence be sealed in?",
+"q": "Burned carpet from the hallway is going to the state lab to test for fuel. What should it be sealed in?",
 "options": [
 {
 "label": "Clean metal can, sealed tight",
@@ -2992,17 +2992,17 @@ window.CASES=[
 "img": "media/c/arson/plastic_bag.jpg"
 },
 {
-"label": "Open cardboard box",
-"img": "media/c/arson/cardboard_box.jpg"
-},
-{
 "label": "Paper coffee cup",
 "img": "media/c/arson/paper_cup.jpg"
+},
+{
+"label": "Open cardboard box",
+"img": "media/c/arson/cardboard_box.jpg"
 }
 ],
 "answer": 0,
 "concept": "Chain of custody",
-"why": "Fire evidence goes in a clean metal can with a tight lid. Seal it, label it and sign for it every time it changes hands. That is chain of custody.",
+"why": "A clean metal can with a tight lid keeps fuel vapors in. The melted timer is photographed, packed safely, labeled, and signed for every time it changes hands.",
 "ifwrong": [
 "Which one can you close all the way?",
 "What could happen to evidence in an open box?"
@@ -3047,7 +3047,7 @@ window.CASES=[
 "11:40 PM Saturday: The door opens with the service code"
 ],
 "concept": "Building a timeline",
-"why": "Noon, then eleven forty, then two, then two ten. The visitor came more than two hours before the fire. That is why an alibi for two o'clock proves nothing.",
+"why": "Noon, eleven forty, two, then two ten. The visitor came two hours before the fire, so an alibi for two o'clock is not enough.",
 "ifwrong": [
 "Which events happened Saturday, and which on Sunday?",
 "When did Dax's code stop working?"
@@ -3092,7 +3092,7 @@ window.CASES=[
 "q": "A timer set for two, the service code at eleven forty, and glowing stripes. Who set the fire?",
 "answer": "lena",
 "concept": "Putting it together",
-"why": "The timer means an alibi for two o'clock proves nothing. The service code fits Grant, Marisol and Lena. Glowing stripes fit Dax and Lena. Only Lena fits all three.",
+"why": "Because of the timer, an alibi for two is not enough. The service code fits Grant, Marisol and Lena. Glowing stripes fit Dax and Lena. Only Lena fits all three.",
 "ifwrong": [
 "Who knows the service code and owns a striped jacket?",
 "Could Dax get in after his code stopped working at noon?"
@@ -3431,9 +3431,9 @@ window.CASES=[
 "img": "media/c/sneaker/blur_keypad.jpg",
 "q": "Detectives zoom in beside the back door. What is it?",
 "options": [
-"A calculator",
-"A light switch",
-"A phone",
+"An alarm panel",
+"A thermostat",
+"A card reader",
 "A door keypad"
 ],
 "answer": 3,
@@ -3486,9 +3486,9 @@ window.CASES=[
 "img": "media/c/sneaker/motive_board.jpg",
 "q": "Rent, a purchase limit, a job, a lost contract. What does a motive show?",
 "options": [
-"Nothing useful",
+"Who knew the code",
 "Why someone might do it",
-"Who has an alibi",
+"Who had the chance",
 "Who did it"
 ],
 "answer": 1,
@@ -3565,14 +3565,14 @@ window.CASES=[
 "kind": "yn",
 "title": "Proof?",
 "img": "media/c/sneaker/harriet_cleaning.jpg",
-"q": "Harriet saw the code and wears zigzag work boots. Does that prove she did it?",
+"q": "Harriet saw the code and wears zigzag work boots. Does she still need a way to carry forty boxes?",
 "options": [
 "Yes",
 "No"
 ],
-"answer": 1,
+"answer": 0,
 "concept": "Suspicion versus proof",
-"why": "No. Two matches raise suspicion, but they are not proof. Ask what else the thief needed. How do forty shoeboxes leave a stockroom?",
+"why": "Yes. Two matches raise suspicion, but they are not proof. The thief also needed a way to move forty shoeboxes. Keep that in mind.",
 "ifwrong": [
 "Could someone else wear the same kind of boots?",
 "Could anyone else have seen the whiteboard?"
@@ -3609,7 +3609,7 @@ window.CASES=[
 "when": "SAT 6:30 PM",
 "title": "Twist: one more visitor",
 "img": "media/c/sneaker/twist_cam.jpg",
-"text": "Twist. The bakery video shows June Hale at the stockroom door at six thirty, returning her old hand truck. Dario let her in, right past the whiteboard.",
+"text": "Twist. Bakery video shows June Hale at the stockroom door at six thirty, returning her hand truck in her courier work boots. Dario let her in, past the whiteboard.",
 "ev": "ev_code"
 },
 {
@@ -4165,7 +4165,7 @@ window.CASES=[
 "when": "SAT 10:40 PM",
 "title": "The light",
 "img": "media/c/lighthouse/harbor_webcam.jpg",
-"text": "The harbor camera faces the lighthouse. At ten forty, the lamp room light flicks on for five minutes. Daniel was home asleep."
+"text": "At ten forty, the harbor camera films the lamp room light flick on, and a figure carrying a box down the tower stairs. Daniel was home asleep."
 },
 {
 "type": "q",
@@ -4193,14 +4193,14 @@ window.CASES=[
 "kind": "yn",
 "title": "The prints",
 "img": "media/c/lighthouse/door_handle.jpg",
-"q": "Eli's prints are on the lamp room door. He led a tour there at eight. Do they prove he stole it?",
+"q": "Eli's prints are on the lamp room door. He led a tour there at eight. Could that tour explain his prints?",
 "options": [
 "Yes",
 "No"
 ],
-"answer": 1,
+"answer": 0,
 "concept": "What evidence really shows",
-"why": "No. A fingerprint shows someone touched something, not when. Eli had an innocent reason to touch that door. Always ask: is there another reason it is here?",
+"why": "Yes. A fingerprint shows someone touched something, not when. Eli had an innocent reason to touch that door. Always ask: is there another reason it is here?",
 "ifwrong": [
 "When did Eli have a normal reason to be up there?",
 "Can a fingerprint tell you the time?"
