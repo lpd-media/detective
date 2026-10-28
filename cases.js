@@ -260,10 +260,6 @@ window.CASES=[
 "q": "Max says he left at six. Which of these could prove when his boat left?",
 "options": [
 {
-"label": "Boat GPS",
-"img": "media/c/missing/gps_unit.jpg"
-},
-{
 "label": "Fishing rod",
 "img": "media/c/missing/fishing_rod.jpg"
 },
@@ -272,11 +268,15 @@ window.CASES=[
 "img": "media/c/missing/life_jacket.jpg"
 },
 {
+"label": "Boat GPS",
+"img": "media/c/missing/gps_unit.jpg"
+},
+{
 "label": "Anchor and rope",
 "img": "media/c/missing/anchor_rope.jpg"
 }
 ],
-"answer": 0,
+"answer": 2,
 "concept": "Digital evidence",
 "why": "A boat GPS saves where and when it moved. Max agreed to let us read it. His boat left Gull Island at six, an hour before the ferry.",
 "ifwrong": [
@@ -345,12 +345,12 @@ window.CASES=[
 "img": "media/c/missing/ticket_scanner.jpg",
 "q": "The ferry crew points this at every ticket. What is it?",
 "options": [
-"Ticket scanner",
 "Flashlight",
 "Fish finder",
-"Walkie-talkie"
+"Walkie-talkie",
+"Ticket scanner"
 ],
-"answer": 0,
+"answer": 3,
 "concept": "Records place a ticket, not a person",
 "why": "A ticket scanner. A scan proves a ticket was scanned. It does not show whose hand held the phone.",
 "ifwrong": [
@@ -394,12 +394,12 @@ window.CASES=[
 "img": "media/c/missing/phone_map.jpg",
 "q": "Jess's phone rode the seven o'clock ferry. Which suspect was not on that ferry?",
 "options": [
-"Devon Cole",
-"Tara Lin",
+"Gloria Vane",
 "Max Bell",
-"Gloria Vane"
+"Devon Cole",
+"Tara Lin"
 ],
-"answer": 2,
+"answer": 1,
 "concept": "Location records",
 "why": "Max left in his own boat at six. Devon, Tara and Gloria rode the ferry, so any of them could have carried Jess's phone.",
 "ifwrong": [
@@ -514,12 +514,12 @@ window.CASES=[
 "img": "media/c/missing/contract.jpg",
 "q": "If Jess misses five o'clock, Devon gets the deal. Who gains money?",
 "options": [
-"Only Devon",
 "Devon and Tara",
 "Only Max",
-"Only Gloria"
+"Only Gloria",
+"Only Devon"
 ],
-"answer": 1,
+"answer": 0,
 "concept": "Motive is not proof",
 "why": "Devon gets the deal, and Tara, his manager, gets a share. But motive is not proof. Max and Gloria had reasons too. Only evidence decides.",
 "ifwrong": [
@@ -909,12 +909,12 @@ window.CASES=[
 "img": "media/c/heist/latch_close.jpg",
 "q": "This close-up is coming into focus. What are you looking at?",
 "options": [
-"A window latch",
 "A door hinge",
 "A padlock",
+"A window latch",
 "A light switch"
 ],
-"answer": 0,
+"answer": 2,
 "concept": "Point of entry",
 "why": "It is the office window latch, flipped open. It only opens from inside, so someone who stood in that office after noon unlocked it for later.",
 "ifwrong": [
@@ -973,12 +973,12 @@ window.CASES=[
 "img": "media/c/heist/insurance.jpg",
 "q": "Victor is deep in debt, and the necklace is insured. Why does that matter?",
 "options": [
-"He gets paid if it vanishes",
-"Insurance makes the alarm stronger",
 "It proves Victor is honest",
-"It does not matter at all"
+"Insurance makes the alarm stronger",
+"It does not matter at all",
+"He gets paid if it vanishes"
 ],
-"answer": 0,
+"answer": 3,
 "concept": "Motive versus proof",
 "why": "If the necklace is reported stolen, the insurance company pays Victor. That is a real motive. But a motive only explains why someone might. Evidence shows who did.",
 "ifwrong": [
@@ -1055,12 +1055,12 @@ window.CASES=[
 "q": "The mud also holds one clear boot print, and more rain is coming. How do you save it?",
 "options": [
 {
-"label": "Photo with a ruler, then cast it",
-"img": "media/c/heist/cast_print.jpg"
-},
-{
 "label": "Dig it up with a shovel",
 "img": "media/c/heist/shovel_mud.jpg"
+},
+{
+"label": "Photo with a ruler, then cast it",
+"img": "media/c/heist/cast_print.jpg"
 },
 {
 "label": "Sweep it clean first",
@@ -1071,7 +1071,7 @@ window.CASES=[
 "img": "media/c/heist/bucket_water.jpg"
 }
 ],
-"answer": 0,
+"answer": 1,
 "concept": "Collecting evidence",
 "why": "Photograph it with a ruler for size, then pour a cast that keeps every groove. Seal it, label it, and log every hand that holds it. That is chain of custody.",
 "ifwrong": [
@@ -1087,12 +1087,12 @@ window.CASES=[
 "img": "media/c/heist/boot_print.jpg",
 "q": "The lab says size eight. Victor and Kai wear eleven. Celia and Nina wear eight. Who fits?",
 "options": [
-"Victor and Kai",
 "Celia and Nina",
-"Kai and Nina",
-"Victor and Celia"
+"Victor and Kai",
+"Victor and Celia",
+"Kai and Nina"
 ],
-"answer": 1,
+"answer": 0,
 "concept": "Class evidence",
 "why": "Celia and Nina both fit. A shoe size narrows the list but cannot name one person, because thousands of people wear size eight. We call that class evidence.",
 "ifwrong": [
@@ -1527,12 +1527,12 @@ window.CASES=[
 "img": "media/c/yacht/s_patrol.jpg",
 "q": "You step aboard the yacht. What do you do first?",
 "options": [
-"Check Mara and search every cabin",
 "Swab the swim ladder",
 "Chase the kayak in the dark",
+"Check Mara and search every cabin",
 "Call the four guests"
 ],
-"answer": 0,
+"answer": 2,
 "concept": "Safety comes first",
 "why": "People before evidence. We make sure Mara is safe and nobody is hiding aboard. Then we protect the scene.",
 "ifwrong": [
@@ -1573,12 +1573,12 @@ window.CASES=[
 "img": "media/c/yacht/c_print.jpg",
 "q": "This was drying on the deck. What left it?",
 "options": [
-"Sneaker",
+"Bare foot",
 "Rubber boot",
 "Dog paw",
-"Bare foot"
+"Sneaker"
 ],
-"answer": 0,
+"answer": 3,
 "concept": "Shoe print evidence",
 "why": "A sneaker, size eight, with wavy lines across the toe. A print cannot name a person, but it tells us what size shoe to look for.",
 "ifwrong": [
@@ -1634,12 +1634,12 @@ window.CASES=[
 "q": "Which boat most likely left that yellow scrape?",
 "options": [
 {
-"label": "Yellow kayak",
-"img": "media/c/yacht/pic_kayak.jpg"
-},
-{
 "label": "White dinghy",
 "img": "media/c/yacht/pic_dinghy.jpg"
+},
+{
+"label": "Yellow kayak",
+"img": "media/c/yacht/pic_kayak.jpg"
 },
 {
 "label": "Red canoe",
@@ -1650,7 +1650,7 @@ window.CASES=[
 "img": "media/c/yacht/pic_rowboat.jpg"
 }
 ],
-"answer": 0,
+"answer": 1,
 "concept": "Matching transfer evidence",
 "why": "The marina rents yellow kayaks, right below Tasha's window and beside Gus's boat. At dawn, one is back on the rack, still dripping wet.",
 "ifwrong": [
@@ -1729,9 +1729,9 @@ window.CASES=[
 "q": "Tasha says, go ahead, test my sneakers. What lets us take them without a warrant?",
 "options": [
 "Her free consent",
+"The water taxi log",
 "Our hunch about her",
-"Her angry shouting",
-"The water taxi log"
+"Her angry shouting"
 ],
 "answer": 0,
 "concept": "Consent searches",
@@ -2146,12 +2146,12 @@ window.CASES=[
 "title": "What does yelling prove?",
 "q": "Gus yelled at Selena about money. What does that tell us?",
 "options": [
+"Gus is innocent",
 "Gus stole the Comet",
 "Gus has a motive",
-"Gus is innocent",
 "Selena owes nobody money"
 ],
-"answer": 1,
+"answer": 2,
 "img": "media/c/carshow/st_shout.jpg",
 "concept": "Motive versus proof",
 "why": "Yelling shows Gus is angry and has a reason. A reason is a motive, not proof. Plenty of angry people never commit a crime. Gus stays on the board.",
@@ -2174,12 +2174,12 @@ window.CASES=[
 "title": "What is it?",
 "q": "Here is the secret part under the Comet's dashboard. What is it?",
 "options": [
-"Hidden kill switch",
 "Radio dial",
 "Seat belt buckle",
-"Glove box latch"
+"Glove box latch",
+"Hidden kill switch"
 ],
-"answer": 0,
+"answer": 3,
 "img": "media/c/carshow/cu_switch.jpg",
 "concept": "Guilty knowledge",
 "why": "A hidden kill switch. Until it is flipped, the car will not start. Whoever drove the Comet away knew exactly where to find it. Remember that.",
@@ -2224,23 +2224,23 @@ window.CASES=[
 "q": "Which of these would you collect as evidence?",
 "options": [
 {
-"label": "Sneaker prints in oil",
-"img": "media/c/carshow/cu_prints.jpg"
-},
-{
 "label": "Neighbor's trophy",
 "img": "media/c/carshow/obj_trophy.jpg"
 },
 {
-"label": "Folding lawn chairs",
-"img": "media/c/carshow/obj_chairs.jpg"
+"label": "Sneaker prints in oil",
+"img": "media/c/carshow/cu_prints.jpg"
 },
 {
 "label": "Closed food truck",
 "img": "media/c/carshow/obj_foodtruck.jpg"
+},
+{
+"label": "Folding lawn chairs",
+"img": "media/c/carshow/obj_chairs.jpg"
 }
 ],
-"answer": 0,
+"answer": 1,
 "img": "media/c/carshow/st_empty.jpg",
 "concept": "Evidence versus objects at a scene",
 "why": "The prints were left right where the Comet stood. A left and a right sneaker means two working feet. The other things were there before the crime.",
@@ -2287,12 +2287,12 @@ window.CASES=[
 "title": "Read the gate log",
 "q": "The log says Owen's badge opened the gate at nine thirty five. What does that prove?",
 "options": [
-"Owen opened the gate",
 "Owen's badge opened the gate",
-"Owen stole the Comet",
-"Nobody else came in"
+"Owen opened the gate",
+"Nobody else came in",
+"Owen stole the Comet"
 ],
-"answer": 1,
+"answer": 0,
 "img": "media/c/carshow/st_gate.jpg",
 "concept": "Records place a badge, not a person",
 "why": "A log places a badge, not a person. Badges can be borrowed or grabbed. Next, we check where Owen's badge really was.",
@@ -2781,12 +2781,12 @@ window.CASES=[
 "img": "media/c/arson/scene_tape.jpg",
 "q": "The fire is out. What has to happen before investigators go inside?",
 "options": [
-"Firefighters say the building is safe",
-"Run in before evidence is lost",
 "Let Grant grab his papers",
-"Ask the crowd who did it"
+"Ask the crowd who did it",
+"Firefighters say the building is safe",
+"Run in before evidence is lost"
 ],
-"answer": 0,
+"answer": 2,
 "concept": "Scene safety and security",
 "why": "A burned house stays dangerous, with weak floors and hidden hot spots. Firefighters decide when it is safe. Meanwhile, tape it off and log everyone who goes in.",
 "ifwrong": [
@@ -2897,12 +2897,12 @@ window.CASES=[
 "img": "media/c/arson/fence_close.jpg",
 "q": "Grant gets an insurance payout. Dax sent a threat. What do motives like these give you?",
 "options": [
-"A reason to look, not proof",
-"Proof of who did it",
 "A solid alibi",
-"Nothing worth writing down"
+"Proof of who did it",
+"Nothing worth writing down",
+"A reason to look, not proof"
 ],
-"answer": 0,
+"answer": 3,
 "concept": "Motive is not proof",
 "why": "All four have a reason to be angry at Grant. Motive tells you why. Only evidence shows who.",
 "ifwrong": [
@@ -2941,12 +2941,12 @@ window.CASES=[
 "img": "media/c/arson/timer_blur.jpg",
 "q": "The heater was not plugged into the wall. It was plugged into this. What is it?",
 "options": [
+"Doorbell button",
 "Plug-in lamp timer",
-"Phone charger",
 "Night light",
-"Doorbell button"
+"Phone charger"
 ],
-"answer": 0,
+"answer": 1,
 "concept": "Identifying evidence",
 "why": "A plug-in timer turns power on at a set time. Plug a heater into one, and it switches on long after you leave.",
 "ifwrong": [
@@ -3403,12 +3403,12 @@ window.CASES=[
 "img": "media/c/sneaker/scene_tape.jpg",
 "q": "Dario wants to restack the shelves and count what's left. What should happen first?",
 "options": [
-"Tape it off, log who enters",
+"Ask fans for rumors",
 "Let Dario restack and count",
-"Open the shop for fans",
-"Ask fans for rumors"
+"Tape it off, log who enters",
+"Open the shop for fans"
 ],
-"answer": 0,
+"answer": 2,
 "concept": "Scene security",
 "why": "Protect the scene first. Anyone who walks in can move or smudge evidence, even the manager. Tape it off and write down everyone who enters.",
 "ifwrong": [
@@ -3431,12 +3431,12 @@ window.CASES=[
 "img": "media/c/sneaker/blur_keypad.jpg",
 "q": "Detectives zoom in beside the back door. What is it?",
 "options": [
-"A door keypad",
 "A calculator",
+"A light switch",
 "A phone",
-"A light switch"
+"A door keypad"
 ],
-"answer": 0,
+"answer": 3,
 "concept": "What records show",
 "why": "A door keypad. Its log shows when the code was typed, but not whose finger typed it. So the real question is, who knew the code?",
 "ifwrong": [
@@ -3486,10 +3486,10 @@ window.CASES=[
 "img": "media/c/sneaker/motive_board.jpg",
 "q": "Rent, a purchase limit, a job, a lost contract. What does a motive show?",
 "options": [
-"Who did it",
+"Nothing useful",
 "Why someone might do it",
 "Who has an alibi",
-"Nothing useful"
+"Who did it"
 ],
 "answer": 1,
 "concept": "Motive versus proof",
@@ -3638,16 +3638,16 @@ window.CASES=[
 "img": "media/c/sneaker/pic_van.jpg"
 },
 {
-"label": "A bicycle",
-"img": "media/c/sneaker/pic_bike.jpg"
-},
-{
 "label": "A backpack",
 "img": "media/c/sneaker/pic_backpack.jpg"
 },
 {
 "label": "A shopping cart",
 "img": "media/c/sneaker/pic_cart.jpg"
+},
+{
+"label": "A bicycle",
+"img": "media/c/sneaker/pic_bike.jpg"
 }
 ],
 "answer": 0,
@@ -4048,11 +4048,11 @@ window.CASES=[
 "q": "Everyone heard Simone's threat. What does it prove?",
 "options": [
 "Simone stole the cash box",
+"Nothing, so ignore it",
 "Simone had a reason, nothing more",
-"Simone must be arrested now",
-"Nothing, so ignore it"
+"Simone must be arrested now"
 ],
-"answer": 1,
+"answer": 2,
 "concept": "Motive is not proof",
 "why": "A threat shows a reason to be angry. It does not show who climbed the tower. We write it down, and we keep looking for proof.",
 "ifwrong": [
@@ -4174,12 +4174,12 @@ window.CASES=[
 "img": "media/c/lighthouse/harbor_webcam.jpg",
 "q": "This sits on a pole at the harbor. What is it?",
 "options": [
-"Floodlight",
 "Wind gauge",
-"Security camera",
-"Loudspeaker"
+"Loudspeaker",
+"Floodlight",
+"Security camera"
 ],
-"answer": 2,
+"answer": 3,
 "concept": "Time stamps",
 "why": "A security camera. It stamps every frame with the time. It cannot show a face this far away, but it tells us when the thief was up there.",
 "ifwrong": [
@@ -4272,6 +4272,10 @@ window.CASES=[
 "q": "Mara says she was shopping at ten forty. Which item can prove the time?",
 "options": [
 {
+"label": "Car key",
+"img": "media/c/lighthouse/car_key.jpg"
+},
+{
 "label": "Store receipt",
 "img": "media/c/lighthouse/receipt.jpg"
 },
@@ -4280,15 +4284,11 @@ window.CASES=[
 "img": "media/c/lighthouse/shopping_bag.jpg"
 },
 {
-"label": "Car key",
-"img": "media/c/lighthouse/car_key.jpg"
-},
-{
 "label": "Milk carton",
 "img": "media/c/lighthouse/milk.jpg"
 }
 ],
-"answer": 0,
+"answer": 1,
 "concept": "Checking an alibi",
 "why": "The receipt. It prints the time: ten forty two, across town. The store camera shows Mara's face at the register too.",
 "ifwrong": [
@@ -4322,9 +4322,9 @@ window.CASES=[
 "q": "The harbor camera shows the light at ten forty, but no face. What does it tell us?",
 "options": [
 "When the thief was there",
-"Who the thief was",
+"Where the cash went",
 "How the thief got in",
-"Where the cash went"
+"Who the thief was"
 ],
 "answer": 0,
 "concept": "What a clue can and cannot show",
