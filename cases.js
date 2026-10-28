@@ -4174,12 +4174,12 @@ window.CASES=[
 "img": "media/c/lighthouse/harbor_webcam.jpg",
 "q": "This sits on a pole at the harbor. What is it?",
 "options": [
+"Floodlight",
+"Wind gauge",
 "Security camera",
-"Bird feeder",
-"Street lamp",
-"Weather vane"
+"Loudspeaker"
 ],
-"answer": 0,
+"answer": 2,
 "concept": "Time stamps",
 "why": "A security camera. It stamps every frame with the time. It cannot show a face this far away, but it tells us when the thief was up there.",
 "ifwrong": [
