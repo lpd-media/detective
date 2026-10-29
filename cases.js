@@ -2779,12 +2779,12 @@ window.CASES=[
 "kind": "mc",
 "title": "First move",
 "img": "media/c/arson/scene_tape.jpg",
-"q": "The fire is out. What has to happen before investigators go inside?",
+"q": "The fire is out. What has to happen before detectives go inside?",
 "options": [
+"The owner gives permission",
 "The smoke clears from the street",
-"A detective arrives on scene",
 "Firefighters say the building is safe",
-"The owner gives permission"
+"A detective arrives on scene"
 ],
 "answer": 2,
 "concept": "Scene safety and security",
@@ -2799,7 +2799,7 @@ window.CASES=[
 "when": "SUN 9:00 AM",
 "title": "Where it started",
 "img": "media/c/arson/intro_hall.jpg",
-"text": "In daylight, the fire investigator follows the burn marks room by room. The wiring is fine. Every trail of soot leads back to one spot: the upstairs hallway."
+"text": "In daylight, the fire marshal walks detectives through. The wiring is fine. Every soot trail leads to the upstairs hallway. Now detectives must find out who."
 },
 {
 "type": "q",
@@ -2845,12 +2845,15 @@ window.CASES=[
 "kind": "word",
 "title": "Fire words",
 "img": "media/c/arson/heater_close.jpg",
-"q": "Investigators have a name for the spot where a fire starts. The point of what?",
+"q": "The fire marshal says this fire was set on purpose. What one word means setting a fire on purpose?",
 "accept": [
-"origin"
+"arson",
+"arsen",
+"arsin",
+"arsun"
 ],
 "concept": "Point of origin",
-"why": "It is the point of origin. Burn patterns, like V shapes on walls, point back to it.",
+"why": "Arson. The fire marshal finds how a fire started. Detectives find who started it, and why.",
 "ifwrong": [
 "It is a word that means beginning or source.",
 "Think of where a river starts."
@@ -2981,19 +2984,19 @@ window.CASES=[
 "kind": "pics",
 "title": "Pack it right",
 "img": "media/c/arson/timer_blur.jpg",
-"q": "Burned carpet from the hallway is going to the state lab to test for fuel. What should it be sealed in?",
+"q": "Detectives send burned carpet to the state lab to test for fuel. What should it be sealed in?",
 "options": [
 {
 "label": "Clean metal can, sealed tight",
 "img": "media/c/arson/metal_can.jpg"
 },
 {
-"label": "Zip-top plastic bag",
-"img": "media/c/arson/zip_bag.jpg"
-},
-{
 "label": "Open cardboard box",
 "img": "media/c/arson/cardboard_box.jpg"
+},
+{
+"label": "Zip-top plastic bag",
+"img": "media/c/arson/zip_bag.jpg"
 },
 {
 "label": "Paper evidence envelope",
@@ -3013,7 +3016,7 @@ window.CASES=[
 "when": "SAT 11:40 PM",
 "title": "The doorbell camera",
 "img": "media/c/arson/camera_still.jpg",
-"text": "Abe Okafor's doorbell camera across the street caught someone at the rental door at eleven forty Saturday night. A hood hides the face. Stripes on the jacket glow bright white."
+"text": "Detectives knock on doors. Abe Okafor's doorbell camera caught someone at the rental door at eleven forty Saturday night. Stripes on the jacket glow white."
 },
 {
 "type": "q",
