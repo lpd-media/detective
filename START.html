@@ -245,8 +245,9 @@ function hostUI(on,label){ const h=document.getElementById('host'); h.className=
 function say(items,done){ const tok=++hostTok; let i=0; speaking=true;
   const nx=()=>{ if(tok!==hostTok) return; if(i>=items.length){ speaking=false; hostUI(false); done&&done(); return; } const it=items[i++]; it.on&&it.on(); const src=clipSrc(it.k);
     const after=()=>{ if(tok===hostTok) setTimeout(nx,320); };
-    if(src){ AU.src=src; AU.onended=after; AU.onerror=()=>tts(it.t,after); hostUI(true); AU.play().catch(()=>{ if(tok!==hostTok) return; hostTok++; speaking=false; blockedPause(); }); }
-    else if(it.t) tts(it.t,after); else after(); };
+    const quiet=()=>{ if(tok!==hostTok) return; setTimeout(after, Math.min(9000, 600+45*String(it.t||'').length)); }; /* no robot voice: if a clip is missing or will not load, wait about as long as the line takes to read, then move on */
+    if(src){ let tries=0; AU.onended=after; AU.onerror=()=>{ if(tok!==hostTok) return; if(++tries<=1){ AU.src=src+'?r='+Date.now(); AU.play().catch(()=>{}); } else { hostUI(false); quiet(); } }; AU.src=src; hostUI(true); AU.play().catch(e=>{ if(tok!==hostTok) return; if(e&&e.name==='NotAllowedError'){ hostTok++; speaking=false; blockedPause(); } }); }
+    else quiet(); };
   nx(); }
 function tts(t,cb){ if(!t||!window.speechSynthesis){ setTimeout(cb,200); return; } try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.rate=1.03; u.onend=cb; u.onerror=cb; hostUI(true); speechSynthesis.speak(u); }catch(e){ setTimeout(cb,200); } }
 function hush(){ hostTok++; speaking=false; AU.onended=null; try{ AU.pause(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} clearTimeout(autoT); pending=null; hostUI(false); }
