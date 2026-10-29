@@ -68,6 +68,7 @@ video{aspect-ratio:16/9;height:clamp(240px,calc(100vh - 300px),calc((100vw - 120
 /* decision */
 .outc{background:#fff;color:var(--navy);border-radius:14px;padding:16px 22px;margin-top:1.4vh;font-size:clamp(17px,1.55vw,25px);line-height:1.45;border-left:10px solid var(--red)}.outc.good{border-left-color:var(--ok)}.outc .k{font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#3a4a66}
 /* drawings */
+.wit .bul{margin:8px 0 0;padding-left:1.1em;font-weight:600}.wit .bul li{margin:4px 0}.wit b.ld{color:var(--navy);font-size:inherit;letter-spacing:0}
 .wit{background:var(--paper);color:var(--navy);border-radius:14px;padding:18px 24px;font-size:clamp(20px,2vw,32px);line-height:1.45;margin-top:1.6vh;display:flex;gap:16px}.wit b{color:var(--red);font-size:13px;letter-spacing:.16em;display:block}
 .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;margin-top:1.4vh;align-items:start}
 .gal .sk{background:#fff;border-radius:12px;padding:8px;text-align:center;color:var(--navy);font-weight:700;animation:pop .5s cubic-bezier(.2,1.4,.4,1) both}.gal .sk img{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:6px;background:#fff}
@@ -155,6 +156,7 @@ video{aspect-ratio:16/9;height:clamp(240px,calc(100vh - 300px),calc((100vw - 120
 /* LPD Case Room v3, one file: open this on the classroom computer (USB stick or web). It runs the game, shows the class screen,
    plays the host voice and talks to the phones. Answers stay on this computer; phones only get them at the reveal. */
 const M=document.getElementById('main');
+const DRAWLIMIT=90;           /* sketch rounds: 1:30 so kids aren't rushed (Andre 10.29.26) */
 const LIMIT=60;               /* every question: 60 seconds (Andre 10.22.26) */
 let OFF=0, ST=null, recv=0, shownKey='';
 let S=null; try{ S=JSON.parse(sessionStorage.getItem('cr_state')); }catch(e){}
@@ -204,7 +206,7 @@ function majority(ri){ const t=tally(ri); let best=null; Object.entries(t).forEa
 function pubState(){ const s=cur(), c=C();
   const R=s.ri==null?null:c.rounds[s.ri];
   const m={k:'st',n:S.seq+1,t:Date.now(),g:S.gameId,pos:pos(),code:S.code,join:JOIN,caseId:S.caseId,mode:S.mode,step:s.t,ri:s.ri===undefined?null:s.ri,players:S.players,av:S.av||{},removed:S.removed,count:live().length,paused:!!S.pausedAt};
-  if(R) m.round=(({type,kind,scored,title,q,text,when,options,img,marks,items,witness,suspect})=>({type,kind,scored,title,q,text,when,witness,suspect,items,marks,
+  if(R) m.round=(({type,kind,scored,title,q,text,when,options,img,marks,items,witness,suspect,lead,bullets})=>({type,kind,scored,title,q,text,when,witness,suspect,items,marks,lead,bullets,
       options:kind==='spot'&&s.t!=='ans'?null:options, img:kind==='draw'&&s.t!=='gallery'?null:img}))(R);
   if(s.t==='q'){ m.limit=lim(s.ri); m.left=leftOf(s.ri); m.deadline=deadline(s.ri); m.answered=answered(s.ri); }
   if(['q','bars','ans','gallery'].includes(s.t)) m.acc=Object.fromEntries(Object.keys(S.ans[s.ri]||{}).map(id=>[id,1]));
@@ -264,7 +266,7 @@ function plan(s){ const c=C(), r=s.ri!=null?c.rounds[s.ri]:null, v=(k,t)=>({k,t}
       if(r.kind==='interview') topTwo(s.ri).forEach(k=>out.push(Object.assign(v('ia_'+s.ri+'_'+k,r.answers[k]),{on:()=>{ S.ivShown=(S.ivShown||0)+1; draw(); }})));
       if(r.kind==='decision'){ const mj=majority(s.ri); if(mj!=null) out.push(v('do_'+s.ri+'_'+mj,r.outcomes[mj])); if(mj!==r.answer) out.push(v('do_'+s.ri+'_'+r.answer,r.outcomes[r.answer])); }
       out.push(v('w_'+s.ri,r.why)); return {say:out,after:3500}; }
-    case 'gallery': return {say:[v('w_'+s.ri,r.why)],after:14000};
+    case 'gallery': return (S.mode!=='class'&&!(S.drawPick||{})[s.ri]&&sketches(s.ri).length)?{say:[],after:null}:{say:[v('w_'+s.ri,r.why)],after:14000};
     case 'board': return {say:[v('board',HOSTTXT.board)],after:null};
     case 'leader': return {say:[v('standings',HOSTTXT.standings)],after:5000};
     case 'reveal': return {say:[v('rev',c.reveal.headline+' '+c.reveal.how+' '+c.reveal.motive)],after:null};
@@ -287,7 +289,7 @@ function go(i){ if(i<0||i>=STEPS.length) return;
   if(S.step===0&&i>0&&!live().length&&!confirm('Nobody has joined yet. Start anyway?')) return;
   S.step=i; S.introN=0; const s=cur(); if(S.pausedAt&&s.t!=='q') S.pausedAt=0;
   if(s.t==='ans'||s.t==='gallery'){ S.rev=S.rev||{}; S.rev[s.ri]=1; }
-  if(s.t==='q'&&!S.opened[s.ri]){ S.opened[s.ri]=Date.now(); S.limit[s.ri]=LIMIT; S.pausedAt=0; }
+  if(s.t==='q'&&!S.opened[s.ri]){ S.opened[s.ri]=Date.now(); S.limit[s.ri]=C().rounds[s.ri].kind==='draw'?DRAWLIMIT:LIMIT; S.pausedAt=0; }
   save(); draw(); broadcast(); hostRun(); }
 function next(){ go(S.step+1); }
 function back(){ let i=S.step-1; while(i>0&&STEPS[i].t==='q'&&Date.now()>=deadline(STEPS[i].ri)) i--; go(i); }
@@ -366,7 +368,7 @@ function renderQ(c,r,s){ const opts=r.kind==='interview'?r.options.map((o,i)=>({
       return `<div class="qcard${rev&&!asked?' dim':''}" data-v="${esc(String(o.value))}">${tent(o.tag,44)}<span>${esc(o.label)}</span>${s!=='q'?`<span class="pc">${p}%</span><span class="bar" style="width:${p}%"></span>`:''}</div>${asked&&(k<shown||!S.auto)?`<div class="reply"><b>${esc(x.name.split(' ')[0])}:</b> ${esc(r.answers[o.value])}</div>`:''}`; }).join('');
     M.innerHTML=`<div class="qwrap">${folder(c,r,sub('mic',rev?'the answers':lbl),rev)}${s==='q'?clockH:''}</div><div class="ivw"><div class="pt" style="--sc:${SCOL[x.color]}"><img src="${esc(x.img)}" alt=""><h3>${esc(x.name)}</h3></div><div>${cards}${rev&&shown>=2?why:''}</div></div>`;
     if(s==='q'){ clockStart(r); tone(523,.15); wireClass(r); } return; }
-  if(K==='draw'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('note',lbl))}${clockH}</div><div class="wit">${icon('ear',40)}<div><b>WHAT THE WITNESS SAYS</b>“${esc(r.witness)}”</div></div>${ST.mode==='class'?`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('users',14)} VOLUNTEER</span><div>Pick a volunteer to draw it on the whiteboard while the class helps. Press Next when the drawing is done.</div></div>`:`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('phone',14)} YOUR PHONE</span><div>Draw it with your finger. Your detective picks the best three to show.</div></div>`}`; clockStart(r); tone(523,.15); return; }
+  if(K==='draw'){ M.innerHTML=`<div class="qwrap">${folder(c,r,sub('note',lbl))}${clockH}</div>${r.bullets?`<div class="wit">${icon('ear',40)}<div><b>SKETCH IT</b><b class="ld">${esc(r.lead)}</b><ul class="bul">${r.bullets.map(b=>`<li>${esc(b)}</li>`).join('')}</ul></div></div>`:`<div class="wit">${icon('ear',40)}<div><b>WHAT THE WITNESS SAYS</b>“${esc(r.witness)}”</div></div>`}${ST.mode==='class'?`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('users',14)} VOLUNTEER</span><div>Pick a volunteer to draw it on the whiteboard while the class helps. Press Next when the drawing is done.</div></div>`:`<div class="panelw gold"><span class="tag" style="background:var(--navy)">${icon('phone',14)} YOUR PHONE</span><div>Draw it with your finger. Your detective picks the best three to show.</div></div>`}`; clockStart(r); tone(523,.15); return; }
   let body='', pic=false;
   if(K==='order'){ const O=ST.ord||{n:0,exact:0,pos:[0,0,0,0]};
     if(rev){ const seq=String(r.answer).split(''); body=`<div class="ordg">${seq.map((L,i)=>`<div class="ocard"><span class="num">${i+1}</span>${tent(L,40)}<span>${esc(r.items['ABCD'.indexOf(L)])}</span><span class="pc">${O.n?Math.round(100*O.pos[i]/O.n):0}% had it here</span></div>`).join('')}</div><div class="bigstat"><b>${O.n?Math.round(100*O.exact/O.n):0}%</b> got all four in the right order</div>`; }
@@ -382,15 +384,16 @@ function renderQ(c,r,s){ const opts=r.kind==='interview'?r.options.map((o,i)=>({
   M.innerHTML=`${folder(c,r,sub('check','the answer'),1)}<div style="margin-top:1.4vh">${body}</div>${extra}${why}`; sting(); }
 /* sketches: phones draw, the detective privately picks 3, the class sees those next to the real thing */
 function sketches(ri){ return Object.entries(S.ans[ri]||{}).filter(([id,x])=>!S.removed[id]&&x.v).map(([id,x])=>({id,v:x.v,name:S.players[id]})); }
-function galPick(ri){ const p=(S.drawPick||{})[ri]; return p?p:sketches(ri).slice(0,7).map(x=>x.id); }
+function galPick(ri){ const p=(S.drawPick||{})[ri]; return p?p:[]; }  /* nothing goes on the projector until the detective has reviewed the sketches (Andre 10.29.26) */
 function renderGallery(c,r){ if(S.mode==='class'){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · the real thing',1)}<div class="qb" style="grid-template-columns:minmax(0,1.1fr) 1fr;align-items:center"><div class="sk truth" style="background:var(--gold);border-radius:12px;padding:8px;text-align:center;font-weight:700;color:var(--navy)"><img src="${esc(r.img)}" alt="" style="width:100%;border-radius:6px;display:block"><div>THE REAL THING</div></div><div><h2 style="margin:0 0 10px">How close did your volunteer get?</h2><div class="panelw" style="margin:0"><span class="tag">${icon('search',14)} WHY</span><div>${esc(r.why)}</div></div></div></div>`; sting(); return; }
   const pick=galPick(ST.ri);
-  if(!pick.length){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · sketches',1)}<div class="wait">${icon('note',60)}<div><b>${S.mode==='class'?'Here is the real thing.':'No sketches came in this time.'}</b></div><div class="mute">${S.mode==='class'?'How close did your volunteer get?':'Here is what the witness described.'}</div></div><div class="gal"><div class="sk truth"><img src="${esc(r.img)}" alt=""><div>THE REAL THING</div></div></div>`; return; }
+  if(!(S.drawPick||{})[ST.ri]&&sketches(ST.ri).length){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · sketches',1)}<div class="wait">${icon('note',60)}<div><b>${sketches(ST.ri).length} sketch${sketches(ST.ri).length>1?'es are':' is'} in.</b></div><div class="mute">Detective: review them first, then pick up to 3 to show the room.</div><button class="btn" id="rev2" style="font-size:22px;padding:14px 26px;margin-top:18px">${icon('eye',18)} Review sketches</button></div>`; const b=document.getElementById('rev2'); if(b) b.onclick=e=>{ e.currentTarget.blur(); openReview(); }; return; }
+  if(!pick.length){ M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · sketches',1)}<div class="wait">${icon('note',60)}<div><b>${S.mode==='class'||sketches(ST.ri).length?'Here is the real thing.':'No sketches came in this time.'}</b></div><div class="mute">${S.mode==='class'?'How close did your volunteer get?':'Here is what the witness described.'}</div></div><div class="gal"><div class="sk truth"><img src="${esc(r.img)}" alt=""><div>THE REAL THING</div></div></div>`; return; }
   const sk=sketches(ST.ri), byId=Object.fromEntries(sk.map(x=>[x.id,x]));
   M.innerHTML=`${folder(c,r,icon('note',18)+' '+esc(r.title)+' · your sketches',1)}<div class="gal${pick.length>3?' many':''}">${pick.filter(id=>byId[id]).map((id,i)=>`<div class="sk" data-id="${esc(id)}" title="Click to hide this sketch" style="cursor:pointer;animation-delay:${i*.25}s"><img src="${byId[id].v}" alt=""><div>${esc(byId[id].name)}</div></div>`).join('')}<div class="sk truth" style="animation-delay:${pick.length*.25+.3}s"><img src="${esc(r.img)}" alt=""><div>THE REAL THING</div></div></div><div class="panelw"><span class="tag">${icon('search',14)} WHY</span><div>${esc(r.why)}</div></div>`; M.querySelectorAll('.gal .sk[data-id]').forEach(e=>e.onclick=()=>{ S.drawPick=S.drawPick||{}; S.drawPick[ST.ri]=galPick(ST.ri).filter(x=>x!==e.dataset.id); save(); shownKey=''; draw(); broadcast(); }); sting(); }
 let revWin=null;
 function openReview(){ const ri=cur().ri, sk=sketches(ri); let sel=[];
-  const html=`<html><head><title>Pick 3 sketches</title><style>body{font-family:Arial;background:#111d36;color:#fff;margin:0;padding:16px}h2{margin:0 0 10px}.g{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.s{background:#fff;color:#111;border-radius:8px;padding:6px;text-align:center;cursor:pointer;border:5px solid transparent;font-weight:700;font-size:13px}.s img{width:100%;aspect-ratio:4/3;object-fit:contain}.s.on{border-color:#d9a521}button{font-size:18px;padding:12px 22px;border:0;border-radius:8px;background:#b5121b;color:#fff;margin:12px 8px 0 0;cursor:pointer}</style></head><body><h2>Only you see this window. Click up to 3 sketches, then Show.</h2><div class="g">${sk.map(x=>`<div class="s" data-id="${esc(x.id)}"><img src="${x.v}"><div>${esc(x.name)}</div></div>`).join('')||'<p>No sketches came in.</p>'}</div><button id="go">Show on the big screen</button><button id="skip" style="background:#1a2c52">Show none</button></body></html>`;
+  const html=`<html><head><title>Pick 3 sketches</title><style>body{font-family:Arial;background:#111d36;color:#fff;margin:0;padding:16px}h2{margin:0 0 10px}.g{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.s{background:#fff;color:#111;border-radius:8px;padding:6px;text-align:center;cursor:pointer;border:5px solid transparent;font-weight:700;font-size:13px}.s img{width:100%;aspect-ratio:4/3;object-fit:contain}.s.on{border-color:#d9a521}button{font-size:18px;padding:12px 22px;border:0;border-radius:8px;background:#b5121b;color:#fff;margin:12px 8px 0 0;cursor:pointer}</style></head><body><h2>Only you see this window. Click up to 3 sketches, then Show.</h2><div class="g">${sk.map(x=>`<div class="s" data-id="${esc(x.id)}"><img src="${x.v}"><div>${esc(x.name)}</div></div>`).join('')||'<p>No sketches came in.</p>'}</div><button id="go">Show on the big screen</button><button id="skip" style="background:#1a2c52">Show none</button></body></html>`;
   const wire=(doc,close)=>{ doc.querySelectorAll('.s').forEach(el=>el.onclick=()=>{ const id=el.dataset.id, k=sel.indexOf(id); if(k>=0) sel.splice(k,1); else if(sel.length<3) sel.push(id); doc.querySelectorAll('.s').forEach(e=>e.classList.toggle('on',sel.includes(e.dataset.id))); });
     doc.getElementById('go').onclick=()=>{ pickDraw(ri,sel); close(); }; doc.getElementById('skip').onclick=()=>{ pickDraw(ri,[]); close(); }; };
   try{ revWin=window.open('','lpdreview','width=980,height=760'); }catch(e){ revWin=null; }

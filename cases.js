@@ -306,6 +306,12 @@ window.CASES=[
 "How would you draw a wobbly wheel?"
 ],
 "ev": "suitcase",
+"lead": "Draw the suitcase Tara rolled aboard. It has:",
+"bullets": [
+"A purple color",
+"One big white star sticker on the side",
+"One wobbly little wheel"
+],
 "scored": false
 },
 {
@@ -1113,6 +1119,12 @@ window.CASES=[
 "Where on the sole was the star?",
 "What shape sits under the heel?"
 ],
+"lead": "Draw the bottom of the thief's boot. It has:",
+"bullets": [
+"Zigzag lines across the toe",
+"A round circle under the heel",
+"One small star in the middle"
+],
 "scored": false
 },
 {
@@ -1670,6 +1682,12 @@ window.CASES=[
 "ifwrong": [
 "What colors did Mara mention?",
 "What marks would help you pick one kayak out of many?"
+],
+"lead": "Draw the kayak Mara saw. It has:",
+"bullets": [
+"A yellow body",
+"A long black stripe down the side",
+"A green fish sticker near the front"
 ],
 "scored": false
 },
@@ -2259,6 +2277,12 @@ window.CASES=[
 "img": "media/c/carshow/cu_tread.jpg",
 "concept": "Witness descriptions / composite sketch",
 "why": "A good sketch of a tread lets officers match a shoe later, even when nobody saw the thief's face.",
+"lead": "Draw the bottom of the sneaker that stepped in the oil. It has:",
+"bullets": [
+"Wavy zigzag lines across the front",
+"A round heel",
+"A small star in the middle of the heel"
+],
 "scored": false
 },
 {
@@ -3027,6 +3051,13 @@ window.CASES=[
 "witness": "The hood was up, so no face. Two shiny stripes went around each sleeve, and one wide stripe crossed the back. Those stripes lit up bright white.",
 "concept": "Witness descriptions / composite sketch",
 "why": "Good sketches start with the biggest, clearest details. Abe never saw a face, but glowing stripes are something we can match to a real jacket.",
+"lead": "Draw the jacket from Abe's camera video. It has:",
+"bullets": [
+"A hood pulled up (no face)",
+"Two shiny stripes around each sleeve",
+"One wide stripe across the back",
+"Stripes that glow bright white"
+],
 "scored": false
 },
 {
@@ -3553,6 +3584,12 @@ window.CASES=[
 "ifwrong": [
 "What shape were the lines?",
 "What sat under the heel?"
+],
+"lead": "Draw the bottom of the boot that left this print. It has:",
+"bullets": [
+"A big oval work-boot shape",
+"Deep zigzag lines across the sole, like lightning bolts",
+"A small round circle under the heel"
 ],
 "scored": false
 },
@@ -4083,6 +4120,12 @@ window.CASES=[
 "ifwrong": [
 "Which detail would you look for first?",
 "Where does the sticker go?"
+],
+"lead": "Draw the missing cash box. It has:",
+"bullets": [
+"Gray metal, about the size of a shoebox",
+"A bright red handle",
+"A round seagull sticker on the lid"
 ],
 "scored": false
 },
